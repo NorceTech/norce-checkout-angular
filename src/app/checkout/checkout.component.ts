@@ -11,9 +11,4 @@ import {ToastService} from '../core/toast/toast.service';
 })
 export class CheckoutComponent {
   private toastService = inject(ToastService);
-
-
-  sendToast() {
-    this.toastService.success("Your order has been placed");
-  }
 }
