@@ -7,7 +7,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {Item} from '~/openapi/order';
 import {PlatformAdapterService} from '~/app/core/platform/platform';
 import {filter, map} from 'rxjs';
-import {PricePipe} from '~/app/core/pipes/price.pipe';
+import {PricePipe} from '~/app/shared/pipes/price.pipe';
 
 @Component({
   selector: 'app-cart',

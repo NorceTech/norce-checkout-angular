@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
 import {AsyncPipe} from '@angular/common';
-import {PricePipe} from '~/app/core/pipes/price.pipe';
+import {PricePipe} from '~/app/shared/pipes/price.pipe';
 
 @Component({
   selector: 'app-summary',

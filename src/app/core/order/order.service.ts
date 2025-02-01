@@ -3,6 +3,7 @@ import {DataService} from '~/app/core/order/data.service';
 import {
   catchError,
   distinctUntilChanged,
+  distinctUntilKeyChanged,
   EMPTY,
   filter,
   map,
@@ -45,14 +46,19 @@ export class OrderService {
   nonRemovePayments$: Observable<Payment[]> = this.order$.pipe(
     map(order => order.payments?.filter(payment => payment.state !== 'removed')),
     filter(payments => typeof payments !== 'undefined'),
-    distinctUntilChanged(),
     shareReplay(1)
   )
+
+  defaultPayment$ = this.nonRemovePayments$.pipe(
+    map(payments => payments.find(payment => payment.type === 'default')),
+    filter(payment => typeof payment !== 'undefined'),
+  );
 
   getPayment(adapter: Adapter): Observable<Payment> {
     return this.nonRemovePayments$.pipe(
       map(payments => payments.find(payment => payment.adapterId === adapter)),
       filter(payment => typeof payment !== 'undefined'),
+      distinctUntilKeyChanged('id')
     )
   }
 

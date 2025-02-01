@@ -1,3 +1,5 @@
+import {HttpHeaders} from '@angular/common/http';
+
 interface IContext {
   merchant: string;
   channel: string;
@@ -13,5 +15,21 @@ export class Context {
     this.merchant = ctx.merchant;
     this.channel = ctx.channel;
     this.orderId = ctx.orderId;
+  }
+
+  toHttpHeaders() {
+    return new HttpHeaders({
+      'x-merchant': this.merchant,
+      'x-channel': this.channel,
+      'x-order-id': this.orderId
+    })
+  }
+
+  toURLSearchParams() {
+    return new URLSearchParams({
+      merchant: this.merchant,
+      channel: this.channel,
+      orderId: this.orderId
+    })
   }
 }
