@@ -57,3 +57,9 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+# Generating types
+
+```bash
+npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix --path-params-as-types
+```

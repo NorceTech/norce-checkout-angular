@@ -1,0 +1,48 @@
+<p-card>
+  @if (items$ | async; as items) {
+    <p-table [value]="(items || [])" [tableStyle]="">
+      <ng-template #caption>
+        <div class="flex items-center justify-center">
+          <span class="text-2xl font-bold mb-2 font-[feature-setting='ss02']">Cart</span>
+        </div>
+      </ng-template>
+      <ng-template #header>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-product>
+        <tr>
+          <td>
+            <img
+              [src]="product.imageUrl"
+              [alt]="product.name"
+              width="64"
+              height="64"
+              class="max-w-16 max-h-16 rounded aspect-square"
+            />
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price.includingVat | currency: 'SEK' }}</td>
+          <td>
+            <p-input-number [ngModel]="product.quantity" (ngModelChange)="onChange(product, $event)"
+                            [showButtons]="true" buttonLayout="horizontal" inputId="quantity"
+                            [inputStyle]="{ width: '3rem' }">
+              <ng-template #incrementbuttonicon>
+                <span class="iconify mdi--plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="iconify mdi--minus"></span>
+              </ng-template>
+            </p-input-number>
+          </td>
+          <td>{{ product.total.includingVat | currency: 'SEK' }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  }
+</p-card>

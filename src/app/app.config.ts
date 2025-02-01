@@ -1,12 +1,19 @@
-import {ApplicationConfig, provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {ApplicationConfig, LOCALE_ID, provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
-import {provideHttpClient, withFetch} from '@angular/common/http';
+import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {definePreset} from '@primeng/themes';
 import {providePrimeNG} from 'primeng/config';
 import Aura from "@primeng/themes/aura";
 import {MessageService} from 'primeng/api';
+import {contextInterceptor} from '~/app/core/context/interceptors/context.interceptor';
+import {PlatformAdapterService} from '~/app/core/platform/platform';
+import {NorceAdapterService} from '~/app/core/platform/norce-adapter/norce-adapter.service';
+import localeSv from '@angular/common/locales/sv';
+import {registerLocaleData} from '@angular/common';
+
+registerLocaleData(localeSv);
 
 const Noir = definePreset(Aura, {
   semantic: {
@@ -61,13 +68,17 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([contextInterceptor])
+    ),
     provideAnimationsAsync(),
     providePrimeNG({
       ripple: true,
       theme: {
         preset: Noir,
         options: {
+          darkModeSelector: false,
           cssLayer: {
             name: 'primeng',
             order: 'tailwind-base, primeng, tailwind-utilities',
@@ -75,5 +86,7 @@ export const appConfig: ApplicationConfig = {
         }
       }
     }),
+    {provide: PlatformAdapterService, useClass: NorceAdapterService},
+    {provide: LOCALE_ID, useValue: 'sv-SE'}
   ]
 };

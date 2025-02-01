@@ -14,7 +14,10 @@
 app-root {
   display: grid;
   height: 100%;
-  font-family: "Comic Sans MS", serif;
+
+  font-family: "Space Grotesk", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 router-outlet {

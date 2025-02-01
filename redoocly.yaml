@@ -1,0 +1,5 @@
+apis:
+  order@v1:
+    root: https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml
+    x-openapi-ts:
+      output: ./openapi/order.ts

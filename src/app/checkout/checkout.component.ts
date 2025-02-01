@@ -1,11 +1,11 @@
 import {Component, inject} from '@angular/core';
-import {Button} from 'primeng/button';
 import {ToastService} from '../core/toast/toast.service';
+import {CartComponent} from '~/app/checkout/support/cart/cart.component';
 
 @Component({
   selector: 'app-checkout',
   imports: [
-    Button
+    CartComponent
   ],
   templateUrl: './checkout.component.html',
 })
