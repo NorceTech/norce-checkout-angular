@@ -61,5 +61,8 @@ For more information on using the Angular CLI, including detailed command refere
 # Generating types
 
 ```bash
-npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix --path-params-as-types
+npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
+npx openapi-typescript https://norce-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/norce-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
+npx openapi-typescript https://configuration.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/configuration.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
+npx openapi-typescript https://walley-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/walley-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
 ```

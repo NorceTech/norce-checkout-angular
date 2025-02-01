@@ -13,9 +13,10 @@ import {
   switchMap
 } from 'rxjs';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {Order} from '~/openapi/order';
+import {Order, Payment} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
 import {RefreshService} from '~/app/core/refresh/refresh.service';
+import {Adapter} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,6 @@ export class OrderService {
   private refreshService = inject(RefreshService);
 
   order$ = this.getOrder();
-
 
   currency$ = this.order$.pipe(
     map(order => order.currency),
@@ -42,6 +42,20 @@ export class OrderService {
     shareReplay(1)
   )
 
+  nonRemovePayments$: Observable<Payment[]> = this.order$.pipe(
+    map(order => order.payments?.filter(payment => payment.state !== 'removed')),
+    filter(payments => typeof payments !== 'undefined'),
+    distinctUntilChanged(),
+    shareReplay(1)
+  )
+
+  getPayment(adapter: Adapter): Observable<Payment> {
+    return this.nonRemovePayments$.pipe(
+      map(payments => payments.find(payment => payment.adapterId === adapter)),
+      filter(payment => typeof payment !== 'undefined'),
+    )
+  }
+
   private getOrder(): Observable<Order> {
     return this.contextService.$context
       .pipe(
@@ -50,17 +64,17 @@ export class OrderService {
             switchMap(() => this.contextService.$context)
           )
         ),
-      switchMap(ctx => {
-        return this.dataService.getOrder(ctx.orderId)
-          .pipe(
-            retry(2),
-            catchError(() => {
-              this.toastService.error('Failed to fetch order data');
-              return EMPTY;
-            })
-          )
-      }),
-      shareReplay(1)
-    )
+        switchMap(ctx => {
+          return this.dataService.getOrder(ctx.orderId)
+            .pipe(
+              retry(2),
+              catchError(() => {
+                this.toastService.error('Failed to fetch order data');
+                return EMPTY;
+              })
+            )
+        }),
+        shareReplay(1)
+      )
   }
 }

@@ -4,6 +4,7 @@ export const environment = {
   platform: 'norce',
   showPriceIncludingVat: true,
   apiSettings: {
+    configBaseUrl: 'https://configuration.checkout.test.internal.norce.tech',
     orderBaseUrl: 'https://order.checkout.test.internal.norce.tech',
     platformBaseUrl: 'https://norce-adapter.checkout.test.internal.norce.tech'
   },

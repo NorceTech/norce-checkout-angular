@@ -8,9 +8,10 @@ import {Order} from '~/openapi/order';
   providedIn: 'root',
 })
 export class DataService {
+  private baseUrl = `${environment.apiSettings.orderBaseUrl}/api/v1/checkout`;
   private client = inject(HttpClient);
 
   getOrder(orderId: string): Observable<Order> {
-    return this.client.get<Order>(`${environment.apiSettings.orderBaseUrl}/api/v1/checkout/orders/${orderId}`)
+    return this.client.get<Order>(`${this.baseUrl}/orders/${orderId}`)
   }
 }

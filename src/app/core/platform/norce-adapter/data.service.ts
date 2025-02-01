@@ -9,8 +9,9 @@ import {CartItem} from '~/openapi/norce-adapter';
 })
 export class DataService {
   private client = inject(HttpClient);
+  private baseUrl = `${environment.apiSettings.platformBaseUrl}/api/v1/orders`;
 
   updateItem(orderId: string, itemId: string, item: CartItem): Observable<void> {
-    return this.client.patch<void>(`${environment.apiSettings.platformBaseUrl}/api/v1/orders/${orderId}/cart/items/${itemId}`, item)
+    return this.client.patch<void>(`${this.baseUrl}/${orderId}/cart/items/${itemId}`, item)
   }
 }
