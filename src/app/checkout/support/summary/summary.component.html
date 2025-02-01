@@ -1,1 +1,43 @@
-<p>summary works!</p>
+<div>
+  @if (order$ | async; as order) {
+    <!-- Subtotal -->
+    <div class="pt-4 mb-4">
+      <div class="flex justify-between mb-2">
+        <span class="text-gray-600">Subtotal</span>
+        <span>{{ order?.cart?.total?.includingVat | currency:'SEK':'symbol-narrow':'1.0-2' }}</span>
+      </div>
+
+      <!-- Shipping -->
+      @for (shipping of order?.shippings; track shipping.name) {
+        <div class="flex justify-between mb-2">
+          <span class="text-gray-600">{{ shipping.name }}</span>
+          <span>{{ shipping.total.includingVat | currency:'SEK':'symbol-narrow':'1.0-2' }}</span>
+        </div>
+      }
+
+      <!-- Discounts -->
+      @if (order?.cart?.discounts?.length) {
+        <div class="mb-2">
+          @for (discount of order.cart?.discounts; track discount) {
+            <div class="flex justify-between text-green-600">
+              <span>Discount</span>
+              <span>-{{ discount.value?.includingVat | currency:'SEK':'symbol-narrow':'1.0-2' }}</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Total -->
+    <div class="border-t border-gray-900 pt-4">
+      <div class="flex justify-between items-center">
+        <span class="text-lg font-semibold">Total</span>
+        <span
+          class="text-lg font-semibold">{{ order.total?.includingVat | currency:'SEK':'symbol-narrow':'1.0-2' }}</span>
+      </div>
+      <div class="text-gray-500 text-sm text-right mt-1">
+        Including VAT
+      </div>
+    </div>
+  }
+</div>

@@ -1,4 +1,3 @@
-<p-card>
   @if (items$ | async; as items) {
     <p-table [value]="(items || [])" [tableStyle]="">
       <ng-template #caption>
@@ -45,4 +44,3 @@
       </ng-template>
     </p-table>
   }
-</p-card>

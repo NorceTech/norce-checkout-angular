@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {PlatformAdapterService} from '~/app/core/platform/platform';
 import {Item} from '~/openapi/order';
 import {DataService} from '~/app/core/platform/norce-adapter/data.service';
-import {catchError, EMPTY, Observable, retry, switchMap, tap} from 'rxjs';
+import {catchError, EMPTY, finalize, Observable, retry, switchMap} from 'rxjs';
 import {ContextService} from '~/app/core/context/context.service';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {RefreshService} from '~/app/core/refresh/refresh.service';
@@ -20,11 +20,11 @@ export class NorceAdapterService extends PlatformAdapterService {
         return this.dataService.updateItem(ctx.orderId, item.id!, item)
           .pipe(
             retry(1),
-            catchError(() => {
+            catchError((error) => {
               this.toastService.error('Failed to update item');
               return EMPTY;
             }),
-            tap(() => this.refreshService.triggerRefresh())
+            finalize(() => this.refreshService.triggerRefresh())
           )
       })
     )

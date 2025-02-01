@@ -15,7 +15,9 @@ export class OrderService {
   private contextService = inject(ContextService);
   private refreshService = inject(RefreshService);
 
-  getOrder(): Observable<Order> {
+  order$ = this.getOrder();
+
+  private getOrder(): Observable<Order> {
     return this.contextService.$context
       .pipe(
         mergeWith(
@@ -23,8 +25,6 @@ export class OrderService {
             switchMap(() => this.contextService.$context)
           )
         ),
-      )
-      .pipe(
       switchMap(ctx => {
         return this.dataService.getOrder(ctx.orderId)
           .pipe(
