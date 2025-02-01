@@ -1,6 +1,17 @@
 import {inject, Injectable} from '@angular/core';
 import {DataService} from '~/app/core/order/data.service';
-import {catchError, EMPTY, mergeWith, Observable, retry, shareReplay, switchMap} from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+  EMPTY,
+  filter,
+  map,
+  mergeWith,
+  Observable,
+  retry,
+  shareReplay,
+  switchMap
+} from 'rxjs';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Order} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
@@ -16,6 +27,20 @@ export class OrderService {
   private refreshService = inject(RefreshService);
 
   order$ = this.getOrder();
+
+
+  currency$ = this.order$.pipe(
+    map(order => order.currency),
+    filter(currency => typeof currency !== 'undefined'),
+    distinctUntilChanged(),
+    shareReplay(1)
+  )
+  culture$ = this.order$.pipe(
+    map(order => order.culture),
+    filter(culture => typeof culture !== 'undefined'),
+    distinctUntilChanged(),
+    shareReplay(1)
+  )
 
   private getOrder(): Observable<Order> {
     return this.contextService.$context

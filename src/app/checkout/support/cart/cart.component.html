@@ -26,7 +26,7 @@
             />
           </td>
           <td>{{ product.name }}</td>
-          <td>{{ product.price.includingVat | currency: 'SEK' }}</td>
+          <td>{{ product.price | price }}</td>
           <td>
             <p-input-number [ngModel]="product.quantity" (ngModelChange)="onChange(product, $event)"
                             [showButtons]="true" buttonLayout="horizontal" inputId="quantity"
@@ -39,7 +39,7 @@
               </ng-template>
             </p-input-number>
           </td>
-          <td>{{ product.total.includingVat | currency: 'SEK' }}</td>
+          <td>{{ product.total | price }}</td>
         </tr>
       </ng-template>
     </p-table>
