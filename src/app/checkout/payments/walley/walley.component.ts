@@ -6,8 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-script';
-import {OrderService} from '~/app/core/order/order.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {SyncService} from '~/app/core/sync/sync.service';
 
 @Component({
   selector: 'app-walley',
@@ -20,8 +19,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class WalleyComponent implements OnInit, OnDestroy {
   private walleyService = inject(WalleyService);
-  private orderService = inject(OrderService);
   private domSanitizer = inject(DomSanitizer);
+  private syncService = inject(SyncService);
 
   html$ = this.walleyService.getPayment().pipe(
     map(walleyOrder => walleyOrder.htmlSnippet),
@@ -32,10 +31,12 @@ export class WalleyComponent implements OnInit, OnDestroy {
   snippetTargetId = "walley-target";
 
   constructor() {
-    this.orderService.order$.pipe(
-      takeUntilDestroyed()
-    ).subscribe(() => {
-      this.resume();
+    this.syncService.hasInFlightRequest$.subscribe(hasInFlightRequest => {
+      if (hasInFlightRequest) {
+        this.suspend();
+      } else {
+        this.resume();
+      }
     })
   }
 

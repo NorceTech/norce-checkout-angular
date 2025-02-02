@@ -12,6 +12,7 @@ import {PlatformAdapterService} from '~/app/core/platform/platform';
 import {NorceAdapterService} from '~/app/core/platform/norce-adapter/norce-adapter.service';
 import localeSv from '@angular/common/locales/sv';
 import {registerLocaleData} from '@angular/common';
+import {syncInterceptor} from '~/app/core/sync/interceptors/sync.interceptor';
 
 registerLocaleData(localeSv);
 
@@ -70,7 +71,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withFetch(),
-      withInterceptors([contextInterceptor])
+      withInterceptors([contextInterceptor, syncInterceptor])
     ),
     provideAnimationsAsync(),
     providePrimeNG({
