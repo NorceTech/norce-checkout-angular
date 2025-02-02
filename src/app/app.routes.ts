@@ -3,5 +3,5 @@ import {CheckoutLayoutComponent} from './layouts/checkout-layout/checkout-layout
 import {routes as CheckoutRoutes} from './checkout/routes';
 
 export const routes: Routes = [
-  {path: "checkout", component: CheckoutLayoutComponent, children: CheckoutRoutes}
+  {path: "", component: CheckoutLayoutComponent, children: CheckoutRoutes}
 ];

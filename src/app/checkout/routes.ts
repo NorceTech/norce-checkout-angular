@@ -1,6 +1,8 @@
 import {Routes} from '@angular/router';
-import {CheckoutComponent} from './checkout.component';
+import {CheckoutComponent} from './pages/checkout/checkout.component';
+import {ConfirmationComponent} from '~/app/checkout/pages/confirmation/confirmation.component';
 
 export const routes: Routes = [
-  {path: "", title: "Norce Checkout", component: CheckoutComponent}
+  {path: "checkout", title: "Order | Norce Checkout", component: CheckoutComponent},
+  {path: "confirmation", title: "Confirmation | Norce Checkout", component: ConfirmationComponent}
 ];
