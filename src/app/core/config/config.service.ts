@@ -14,7 +14,7 @@ export class ConfigService {
   private toastService = inject(ToastService);
 
   getConfig(configurationName: string): Observable<Configuration> {
-    return this.contextService.$context.pipe(
+    return this.contextService.context$.pipe(
       switchMap(ctx => {
         return this.dataService.getConfig(ctx, configurationName).pipe(
           retry(2),

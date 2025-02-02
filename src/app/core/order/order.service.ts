@@ -63,11 +63,11 @@ export class OrderService {
   }
 
   private getOrder(): Observable<Order> {
-    return this.contextService.$context
+    return this.contextService.context$
       .pipe(
         mergeWith(
           this.refreshService.getRefreshStream().pipe(
-            switchMap(() => this.contextService.$context)
+            switchMap(() => this.contextService.context$)
           )
         ),
         switchMap(ctx => {

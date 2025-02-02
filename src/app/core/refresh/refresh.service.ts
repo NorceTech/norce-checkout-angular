@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {debounceTime, Observable, Subject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class RefreshService {
@@ -10,6 +10,8 @@ export class RefreshService {
   }
 
   getRefreshStream(): Observable<void> {
-    return this._refresh$.asObservable();
+    return this._refresh$.pipe(
+      debounceTime(100)
+    )
   }
 }

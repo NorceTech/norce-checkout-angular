@@ -40,7 +40,7 @@ export class WalleyService {
   private orderPayment$ = this.orderService.getPayment(Adapter.Walley);
 
   getPayment(): Observable<WalleyCheckoutOrder> {
-    return this.contextService.$context.pipe(
+    return this.contextService.context$.pipe(
       combineLatestWith(this.baseUrl$, this.orderPayment$),
     ).pipe(
       switchMap(([ctx, baseUrl, payment]) => {
@@ -56,7 +56,7 @@ export class WalleyService {
   }
 
   updateCustomer(): Observable<void> {
-    return this.contextService.$context.pipe(
+    return this.contextService.context$.pipe(
       combineLatestWith(this.baseUrl$, this.orderPayment$),
     ).pipe(
       switchMap(([ctx, baseUrl, payment]) => {
@@ -73,7 +73,7 @@ export class WalleyService {
   }
 
   updateShippingOption(): Observable<void> {
-    return this.contextService.$context.pipe(
+    return this.contextService.context$.pipe(
       combineLatestWith(this.baseUrl$, this.orderPayment$),
     ).pipe(
       switchMap(([ctx, baseUrl, payment]) => {

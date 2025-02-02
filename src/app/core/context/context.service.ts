@@ -6,13 +6,14 @@ import {ContextError, ContextErrorCode} from '~/app/core/entities/errors/Context
 import {environment} from '~/environments/environment';
 
 const empty = Symbol('empty')
+
 @Injectable({
   providedIn: 'root'
 })
 export class ContextService {
   private activatedRoute = inject(ActivatedRoute);
 
-  $context = this.activatedRoute.queryParams.pipe(
+  context$ = this.activatedRoute.queryParams.pipe(
     startWith(empty),
     pairwise(),
     filter(pair => {

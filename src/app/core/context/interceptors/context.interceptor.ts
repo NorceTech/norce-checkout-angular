@@ -5,7 +5,7 @@ import {switchMap} from 'rxjs';
 
 export const contextInterceptor: HttpInterceptorFn = (req, next) => {
   const contextService = inject(ContextService);
-  return contextService.$context.pipe(
+  return contextService.context$.pipe(
     switchMap(context => {
       const reqWithContext = req.clone({
         setHeaders: {

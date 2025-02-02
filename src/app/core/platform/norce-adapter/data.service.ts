@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {inject, Injectable} from "@angular/core";
 import {environment} from "~/environments/environment";
-import {Observable} from 'rxjs';
+import {filter, map, Observable} from 'rxjs';
 import {CartItem} from '~/openapi/norce-adapter';
 import {Context} from '~/app/core/entities/Context';
 
@@ -15,7 +15,11 @@ export class DataService {
   updateItem(ctx: Context, itemId: string, item: CartItem): Observable<void> {
     return this.client.patch<void>(
       `${this.baseUrl}/${ctx.orderId}/cart/items/${itemId}`,
-      item
+      item,
+      {observe: 'response'}
+    ).pipe(
+      filter(response => response.status !== 202),
+      map(response => response.body as void)
     )
   }
 }
