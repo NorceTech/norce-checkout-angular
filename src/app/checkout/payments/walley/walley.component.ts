@@ -1,6 +1,6 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {WalleyService} from '~/app/checkout/payments/walley/walley.service';
-import {distinctUntilChanged, filter, map, take} from 'rxjs';
+import {distinctUntilChanged, filter, finalize, map, take} from 'rxjs';
 import {WalleyEvent} from '~/app/checkout/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
@@ -78,13 +78,15 @@ export class WalleyComponent implements OnInit, OnDestroy {
     switch (eventName) {
       case WalleyEvent.CustomerUpdated: {
         this.walleyService.updateCustomer().pipe(
-          take(1)
+          take(1),
+          finalize(() => this.syncService.triggerRefresh())
         ).subscribe();
         break;
       }
       case WalleyEvent.ShippingUpdated: {
         this.walleyService.updateShippingOption().pipe(
-          take(1)
+          take(1),
+          finalize(() => this.syncService.triggerRefresh())
         ).subscribe();
         break;
       }

@@ -7,7 +7,6 @@ import {
   combineLatestWith,
   distinctUntilChanged,
   EMPTY,
-  finalize,
   map,
   Observable,
   retry,
@@ -18,7 +17,6 @@ import {WalleyCheckoutOrder} from '~/openapi/walley-adapter';
 import {ContextService} from '~/app/core/context/context.service';
 import {ConfigService} from '~/app/core/config/config.service';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {SyncService} from '~/app/core/sync/sync.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +27,6 @@ export class WalleyService {
   private contextService = inject(ContextService);
   private configService = inject(ConfigService);
   private toastService = inject(ToastService);
-  private syncService = inject(SyncService);
 
   private baseUrl$: Observable<string> = this.configService.getConfig(Adapter.Walley).pipe(
     map(config => (config as any)?.adapter?.internalUrl),
@@ -66,7 +63,6 @@ export class WalleyService {
             this.toastService.error('Failed to update customer');
             return EMPTY;
           }),
-          finalize(() => this.syncService.triggerRefresh())
         )
       }),
     )
@@ -83,7 +79,6 @@ export class WalleyService {
             this.toastService.error('Failed to update shipping option');
             return EMPTY;
           }),
-          finalize(() => this.syncService.triggerRefresh())
         )
       }),
     )
