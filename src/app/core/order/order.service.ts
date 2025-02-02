@@ -16,7 +16,7 @@ import {
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Order, Payment} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
-import {RefreshService} from '~/app/core/refresh/refresh.service';
+import {SyncService} from '~/app/core/sync/sync.service';
 import {Adapter} from '~/app/core/adapter';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class OrderService {
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
   private contextService = inject(ContextService);
-  private refreshService = inject(RefreshService);
+  private syncService = inject(SyncService);
 
   order$ = this.getOrder();
 
@@ -66,7 +66,7 @@ export class OrderService {
     return this.contextService.context$
       .pipe(
         mergeWith(
-          this.refreshService.getRefreshStream().pipe(
+          this.syncService.getRefreshStream().pipe(
             switchMap(() => this.contextService.context$)
           )
         ),
