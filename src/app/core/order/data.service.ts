@@ -1,6 +1,5 @@
 import {HttpClient} from "@angular/common/http";
 import {inject, Injectable} from "@angular/core";
-import {environment} from "~/environments/environment";
 import {Observable} from 'rxjs';
 import {Order} from '~/openapi/order';
 
@@ -8,7 +7,7 @@ import {Order} from '~/openapi/order';
   providedIn: 'root',
 })
 export class DataService {
-  private baseUrl = `${environment.apiSettings.orderBaseUrl}/api/v1/checkout`;
+  private baseUrl = `/proxy/order/api/v1/checkout`;
   private client = inject(HttpClient);
 
   getOrder(orderId: string): Observable<Order> {

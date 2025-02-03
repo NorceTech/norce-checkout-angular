@@ -8,30 +8,31 @@ import {Context} from '~/app/core/entities/Context';
   providedIn: 'root',
 })
 export class DataService {
+  private baseUrl = `/proxy/walley-adapter/api/checkout/v1`;
   private client = inject(HttpClient);
 
-  createPayment(baseUrl: string, orderId: string): Observable<WalleyCheckoutOrder> {
-    return this.client.post<any>(`${baseUrl}/orders/${orderId}/payments`, undefined)
+  createPayment(orderId: string): Observable<WalleyCheckoutOrder> {
+    return this.client.post<any>(`${this.baseUrl}/orders/${orderId}/payments`, undefined)
   }
 
-  getPayment(baseUrl: string, orderId: string, paymentId: string): Observable<WalleyCheckoutOrder> {
-    return this.client.get<any>(`${baseUrl}/orders/${orderId}/payments/${paymentId}`)
+  getPayment(orderId: string, paymentId: string): Observable<WalleyCheckoutOrder> {
+    return this.client.get<any>(`${this.baseUrl}/orders/${orderId}/payments/${paymentId}`)
   }
 
-  removePayment(baseUrl: string, orderId: string, paymentId: string): Observable<void> {
-    return this.client.post<void>(`${baseUrl}/orders/${orderId}/payments/${paymentId}/remove`, undefined)
+  removePayment(orderId: string, paymentId: string): Observable<void> {
+    return this.client.post<void>(`${this.baseUrl}/orders/${orderId}/payments/${paymentId}/remove`, undefined)
   }
 
-  updateCustomer(baseUrl: string, ctx: Context, paymentId: string): Observable<void> {
+  updateCustomer(ctx: Context, paymentId: string): Observable<void> {
     return this.client.post<void>(
-      `${baseUrl}/callback/orders/${ctx.orderId}/payments/${paymentId}/customer-update?${ctx.toURLSearchParams().toString()}`,
+      `${this.baseUrl}/callback/orders/${ctx.orderId}/payments/${paymentId}/customer-update?${ctx.toURLSearchParams().toString()}`,
       undefined
     )
   }
 
-  updateShippingOption(baseUrl: string, ctx: Context, paymentId: string): Observable<void> {
+  updateShippingOption(ctx: Context, paymentId: string): Observable<void> {
     return this.client.post<void>(
-      `${baseUrl}/callback/orders/${ctx.orderId}/payments/${paymentId}/shipping-option-update?${ctx.toURLSearchParams().toString()}`,
+      `${this.baseUrl}/callback/orders/${ctx.orderId}/payments/${paymentId}/shipping-option-update?${ctx.toURLSearchParams().toString()}`,
       undefined
     )
   }

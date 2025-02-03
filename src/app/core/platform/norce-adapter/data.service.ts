@@ -1,6 +1,5 @@
 import {HttpClient} from "@angular/common/http";
 import {inject, Injectable} from "@angular/core";
-import {environment} from "~/environments/environment";
 import {filter, map, Observable} from 'rxjs';
 import {CartItem} from '~/openapi/norce-adapter';
 import {Context} from '~/app/core/entities/Context';
@@ -10,7 +9,7 @@ import {Context} from '~/app/core/entities/Context';
 })
 export class DataService {
   private client = inject(HttpClient);
-  private baseUrl = `${environment.apiSettings.platformBaseUrl}/api/v1/orders`;
+  private baseUrl = `/proxy/norce-adapter/api/v1/orders`;
 
   updateItem(ctx: Context, itemId: string, item: CartItem): Observable<void> {
     return this.client.patch<void>(

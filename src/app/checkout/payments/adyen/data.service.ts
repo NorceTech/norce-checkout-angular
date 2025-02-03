@@ -7,30 +7,31 @@ import {NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder} from '~/openapi
   providedIn: 'root',
 })
 export class DataService {
+  private baseUrl = `/proxy/adyen-adapter/api/checkout/v1`;
   private client = inject(HttpClient);
 
-  createPayment(baseUrl: string, orderId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
-    return this.client.post<any>(`${baseUrl}/orders/${orderId}/payments`, undefined)
+  createPayment(orderId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
+    return this.client.post<any>(`${this.baseUrl}/orders/${orderId}/payments`, undefined)
   }
 
-  getPayment(baseUrl: string, orderId: string, paymentId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
-    return this.client.get<any>(`${baseUrl}/orders/${orderId}/payments/${paymentId}`)
+  getPayment(orderId: string, paymentId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
+    return this.client.get<any>(`${this.baseUrl}/orders/${orderId}/payments/${paymentId}`)
   }
 
-  removePayment(baseUrl: string, orderId: string, paymentId: string): Observable<void> {
-    return this.client.post<void>(`${baseUrl}/orders/${orderId}/payments/${paymentId}/remove`, undefined)
+  removePayment(orderId: string, paymentId: string): Observable<void> {
+    return this.client.post<void>(`${this.baseUrl}/orders/${orderId}/payments/${paymentId}/remove`, undefined)
   }
 
-  startTransaction(baseUrl: string, orderId: string, paymentId: string, transaction: any): Observable<void> {
+  startTransaction(orderId: string, paymentId: string, transaction: any): Observable<void> {
     return this.client.post<void>(
-      `${baseUrl}/orders/${orderId}/payments/${paymentId}/transaction`,
+      `${this.baseUrl}/orders/${orderId}/payments/${paymentId}/transaction`,
       transaction
     )
   }
 
-  submitDetails(baseUrl: string, orderId: string, paymentId: string, details: any): Observable<void> {
+  submitDetails(orderId: string, paymentId: string, details: any): Observable<void> {
     return this.client.post<void>(
-      `${baseUrl}/orders/${orderId}/payments/${paymentId}/details}`,
+      `${this.baseUrl}/orders/${orderId}/payments/${paymentId}/details}`,
       details
     )
   }
