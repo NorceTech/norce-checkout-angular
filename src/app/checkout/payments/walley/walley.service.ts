@@ -6,6 +6,7 @@ import {
   catchError,
   combineLatestWith,
   distinctUntilChanged,
+  distinctUntilKeyChanged,
   EMPTY,
   map,
   Observable,
@@ -34,13 +35,15 @@ export class WalleyService {
     distinctUntilChanged(),
     shareReplay(1),
   )
-  private orderPayment$ = this.orderService.getPayment(Adapter.Walley);
+  private orderPayment$ = this.orderService.getPayment(Adapter.Walley).pipe(
+    distinctUntilKeyChanged('id'),
+  )
 
   createPayment(): Observable<WalleyCheckoutOrder> {
     return this.contextService.context$.pipe(
-      combineLatestWith(this.baseUrl$, this.orderPayment$),
+      combineLatestWith(this.baseUrl$),
     ).pipe(
-      switchMap(([ctx, baseUrl, payment]) => {
+      switchMap(([ctx, baseUrl]) => {
         return this.dataService.createPayment(baseUrl, ctx.orderId).pipe(
           retry(2),
           catchError(() => {

@@ -3,7 +3,6 @@ import {DataService} from '~/app/core/order/data.service';
 import {
   catchError,
   distinctUntilChanged,
-  distinctUntilKeyChanged,
   EMPTY,
   filter,
   map,
@@ -58,7 +57,6 @@ export class OrderService {
     return this.nonRemovePayments$.pipe(
       map(payments => payments.find(payment => payment.adapterId === adapter)),
       filter(payment => typeof payment !== 'undefined'),
-      distinctUntilKeyChanged('id')
     )
   }
 

@@ -30,7 +30,7 @@ export class WalleyComponent implements OnInit, OnDestroy {
     distinctUntilChanged(),
     map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
   );
-  snippetTargetId = "walley-target";
+  readonly snippetTargetId = "walley-target";
 
   constructor() {
     this.syncService.hasInFlightRequest$.subscribe(hasInFlightRequest => {
@@ -43,9 +43,6 @@ export class WalleyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.html$.subscribe(html => {
-      console.log(html);
-    });
     this.addEventListeners();
   }
 

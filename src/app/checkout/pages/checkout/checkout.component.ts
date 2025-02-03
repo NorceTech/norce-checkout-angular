@@ -8,7 +8,7 @@ import {OrderStatus} from '~/openapi/order';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
-import {PaymentFactoryComponent} from '~/app/checkout/payments/payment-factory/payment-factory.component';
+import {PaymentFactoryComponent} from '~/app/checkout/support/payment-factory/payment-factory.component';
 
 @Component({
   selector: 'app-checkout',

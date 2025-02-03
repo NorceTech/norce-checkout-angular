@@ -23,14 +23,14 @@ export class DataService {
 
   startTransaction(baseUrl: string, orderId: string, paymentId: string, transaction: any): Observable<void> {
     return this.client.post<void>(
-      `${baseUrl}/callback/orders/${orderId}/payments/${paymentId}/transaction}`,
+      `${baseUrl}/orders/${orderId}/payments/${paymentId}/transaction`,
       transaction
     )
   }
 
   submitDetails(baseUrl: string, orderId: string, paymentId: string, details: any): Observable<void> {
     return this.client.post<void>(
-      `${baseUrl}/callback/orders/${orderId}/payments/${paymentId}/details}`,
+      `${baseUrl}/orders/${orderId}/payments/${paymentId}/details}`,
       details
     )
   }

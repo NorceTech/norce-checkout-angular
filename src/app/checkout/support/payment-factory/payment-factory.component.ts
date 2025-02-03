@@ -27,12 +27,12 @@ export class PaymentFactoryComponent {
     });
   }
 
-  private loadPaymentComponent(adapterId?: string) {
+  private loadPaymentComponent(adapterId: string) {
     this.clearContainer();
 
     const componentType = PAYMENT_COMPONENTS[adapterId as keyof typeof PAYMENT_COMPONENTS];
     if (!componentType) {
-      console.error(`No component registered for payment adapter: ${adapterId}`);
+      console.error(`No payment component registered for adapter: ${adapterId}`);
       return;
     }
 
@@ -42,7 +42,7 @@ export class PaymentFactoryComponent {
     }
     this.container.clear();
 
-    this.componentRef = this.container.createComponent(componentType);
+    this.componentRef = this.container.createComponent(componentType as any);
   }
 
   private clearContainer() {
