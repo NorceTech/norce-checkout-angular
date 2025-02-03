@@ -1,9 +1,11 @@
 import {afterRenderEffect, Component, ComponentRef, input, ViewChild, ViewContainerRef} from '@angular/core';
 import {Adapter} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/checkout/payments/walley/walley.component';
+import {AdyenComponent} from '~/app/checkout/payments/adyen/adyen.component';
 
 const PAYMENT_COMPONENTS = {
-  [Adapter.Walley]: WalleyComponent
+  [Adapter.Walley]: WalleyComponent,
+  [Adapter.Adyen]: AdyenComponent
 } as const;
 
 @Component({
