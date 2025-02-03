@@ -23,8 +23,6 @@ export class FallbackConfirmationComponent {
 
   order$ = this.orderService.order$;
 
-  orderStates: OrderStatus[] = ['checkout', 'processing', 'accepted', 'completed', 'declined'];
-
   getStatusSeverity(status?: OrderStatus) {
     switch (status?.toLowerCase()) {
       case 'completed':
