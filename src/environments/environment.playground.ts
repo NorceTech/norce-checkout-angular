@@ -1,6 +1,6 @@
 /** @type {import('./environment').Environment} */
 export const environment = {
-  environment: 'development',
+  environment: 'playground',
   platform: 'norce',
   showPriceIncludingVat: true,
   context: {

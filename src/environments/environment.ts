@@ -1,5 +1,5 @@
 export type Environment = {
-  environment: 'development' | 'production';
+  environment: 'playground' | 'prod';
   platform: 'norce',
   showPriceIncludingVat: boolean;
   context: {
@@ -9,7 +9,7 @@ export type Environment = {
 };
 
 export const environment: Environment = {
-  environment: 'production',
+  environment: 'prod',
   platform: 'norce',
   showPriceIncludingVat: true,
   context: {
