@@ -38,7 +38,7 @@ export class CheckoutComponent {
       filter(state => !!state && this.completedStates.includes(state)),
       takeUntilDestroyed()
     ).subscribe(async () => {
-      await this.router.navigate(['/confirmation']);
+      await this.router.navigate(['/confirmation'], {queryParamsHandling: 'preserve'});
     })
   }
 }
