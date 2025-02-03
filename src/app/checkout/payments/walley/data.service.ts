@@ -10,8 +10,16 @@ import {Context} from '~/app/core/entities/Context';
 export class DataService {
   private client = inject(HttpClient);
 
+  createPayment(baseUrl: string, orderId: string): Observable<WalleyCheckoutOrder> {
+    return this.client.post<any>(`${baseUrl}/orders/${orderId}/payments`, undefined)
+  }
+
   getPayment(baseUrl: string, orderId: string, paymentId: string): Observable<WalleyCheckoutOrder> {
     return this.client.get<any>(`${baseUrl}/orders/${orderId}/payments/${paymentId}`)
+  }
+
+  removePayment(baseUrl: string, orderId: string, paymentId: string): Observable<void> {
+    return this.client.post<void>(`${baseUrl}/orders/${orderId}/payments/${paymentId}/remove`, undefined)
   }
 
   updateCustomer(baseUrl: string, ctx: Context, paymentId: string): Observable<void> {

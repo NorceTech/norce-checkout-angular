@@ -1,12 +1,13 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {WalleyService} from '~/app/checkout/payments/walley/walley.service';
-import {distinctUntilChanged, filter, finalize, map, take} from 'rxjs';
+import {distinctUntilChanged, filter, finalize, map, switchMap, take} from 'rxjs';
 import {WalleyEvent} from '~/app/checkout/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-script';
 import {SyncService} from '~/app/core/sync/sync.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-walley',
@@ -21,6 +22,7 @@ export class WalleyComponent implements OnInit, OnDestroy {
   private walleyService = inject(WalleyService);
   private domSanitizer = inject(DomSanitizer);
   private syncService = inject(SyncService);
+  private router = inject(Router);
 
   html$ = this.walleyService.getPayment().pipe(
     map(walleyOrder => walleyOrder.htmlSnippet),
@@ -73,7 +75,7 @@ export class WalleyComponent implements OnInit, OnDestroy {
     });
   }
 
-  private handleEvent(event: Event): void {
+  private async handleEvent(event: Event): Promise<void> {
     const eventName = event.type;
     switch (eventName) {
       case WalleyEvent.CustomerUpdated: {
@@ -88,6 +90,18 @@ export class WalleyComponent implements OnInit, OnDestroy {
           take(1),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe();
+        break;
+      }
+      case WalleyEvent.Expired: {
+        this.walleyService.removePayment().pipe(
+          switchMap(() => this.walleyService.createPayment()),
+          take(1),
+          finalize(() => this.syncService.triggerRefresh())
+        ).subscribe();
+        break;
+      }
+      case WalleyEvent.PurchaseCompleted: {
+        await this.router.navigate(['/confirmation'], {queryParamsHandling: 'preserve'});
         break;
       }
       default:

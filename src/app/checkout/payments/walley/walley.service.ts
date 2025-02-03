@@ -36,6 +36,22 @@ export class WalleyService {
   )
   private orderPayment$ = this.orderService.getPayment(Adapter.Walley);
 
+  createPayment(): Observable<WalleyCheckoutOrder> {
+    return this.contextService.context$.pipe(
+      combineLatestWith(this.baseUrl$, this.orderPayment$),
+    ).pipe(
+      switchMap(([ctx, baseUrl, payment]) => {
+        return this.dataService.createPayment(baseUrl, ctx.orderId).pipe(
+          retry(2),
+          catchError(() => {
+            this.toastService.error('Failed to create walley payment');
+            return EMPTY;
+          }),
+        )
+      }),
+    )
+  }
+
   getPayment(): Observable<WalleyCheckoutOrder> {
     return this.contextService.context$.pipe(
       combineLatestWith(this.baseUrl$, this.orderPayment$),
@@ -49,6 +65,22 @@ export class WalleyService {
           })
         )
       })
+    )
+  }
+
+  removePayment(): Observable<void> {
+    return this.contextService.context$.pipe(
+      combineLatestWith(this.baseUrl$, this.orderPayment$),
+    ).pipe(
+      switchMap(([ctx, baseUrl, payment]) => {
+        return this.dataService.removePayment(baseUrl, ctx.orderId, payment.id!).pipe(
+          retry(2),
+          catchError(() => {
+            this.toastService.error('Failed to remove walley payment');
+            return EMPTY;
+          }),
+        )
+      }),
     )
   }
 
