@@ -22,6 +22,7 @@ export class FallbackConfirmationComponent {
   private orderService = inject(OrderService);
 
   order$ = this.orderService.order$;
+  payment$ = this.orderService.defaultPayment$;
 
   getStatusSeverity(status?: OrderStatus) {
     switch (status?.toLowerCase()) {

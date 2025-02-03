@@ -1,8 +1,8 @@
 <!-- order-confirmation.component.html -->
 @if (order$ | async; as order) {
   <!-- Order Summary -->
-  <p-card header="Order Confirmation" class="mb-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <p-card class="mb-6">
+    <div class="grid grid-cols-4 gap-6">
       <div>
         <h3 class="font-bold">Order Number</h3>
         <p>{{ order.id }}</p>
@@ -15,6 +15,10 @@
         <h3 class="font-bold">Status</h3>
         <p-tag [severity]="getStatusSeverity(order.state?.currentStatus)"
                [value]="order.state?.currentStatus! | titlecase"></p-tag>
+      </div>
+      <div>
+        <h3 class="font-bold">Payment</h3>
+        <p>{{ (payment$ | async)?.name | titlecase }}</p>
       </div>
     </div>
 
