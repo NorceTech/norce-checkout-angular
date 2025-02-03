@@ -1,0 +1,70 @@
+<!-- order-confirmation.component.html -->
+@if (order$ | async; as order) {
+  <!-- Order Summary -->
+  <p-card header="Order Confirmation" class="mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h3 class="font-bold">Order Number</h3>
+        <p>{{ order.id }}</p>
+      </div>
+      <div>
+        <h3 class="font-bold">Order Date</h3>
+        <p>{{ order.created | date:'medium' }}</p>
+      </div>
+      <div>
+        <h3 class="font-bold">Status</h3>
+        <p-tag [severity]="getStatusSeverity(order.state?.currentStatus)"
+               [value]="order.state?.currentStatus! | titlecase"></p-tag>
+      </div>
+    </div>
+
+    @for (item of order.cart?.items!; track item.id) {
+      <div class="border-y py-4 my-6">
+        <div class="flex gap-4">
+          <img [src]="item.imageUrl" [alt]="item.name" class="w-24 h-24 object-cover">
+          <div class="flex-grow">
+            <h4 class="font-bold">{{ item.name }}</h4>
+            <p>SKU: {{ item.sku }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Price: {{ item.price | price }}</p>
+
+            @if (item.discounts?.length) {
+              <div class="mt-2 text-sm text-green-600">
+                @for (discount of item.discounts; track discount.code) {
+                  <p>
+                    Discount ({{ discount.name }}):
+                    -{{ discount.value | price }}
+                  </p>
+                }
+              </div>
+            }
+          </div>
+          <div class="text-right">
+            <p class="font-bold">
+              {{ item.total | price }}
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="space-y-2">
+        <h2 class="p-card-title">Billing Address</h2>
+        <p>{{ order.customer?.billing?.givenName }} {{ order.customer?.billing?.familyName }}</p>
+        <p>{{ order.customer?.billing?.streetAddress }}</p>
+        <p>{{ order.customer?.billing?.postalCode }} {{ order.customer?.billing?.city }}</p>
+        <p>{{ order.customer?.billing?.country }}</p>
+        <p>{{ order.customer?.billing?.email }}</p>
+        <p>{{ order.customer?.billing?.phone }}</p>
+      </div>
+      <div class="space-y-2">
+        <h2 class="p-card-title">Shipping Address</h2>
+        <p>{{ order.customer?.shipping?.givenName }} {{ order.customer?.shipping?.familyName }}</p>
+        <p>{{ order.customer?.shipping?.streetAddress }}</p>
+        <p>{{ order.customer?.shipping?.postalCode }} {{ order.customer?.shipping?.city }}</p>
+        <p>{{ order.customer?.shipping?.country }}</p>
+      </div>
+    </div>
+  </p-card>
+}

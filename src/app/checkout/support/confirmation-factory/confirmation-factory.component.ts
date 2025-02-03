@@ -1,7 +1,9 @@
 import {afterRenderEffect, Component, ComponentRef, input, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {Adapter} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/checkout/payments/walley/walley.component';
-import {DefaultConfirmationComponent} from '~/app/checkout/support/default-confirmation/default-confirmation.component';
+import {
+  FallbackConfirmationComponent
+} from '~/app/checkout/support/fallback-confirmation/fallback-confirmation.component';
 
 const CONFIRMATION_COMPONENTS = {
   [Adapter.Walley]: WalleyComponent,
@@ -31,7 +33,7 @@ export class ConfirmationFactoryComponent {
 
     let componentType: Type<any> = CONFIRMATION_COMPONENTS[adapterId as keyof typeof CONFIRMATION_COMPONENTS];
     if (!componentType) {
-      componentType = DefaultConfirmationComponent;
+      componentType = FallbackConfirmationComponent;
     }
 
     if (!this.container) {
