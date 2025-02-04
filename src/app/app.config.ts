@@ -10,11 +10,11 @@ import {MessageService} from 'primeng/api';
 import {contextInterceptor} from '~/app/core/context/interceptors/context.interceptor';
 import {PlatformAdapterService} from '~/app/core/platform/platform';
 import {NorceAdapterService} from '~/app/core/platform/norce-adapter/norce-adapter.service';
-import localeSv from '@angular/common/locales/sv';
-import {registerLocaleData} from '@angular/common';
 import {syncInterceptor} from '~/app/core/sync/interceptors/sync.interceptor';
+import {registerLocaleData} from '@angular/common';
+import localeSv from '@angular/common/locales/sv';
 
-registerLocaleData(localeSv);
+registerLocaleData(localeSv)
 
 const Noir = definePreset(Aura, {
   semantic: {

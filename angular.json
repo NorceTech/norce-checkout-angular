@@ -28,7 +28,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@adyen/adyen-web"
+            ]
           },
           "configurations": {
             "production": {
@@ -56,21 +59,34 @@
                   "with": "src/environments/environment.playground.ts"
                 }
               ]
+            },
+            "test": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "src/proxy.conf.js"
-          },
           "configurations": {
             "production": {
               "buildTarget": "norce-checkout:build:production"
             },
             "development": {
-              "buildTarget": "norce-checkout:build:development"
+              "buildTarget": "norce-checkout:build:development",
+              "proxyConfig": "src/proxy.conf.js"
+            },
+            "test": {
+              "buildTarget": "norce-checkout:build:test",
+              "proxyConfig": "src/proxy.conf.test.js"
             }
           },
           "defaultConfiguration": "development"
