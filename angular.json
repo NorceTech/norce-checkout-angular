@@ -49,7 +49,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "playground": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
@@ -80,8 +80,8 @@
             "production": {
               "buildTarget": "norce-checkout:build:production"
             },
-            "development": {
-              "buildTarget": "norce-checkout:build:development",
+            "playground": {
+              "buildTarget": "norce-checkout:build:playground",
               "proxyConfig": "src/proxy.conf.js"
             },
             "test": {
@@ -89,7 +89,7 @@
               "proxyConfig": "src/proxy.conf.test.js"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "playground"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
