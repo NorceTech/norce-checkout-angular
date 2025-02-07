@@ -4,11 +4,14 @@ import {catchError, EMPTY, Observable, retry} from 'rxjs';
 import {WalleyCheckoutOrder} from '~/openapi/walley-adapter';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Context} from '~/app/core/entities/Context';
+import {PaymentAdapterService} from '~/app/checkout/payments/payment.service.interface';
+import {PaymentAdapter} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WalleyService {
+export class WalleyService implements PaymentAdapterService {
+  readonly adapterId = PaymentAdapter.Walley
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
 

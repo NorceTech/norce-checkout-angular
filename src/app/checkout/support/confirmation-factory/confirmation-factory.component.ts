@@ -1,12 +1,22 @@
-import {afterRenderEffect, Component, ComponentRef, input, Type, ViewChild, ViewContainerRef} from '@angular/core';
-import {Adapter} from '~/app/core/adapter';
+import {
+  afterRenderEffect,
+  Component,
+  ComponentRef,
+  inject,
+  input,
+  Type,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+import {PaymentAdapter} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/checkout/payments/walley/walley.component';
 import {
   FallbackConfirmationComponent
 } from '~/app/checkout/support/fallback-confirmation/fallback-confirmation.component';
+import {ToastService} from '~/app/core/toast/toast.service';
 
 const CONFIRMATION_COMPONENTS = {
-  [Adapter.Walley]: WalleyComponent,
+  [PaymentAdapter.Walley]: WalleyComponent,
 } as const;
 
 @Component({
@@ -16,7 +26,8 @@ const CONFIRMATION_COMPONENTS = {
     <ng-template #container></ng-template>`,
 })
 export class ConfirmationFactoryComponent {
-  adapterId = input.required<string>();
+  adapterId = input<string>();
+  private toastService = inject(ToastService);
 
   @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef | undefined;
 
@@ -28,7 +39,8 @@ export class ConfirmationFactoryComponent {
     });
   }
 
-  private loadPaymentComponent(adapterId: string) {
+  private loadPaymentComponent(adapterId?: string) {
+    if (!adapterId) return;
     this.clearContainer();
 
     let componentType: Type<any> = CONFIRMATION_COMPONENTS[adapterId as keyof typeof CONFIRMATION_COMPONENTS];
@@ -37,7 +49,7 @@ export class ConfirmationFactoryComponent {
     }
 
     if (!this.container) {
-      console.error('No container to load confirmation component into');
+      this.toastService.error('No container to load confirmation component into');
       return;
     }
     this.container.clear();

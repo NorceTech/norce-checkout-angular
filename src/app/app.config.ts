@@ -13,6 +13,7 @@ import {NorceAdapterService} from '~/app/core/platform/norce-adapter/norce-adapt
 import {syncInterceptor} from '~/app/core/sync/interceptors/sync.interceptor';
 import {registerLocaleData} from '@angular/common';
 import localeSv from '@angular/common/locales/sv';
+import {providePaymentServices} from '~/app/checkout/payments/provide-payment-services';
 
 registerLocaleData(localeSv)
 
@@ -88,6 +89,7 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     {provide: PlatformAdapterService, useClass: NorceAdapterService},
-    {provide: LOCALE_ID, useValue: 'sv-SE'}
+    {provide: LOCALE_ID, useValue: 'sv-SE'},
+    providePaymentServices(),
   ]
 };

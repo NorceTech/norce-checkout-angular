@@ -18,8 +18,8 @@ import {RunScriptsDirective} from '~/app/shared/directives/run-script';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Router} from '@angular/router';
 import {ContextService} from '~/app/core/context/context.service';
-import {Adapter} from '~/app/core/adapter';
 import {OrderService} from '~/app/core/order/order.service';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-walley',
@@ -38,9 +38,10 @@ export class WalleyComponent implements OnInit, OnDestroy {
   private router = inject(Router);
 
   private contextService = inject(ContextService);
-  private orderPayment$ = this.orderService.getPayment(Adapter.Walley).pipe(
-    distinctUntilKeyChanged('id'),
-  );
+  private orderPayment$ = this.orderService.getPayment(this.walleyService.adapterId)
+    .pipe(
+      distinctUntilKeyChanged('id'),
+    );
 
   html$ = this.contextService.context$.pipe(
     combineLatestWith(this.orderPayment$),
@@ -59,13 +60,14 @@ export class WalleyComponent implements OnInit, OnDestroy {
   readonly snippetTargetId = "walley-target";
 
   constructor() {
-    this.syncService.hasInFlightRequest$.subscribe(hasInFlightRequest => {
-      if (hasInFlightRequest) {
-        this.suspend();
-      } else {
-        this.resume();
-      }
-    })
+    this.syncService.hasInFlightRequest$.pipe(takeUntilDestroyed())
+      .subscribe(hasInFlightRequest => {
+        if (hasInFlightRequest) {
+          this.suspend();
+        } else {
+          this.resume();
+        }
+      })
   }
 
   ngOnInit(): void {

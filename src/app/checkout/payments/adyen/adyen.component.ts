@@ -26,7 +26,6 @@ import UIElement from '@adyen/adyen-web/dist/types/components/UIElement';
 import AdyenCheckoutError from '@adyen/adyen-web/dist/types/core/Errors/AdyenCheckoutError';
 // @ts-ignore
 import {OnPaymentCompletedData} from '@adyen/adyen-web/dist/types/components/types';
-import {Adapter} from '~/app/core/adapter';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ContextService} from '~/app/core/context/context.service';
 
@@ -50,9 +49,10 @@ export class AdyenComponent implements OnInit, OnDestroy {
   readonly containerId = 'adyen-container';
   private dropin: DropinElement | undefined;
 
-  private orderPayment$ = this.orderService.getPayment(Adapter.Adyen).pipe(
-    shareReplay(1),
-  )
+  private orderPayment$ = this.orderService.getPayment(this.adyenService.adapterId)
+    .pipe(
+      shareReplay(1),
+    )
 
   coreOptions$ = this.orderPayment$.pipe(
     distinctUntilKeyChanged('amount'),

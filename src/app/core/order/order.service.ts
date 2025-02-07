@@ -17,7 +17,7 @@ import {ToastService} from '~/app/core/toast/toast.service';
 import {Order, Payment} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
-import {Adapter} from '~/app/core/adapter';
+import {PaymentAdapter} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -62,8 +62,13 @@ export class OrderService {
     map(payments => payments.find(payment => payment.type === 'default')),
     filter(payment => typeof payment !== 'undefined'),
   );
+  hasDefaultPayment$ = this.order$.pipe(
+    map(order => !!order.payments?.some(payment => {
+      return payment.type === 'default' && payment.state !== 'removed'
+    })),
+  )
 
-  getPayment(adapter: Adapter): Observable<Payment> {
+  getPayment(adapter: PaymentAdapter): Observable<Payment> {
     return this.nonRemovePayments$.pipe(
       map(payments => payments.find(payment => payment.adapterId === adapter)),
       filter(payment => typeof payment !== 'undefined'),

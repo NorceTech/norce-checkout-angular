@@ -22,6 +22,7 @@ import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-script';
 import {IngridApi, IngridEventName, WindowIngrid} from '~/app/checkout/shippings/ingrid/ingrid.types';
 import {ToastService} from '~/app/core/toast/toast.service';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-ingrid',
@@ -63,13 +64,14 @@ export class IngridComponent {
   )
 
   constructor() {
-    this.syncService.hasInFlightRequest$.subscribe(hasInFlightRequest => {
-      if (hasInFlightRequest) {
-        this.suspend();
-      } else {
-        this.resume();
-      }
-    })
+    this.syncService.hasInFlightRequest$.pipe(takeUntilDestroyed())
+      .subscribe(hasInFlightRequest => {
+        if (hasInFlightRequest) {
+          this.suspend();
+        } else {
+          this.resume();
+        }
+      })
   }
 
   ngOnInit(): void {
