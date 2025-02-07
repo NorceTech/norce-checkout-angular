@@ -1,99 +1,63 @@
 import {inject, Injectable} from '@angular/core';
-import {OrderService} from '~/app/core/order/order.service';
-import {Adapter} from '~/app/core/adapter';
 import {DataService} from '~/app/checkout/payments/walley/data.service';
-import {catchError, combineLatestWith, distinctUntilKeyChanged, EMPTY, Observable, retry, switchMap} from 'rxjs';
+import {catchError, EMPTY, Observable, retry} from 'rxjs';
 import {WalleyCheckoutOrder} from '~/openapi/walley-adapter';
-import {ContextService} from '~/app/core/context/context.service';
 import {ToastService} from '~/app/core/toast/toast.service';
+import {Context} from '~/app/core/entities/Context';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WalleyService {
   private dataService = inject(DataService);
-  private orderService = inject(OrderService);
-  private contextService = inject(ContextService);
   private toastService = inject(ToastService);
 
-  private orderPayment$ = this.orderService.getPayment(Adapter.Walley).pipe(
-    distinctUntilKeyChanged('id'),
-  )
-
-  createPayment(): Observable<WalleyCheckoutOrder> {
-    return this.contextService.context$.pipe(
-      switchMap((ctx) => {
-        return this.dataService.createPayment(ctx.orderId).pipe(
-          retry(2),
-          catchError(() => {
-            this.toastService.error('Failed to create walley payment');
-            return EMPTY;
-          }),
-        )
+  createPayment(orderId: string): Observable<WalleyCheckoutOrder> {
+    return this.dataService.createPayment(orderId).pipe(
+      retry(2),
+      catchError(() => {
+        this.toastService.error('Failed to create walley payment');
+        return EMPTY;
       }),
     )
   }
 
-  getPayment(): Observable<WalleyCheckoutOrder> {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
-    ).pipe(
-      switchMap(([ctx, payment]) => {
-        return this.dataService.getPayment(ctx.orderId, payment.id!).pipe(
-          retry(2),
-          catchError(() => {
-            this.toastService.error('Failed to fetch walley payment');
-            return EMPTY;
-          })
-        )
+  getPayment(orderId: string, paymentId: string): Observable<WalleyCheckoutOrder> {
+    return this.dataService.getPayment(orderId, paymentId).pipe(
+      retry(2),
+      catchError(() => {
+        this.toastService.error('Failed to fetch walley payment');
+        return EMPTY;
       })
     )
   }
 
-  removePayment(): Observable<void> {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
-    ).pipe(
-      switchMap(([ctx, payment]) => {
-        return this.dataService.removePayment(ctx.orderId, payment.id!).pipe(
-          retry(2),
-          catchError(() => {
-            this.toastService.error('Failed to remove walley payment');
-            return EMPTY;
-          }),
-        )
+  removePayment(orderId: string, paymentId: string): Observable<void> {
+    return this.dataService.removePayment(orderId, paymentId).pipe(
+      retry(2),
+      catchError(() => {
+        this.toastService.error('Failed to remove walley payment');
+        return EMPTY;
       }),
     )
   }
 
-  updateCustomer(): Observable<void> {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
-    ).pipe(
-      switchMap(([ctx, payment]) => {
-        return this.dataService.updateCustomer(ctx, payment.id!).pipe(
-          retry(2),
-          catchError(() => {
-            this.toastService.error('Failed to update customer');
-            return EMPTY;
-          }),
-        )
+  updateCustomer(ctx: Context, paymentId: string): Observable<void> {
+    return this.dataService.updateCustomer(ctx, paymentId).pipe(
+      retry(2),
+      catchError(() => {
+        this.toastService.error('Failed to update customer');
+        return EMPTY;
       }),
     )
   }
 
-  updateShippingOption(): Observable<void> {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
-    ).pipe(
-      switchMap(([ctx, payment]) => {
-        return this.dataService.updateShippingOption(ctx, payment.id!).pipe(
-          retry(2),
-          catchError(() => {
-            this.toastService.error('Failed to update shipping option');
-            return EMPTY;
-          }),
-        )
+  updateShippingOption(ctx: Context, paymentId: string): Observable<void> {
+    return this.dataService.updateShippingOption(ctx, paymentId).pipe(
+      retry(2),
+      catchError(() => {
+        this.toastService.error('Failed to update shipping option');
+        return EMPTY;
       }),
     )
   }

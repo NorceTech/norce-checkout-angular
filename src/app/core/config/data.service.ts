@@ -11,6 +11,12 @@ export class DataService {
   private baseUrl = `/proxy/configuration/api/v1/configuration`;
   private client = inject(HttpClient);
 
+  getConfigs(ctx: Context): Observable<Configuration[]> {
+    return this.client.get<Configuration[]>(
+      `${this.baseUrl}/merchants/${ctx.merchant}/channels/${ctx.channel}/configurations`
+    );
+  }
+
   getConfig(ctx: Context, configurationName: string): Observable<Configuration> {
     return this.client.get<Configuration>(
       `${this.baseUrl}/merchants/${ctx.merchant}/channels/${ctx.channel}/configurations/${configurationName}`

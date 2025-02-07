@@ -1,6 +1,15 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {WalleyService} from '~/app/checkout/payments/walley/walley.service';
-import {distinctUntilChanged, filter, finalize, map, switchMap, take} from 'rxjs';
+import {
+  combineLatestWith,
+  distinctUntilChanged,
+  distinctUntilKeyChanged,
+  filter,
+  finalize,
+  map,
+  switchMap,
+  take
+} from 'rxjs';
 import {WalleyEvent} from '~/app/checkout/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
@@ -8,6 +17,9 @@ import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-script';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Router} from '@angular/router';
+import {ContextService} from '~/app/core/context/context.service';
+import {Adapter} from '~/app/core/adapter';
+import {OrderService} from '~/app/core/order/order.service';
 
 @Component({
   selector: 'app-walley',
@@ -20,16 +32,27 @@ import {Router} from '@angular/router';
 })
 export class WalleyComponent implements OnInit, OnDestroy {
   private walleyService = inject(WalleyService);
+  private orderService = inject(OrderService);
   private domSanitizer = inject(DomSanitizer);
   private syncService = inject(SyncService);
   private router = inject(Router);
 
-  html$ = this.walleyService.getPayment().pipe(
-    map(walleyOrder => walleyOrder.htmlSnippet),
-    filter(html => typeof html !== 'undefined'),
-    distinctUntilChanged(),
-    map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
+  private contextService = inject(ContextService);
+  private orderPayment$ = this.orderService.getPayment(Adapter.Walley).pipe(
+    distinctUntilKeyChanged('id'),
   );
+
+  html$ = this.contextService.context$.pipe(
+    combineLatestWith(this.orderPayment$),
+    switchMap(([ctx, payment]) => {
+      return this.walleyService.getPayment(ctx.orderId, payment.id!).pipe(
+        map(walleyOrder => walleyOrder.htmlSnippet),
+        filter(html => typeof html !== 'undefined'),
+        distinctUntilChanged(),
+        map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
+      );
+    })
+  )
   readonly snippetTargetId = "walley-target";
 
   constructor() {
@@ -76,22 +99,35 @@ export class WalleyComponent implements OnInit, OnDestroy {
     const eventName = event.type;
     switch (eventName) {
       case WalleyEvent.CustomerUpdated: {
-        this.walleyService.updateCustomer().pipe(
+        this.contextService.context$.pipe(
+          combineLatestWith(this.orderPayment$),
+          switchMap(([ctx, payment]) => {
+            return this.walleyService.updateCustomer(ctx, payment.id!)
+          }),
           take(1),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe();
         break;
       }
       case WalleyEvent.ShippingUpdated: {
-        this.walleyService.updateShippingOption().pipe(
+        this.contextService.context$.pipe(
+          combineLatestWith(this.orderPayment$),
+          switchMap(([ctx, payment]) => {
+            return this.walleyService.updateShippingOption(ctx, payment.id!)
+          }),
           take(1),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe();
         break;
       }
       case WalleyEvent.Expired: {
-        this.walleyService.removePayment().pipe(
-          switchMap(() => this.walleyService.createPayment()),
+        this.contextService.context$.pipe(
+          combineLatestWith(this.orderPayment$),
+          switchMap(([ctx, payment]) => {
+            return this.walleyService.removePayment(ctx.orderId, payment.id!).pipe(
+              switchMap(() => this.walleyService.createPayment(ctx.orderId))
+            )
+          }),
           take(1),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe();

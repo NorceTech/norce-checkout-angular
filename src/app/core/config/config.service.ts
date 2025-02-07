@@ -26,4 +26,18 @@ export class ConfigService {
       })
     )
   }
+
+  getConfigs(): Observable<Configuration[]> {
+    return this.contextService.context$.pipe(
+      switchMap(ctx => {
+        return this.dataService.getConfigs(ctx).pipe(
+          retry(2),
+          catchError(() => {
+            this.toastService.error(`Failed to fetch configurations`);
+            return EMPTY;
+          })
+        )
+      })
+    )
+  }
 }

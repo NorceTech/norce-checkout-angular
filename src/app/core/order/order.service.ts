@@ -3,6 +3,7 @@ import {DataService} from '~/app/core/order/data.service';
 import {
   catchError,
   distinctUntilChanged,
+  distinctUntilKeyChanged,
   EMPTY,
   filter,
   map,
@@ -27,7 +28,10 @@ export class OrderService {
   private contextService = inject(ContextService);
   private syncService = inject(SyncService);
 
-  order$ = this.getOrder();
+  order$ = this.getOrder().pipe(
+    distinctUntilKeyChanged('lastModified'),
+    shareReplay(1),
+  )
 
   currency$ = this.order$.pipe(
     map(order => order.currency),

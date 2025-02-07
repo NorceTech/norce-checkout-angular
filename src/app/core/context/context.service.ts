@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {filter, map, pairwise, startWith} from 'rxjs';
+import {distinctUntilChanged, filter, map, pairwise, startWith} from 'rxjs';
 import {Context} from '~/app/core/entities/Context';
 import {ContextError, ContextErrorCode} from '~/app/core/entities/errors/ContextError';
 import {environment} from '~/environments/environment';
@@ -40,6 +40,7 @@ export class ContextService {
         channel,
         orderId
       });
-    })
+    }),
+    distinctUntilChanged((prev, next) => prev.equals(next))
   )
 }

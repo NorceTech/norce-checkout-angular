@@ -2,8 +2,17 @@ import {Component, DestroyRef, inject, OnDestroy, OnInit} from '@angular/core';
 import {AdyenService} from '~/app/checkout/payments/adyen/adyen.service';
 import {OrderService} from '~/app/core/order/order.service';
 import {SyncService} from '~/app/core/sync/sync.service';
-import {Router} from '@angular/router';
-import {distinctUntilKeyChanged, filter, finalize, map, Observable, switchMap, take} from 'rxjs';
+import {
+  combineLatestWith,
+  distinctUntilKeyChanged,
+  filter,
+  finalize,
+  map,
+  Observable,
+  shareReplay,
+  switchMap,
+  take
+} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import AdyenCheckout from '@adyen/adyen-web';
@@ -19,6 +28,7 @@ import AdyenCheckoutError from '@adyen/adyen-web/dist/types/core/Errors/AdyenChe
 import {OnPaymentCompletedData} from '@adyen/adyen-web/dist/types/components/types';
 import {Adapter} from '~/app/core/adapter';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ContextService} from '~/app/core/context/context.service';
 
 
 @Component({
@@ -32,15 +42,17 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class AdyenComponent implements OnInit, OnDestroy {
   private orderService = inject(OrderService);
+  private contextService = inject(ContextService);
   private adyenService = inject(AdyenService);
   private syncService = inject(SyncService);
-  private router = inject(Router)
   private destroyRef = inject(DestroyRef);
 
   readonly containerId = 'adyen-container';
   private dropin: DropinElement | undefined;
 
-  private orderPayment$ = this.orderService.getPayment(Adapter.Adyen);
+  private orderPayment$ = this.orderService.getPayment(Adapter.Adyen).pipe(
+    shareReplay(1),
+  )
 
   coreOptions$ = this.orderPayment$.pipe(
     distinctUntilKeyChanged('amount'),
@@ -69,24 +81,31 @@ export class AdyenComponent implements OnInit, OnDestroy {
   }
 
   private getCoreOptions(): Observable<CoreOptions> {
-    return this.adyenService.getPayment().pipe(
-      filter(config => typeof config !== 'undefined'),
-      map(config => {
-        return {
-          environment: 'test',
-          showPayButton: true,
-          ...config,
-          onSubmit: this.handleOnSubmit.bind(this),
-          onError: this.handleOnError.bind(this),
-          onAdditionalDetails: this.handleOnAdditionalDetails.bind(this),
-          onPaymentCompleted: this.handleOnPaymentCompleted.bind(this),
-        }
+    return this.contextService.context$.pipe(combineLatestWith(this.orderPayment$)).pipe(
+      switchMap(([ctx, payment]) => {
+        return this.adyenService.getPayment(ctx.orderId, payment.id!).pipe(
+          filter(config => typeof config !== 'undefined'),
+          map(config => {
+            return {
+              environment: 'test',
+              showPayButton: true,
+              ...config,
+              onSubmit: this.handleOnSubmit.bind(this),
+              onError: this.handleOnError.bind(this),
+              onAdditionalDetails: this.handleOnAdditionalDetails.bind(this),
+              onPaymentCompleted: this.handleOnPaymentCompleted.bind(this),
+            }
+          })
+        );
       })
-    );
-  }
+    )
+  };
 
   private handleOnSubmit(state: any, element: UIElement) {
-    this.adyenService.startTransaction(state.data).pipe(
+    return this.contextService.context$.pipe(combineLatestWith(this.orderPayment$)).pipe(
+      switchMap(([ctx, payment]) => {
+        return this.adyenService.startTransaction(ctx.orderId, payment.id!, state.data)
+      }),
       take(1),
       finalize(() => this.dropin?.setStatus('ready'))
     ).subscribe((response) => {
@@ -98,10 +117,13 @@ export class AdyenComponent implements OnInit, OnDestroy {
         return this.handleResultCode(response.resultCode);
       }
     })
-  }
+  };
 
   private handleOnError(error: AdyenCheckoutError, element?: UIElement) {
-    this.adyenService.submitDetails(error.data).pipe(
+    return this.contextService.context$.pipe(combineLatestWith(this.orderPayment$)).pipe(
+      switchMap(([ctx, payment]) => {
+        return this.adyenService.submitDetails(ctx.orderId, payment.id!, error.data)
+      }),
       take(1),
       finalize(() => this.dropin?.setStatus('ready'))
     ).subscribe((response) => {
@@ -113,7 +135,10 @@ export class AdyenComponent implements OnInit, OnDestroy {
   }
 
   private handleOnAdditionalDetails(state: any, element?: UIElement) {
-    this.adyenService.submitDetails(state.data).pipe(
+    return this.contextService.context$.pipe(combineLatestWith(this.orderPayment$)).pipe(
+      switchMap(([ctx, payment]) => {
+        return this.adyenService.submitDetails(ctx.orderId, payment.id!, state.data);
+      }),
       take(1),
       finalize(() => this.dropin?.setStatus('ready'))
     ).subscribe((response) => {

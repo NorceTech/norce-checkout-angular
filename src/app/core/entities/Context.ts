@@ -32,4 +32,10 @@ export class Context {
       orderId: this.orderId
     })
   }
+
+  equals(other: Context) {
+    return this.merchant === other.merchant
+      && this.channel === other.channel
+      && this.orderId === other.orderId;
+  }
 }
