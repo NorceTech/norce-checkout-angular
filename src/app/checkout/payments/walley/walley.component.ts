@@ -10,7 +10,7 @@ import {
   switchMap,
   take
 } from 'rxjs';
-import {WalleyEvent} from '~/app/checkout/payments/walley/walley.types';
+import {WalleyEvent, WindowWalley} from '~/app/checkout/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
@@ -44,14 +44,17 @@ export class WalleyComponent implements OnInit, OnDestroy {
 
   html$ = this.contextService.context$.pipe(
     combineLatestWith(this.orderPayment$),
+    distinctUntilChanged(([, prevPayment], [, nextPayment]) => {
+      return prevPayment?.id === nextPayment?.id
+    }),
     switchMap(([ctx, payment]) => {
       return this.walleyService.getPayment(ctx.orderId, payment.id!).pipe(
         map(walleyOrder => walleyOrder.htmlSnippet),
         filter(html => typeof html !== 'undefined'),
-        distinctUntilChanged(),
         map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
       );
-    })
+    }),
+    distinctUntilChanged()
   )
   readonly snippetTargetId = "walley-target";
 
@@ -74,13 +77,15 @@ export class WalleyComponent implements OnInit, OnDestroy {
   }
 
   private suspend() {
-    if (typeof window?.walley === "undefined") return;
-    window.walley.checkout.api.suspend();
+    const walley = (window as WindowWalley).walley;
+    if (typeof walley === "undefined") return;
+    walley.checkout.api.suspend();
   }
 
   private resume() {
-    if (typeof window?.walley === "undefined") return;
-    window.walley.checkout.api.resume();
+    const walley = (window as WindowWalley).walley;
+    if (typeof walley === "undefined") return;
+    walley.checkout.api.resume();
   }
 
   private addEventListeners() {

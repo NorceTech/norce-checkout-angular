@@ -1,10 +1,8 @@
-declare global {
-  interface Window {
-    walley: WalleyApi | undefined;
-  }
-}
+export type WindowWalley = {
+  walley?: WalleyApi | undefined;
+};
 
-interface WalleyApi {
+export interface WalleyApi {
   checkout: {
     api: {
       resume: (publicToken?: string) => void;

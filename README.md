@@ -66,4 +66,5 @@ npx openapi-typescript https://norce-adapter.checkout.test.internal.norce.tech/d
 npx openapi-typescript https://configuration.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/configuration.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
 npx openapi-typescript https://walley-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/walley-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
 npx openapi-typescript https://adyen-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/adyen-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
+npx openapi-typescript https://ingrid-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/ingrid-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
 ```

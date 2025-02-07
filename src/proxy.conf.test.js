@@ -27,6 +27,13 @@ const proxyConf = {
       "^/proxy/walley-adapter": ""
     },
   },
+  "/proxy/ingrid-adapter": {
+    "target": "https://ingrid-adapter.checkout.test.internal.norce.tech",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/proxy/ingrid-adapter": ""
+    },
+  },
   "/proxy/configuration": {
     "target": "https://configuration.checkout.test.internal.norce.tech",
     "changeOrigin": true,

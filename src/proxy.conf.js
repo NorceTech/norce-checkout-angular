@@ -40,6 +40,14 @@ const proxyConf = {
     },
     configure
   },
+  "/proxy/ingrid-adapter": {
+    "target": "https://order-demo.api-se.playground.norce.tech/checkout/ingrid-adapter",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/proxy/ingrid-adapter": ""
+    },
+    configure
+  },
   "/proxy/configuration": {
     "target": "https://order-demo.api-se.playground.norce.tech/checkout/configuration",
     "changeOrigin": true,

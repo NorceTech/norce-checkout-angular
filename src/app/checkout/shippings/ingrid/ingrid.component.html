@@ -1,1 +1,7 @@
-<p>ingrid works!</p>
+@if (html$ | async; as snippet) {
+  <div [id]="snippetTargetId" [innerHTML]="snippet" runScripts></div>
+} @else {
+  <div class="flex justify-center py-4">
+    <p-progress-spinner></p-progress-spinner>
+  </div>
+}
