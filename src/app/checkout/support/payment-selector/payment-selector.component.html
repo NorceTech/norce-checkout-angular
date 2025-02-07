@@ -6,7 +6,7 @@
         <p-select-button
           [options]="paymentAdapters"
           [ngModel]="selectedPaymentAdapter$ | async"
-          (ngModelChange)="createPaymentByAdapterId($event)"
+          (ngModelChange)="createOrReplacePaymentByAdapterId($event)"
           id="payment-selector"/>
       </div>
     </p-card>

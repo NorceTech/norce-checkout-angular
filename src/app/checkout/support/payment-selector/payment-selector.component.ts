@@ -1,7 +1,17 @@
 import {Component, inject} from '@angular/core';
 import {PAYMENT_SERVICES} from '~/app/checkout/payments/provide-payment-services';
 import {ConfigService} from '~/app/core/config/config.service';
-import {combineLatestWith, distinctUntilChanged, filter, map, Observable, shareReplay, switchMap, take} from 'rxjs';
+import {
+  combineLatestWith,
+  distinctUntilChanged,
+  filter,
+  finalize,
+  map,
+  Observable,
+  shareReplay,
+  switchMap,
+  take
+} from 'rxjs';
 import {OrderService} from '~/app/core/order/order.service';
 import {PaymentAdapter, PaymentAdapters} from '~/app/core/adapter';
 import {PaymentAdapterService} from '~/app/checkout/payments/payment.service.interface';
@@ -10,6 +20,7 @@ import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Card} from 'primeng/card';
+import {SyncService} from '~/app/core/sync/sync.service';
 
 @Component({
   selector: 'app-payment-selector',
@@ -26,6 +37,7 @@ export class PaymentSelectorComponent {
   private configService = inject(ConfigService);
   private orderService = inject(OrderService);
   private toastService = inject(ToastService);
+  private syncService = inject(SyncService);
 
   enabledPaymentAdapters$: Observable<PaymentAdapter[]> = this.configService.getConfigs().pipe(
     map(configs => {
@@ -52,7 +64,6 @@ export class PaymentSelectorComponent {
   constructor() {
     this.orderService.hasDefaultPayment$.pipe(
       filter(hasDefaultPayment => !hasDefaultPayment),
-      take(1),
       switchMap(() => {
         return this.enabledPaymentAdapters$.pipe(
           take(1),
@@ -62,14 +73,16 @@ export class PaymentSelectorComponent {
             return this.createPaymentUsingService(paymentService);
           })
         )
-      })
+      }),
+      take(1),
+      finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }
 
   private createPaymentUsingService(paymentSerice: PaymentAdapterService) {
     return this.orderService.order$.pipe(
       map(order => order.id),
-      switchMap(orderId => paymentSerice.createPayment(orderId!))
+      switchMap(orderId => paymentSerice.createPayment(orderId!)),
     )
   }
 
@@ -77,13 +90,11 @@ export class PaymentSelectorComponent {
     return this.orderService.order$.pipe(
       map(order => order.id),
       combineLatestWith(this.orderService.defaultPayment$),
-      switchMap(([orderId, payment]) => paymentSerice.removePayment(orderId!, payment.id!))
+      switchMap(([orderId, payment]) => paymentSerice.removePayment(orderId!, payment.id!)),
     )
   }
 
-  createPaymentByAdapterId(paymentId: string) {
-    // replace the current payment (if it exists) with a new payment
-    // created by the payment service that corresponds to the given paymentId
+  createOrReplacePaymentByAdapterId(paymentId: string) {
     const paymentService = this.paymentServices.find(service => service.adapterId === paymentId)!;
     this.orderService.hasDefaultPayment$.pipe(
       switchMap(hasDefaultPayment => {
@@ -96,6 +107,7 @@ export class PaymentSelectorComponent {
         }
       }),
       take(1),
+      finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }
 }
