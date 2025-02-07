@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
 import {PaymentAdapter} from '~/app/core/adapter';
 
-export interface PaymentAdapterService {
+export interface IPaymentService {
   readonly adapterId: PaymentAdapter;
 
   createPayment(orderId: string): Observable<any>;

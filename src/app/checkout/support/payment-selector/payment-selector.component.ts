@@ -14,7 +14,7 @@ import {
 } from 'rxjs';
 import {OrderService} from '~/app/core/order/order.service';
 import {PaymentAdapter, PaymentAdapters} from '~/app/core/adapter';
-import {PaymentAdapterService} from '~/app/checkout/payments/payment.service.interface';
+import {IPaymentService} from '~/app/checkout/payments/payment.service.interface';
 import {AsyncPipe} from '@angular/common';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
@@ -79,14 +79,14 @@ export class PaymentSelectorComponent {
     ).subscribe()
   }
 
-  private createPaymentUsingService(paymentSerice: PaymentAdapterService) {
+  private createPaymentUsingService(paymentSerice: IPaymentService) {
     return this.orderService.order$.pipe(
       map(order => order.id),
       switchMap(orderId => paymentSerice.createPayment(orderId!)),
     )
   }
 
-  private removePaymentUsingService(paymentSerice: PaymentAdapterService) {
+  private removePaymentUsingService(paymentSerice: IPaymentService) {
     return this.orderService.order$.pipe(
       map(order => order.id),
       combineLatestWith(this.orderService.defaultPayment$),

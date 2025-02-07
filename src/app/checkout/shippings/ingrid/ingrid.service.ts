@@ -3,11 +3,14 @@ import {DataService} from '~/app/checkout/shippings/ingrid/data.service';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {catchError, EMPTY, Observable, retry} from 'rxjs';
 import {IngridSession} from '~/openapi/ingrid-adapter';
+import {IShippingService} from '~/app/checkout/shippings/shipping.service.interface';
+import {ShippingAdapter} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IngridService {
+export class IngridService implements IShippingService {
+  readonly adapterId = ShippingAdapter.Ingrid
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
 
