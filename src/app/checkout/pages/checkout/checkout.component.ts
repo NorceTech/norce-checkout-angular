@@ -9,6 +9,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
 import {PaymentFactoryComponent} from '~/app/checkout/support/payment-factory/payment-factory.component';
+import {ShippingFactoryComponent} from '~/app/checkout/support/shipping-factory/shipping-factory.component';
 
 @Component({
   selector: 'app-checkout',
@@ -17,7 +18,8 @@ import {PaymentFactoryComponent} from '~/app/checkout/support/payment-factory/pa
     SummaryComponent,
     Card,
     AsyncPipe,
-    PaymentFactoryComponent
+    PaymentFactoryComponent,
+    ShippingFactoryComponent
   ],
   templateUrl: './checkout.component.html',
 })
@@ -28,6 +30,12 @@ export class CheckoutComponent {
 
   defaultPaymentAdapterId$ = this.orderService.defaultPayment$.pipe(
     map(payment => payment.adapterId),
+    filter(adapterId => typeof adapterId !== 'undefined'),
+    distinctUntilChanged(),
+  )
+
+  firstShippingAdapterId$ = this.orderService.nonRemovedShippings$.pipe(
+    map(shippings => shippings?.[0]?.adapterId),
     filter(adapterId => typeof adapterId !== 'undefined'),
     distinctUntilChanged(),
   )

@@ -46,9 +46,15 @@ export class OrderService {
     shareReplay(1)
   )
 
-  nonRemovePayments$: Observable<Payment[]> = this.order$.pipe(
+  private nonRemovePayments$: Observable<Payment[]> = this.order$.pipe(
     map(order => order.payments?.filter(payment => payment.state !== 'removed')),
     filter(payments => typeof payments !== 'undefined'),
+    shareReplay(1)
+  )
+
+  nonRemovedShippings$: Observable<Payment[]> = this.order$.pipe(
+    map(order => order.shippings?.filter(shipping => shipping.state !== 'removed')),
+    filter(shippings => typeof shippings !== 'undefined'),
     shareReplay(1)
   )
 

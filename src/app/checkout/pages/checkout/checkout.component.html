@@ -3,6 +3,9 @@
     <app-cart></app-cart>
     <app-summary></app-summary>
   </p-card>
+  @if (firstShippingAdapterId$ | async; as adapterId) {
+    <app-shipping-factory [adapterId]="adapterId"></app-shipping-factory>
+  }
   @if (defaultPaymentAdapterId$ | async; as adapterId) {
     <app-payment-factory [adapterId]="adapterId"></app-payment-factory>
   }
