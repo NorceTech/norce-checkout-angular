@@ -4,6 +4,7 @@ import {ConfigService} from '~/app/core/config/config.service';
 import {
   combineLatestWith,
   distinctUntilChanged,
+  EMPTY,
   filter,
   finalize,
   map,
@@ -70,7 +71,8 @@ export class PaymentSelectorComponent {
           take(1),
           map(adapters => adapters[0]),
           switchMap(adapter => {
-            const paymentService = this.paymentServices.find(service => service.adapterId === adapter)!;
+            const paymentService = this.paymentServices.find(service => service.adapterId === adapter);
+            if (!paymentService) return EMPTY;
             return this.createPaymentUsingService(paymentService);
           })
         )
@@ -96,17 +98,22 @@ export class PaymentSelectorComponent {
     )
   }
 
-  createOrReplacePaymentByAdapterId(paymentId: string) {
-    const paymentService = this.paymentServices.find(service => service.adapterId === paymentId)!;
+  createOrReplacePaymentByAdapterId(adapterId: string) {
+    const currentPaymentService = this.selectedPaymentAdapter$.pipe(
+      take(1),
+      map(adapterId => this.paymentServices.find(service => service.adapterId === adapterId)!),
+    )
+    const nextPaymentService = this.paymentServices.find(service => service.adapterId === adapterId)!;
     this.orderService.hasDefaultPayment$.pipe(
       take(1),
-      switchMap(hasDefaultPayment => {
+      combineLatestWith(currentPaymentService),
+      switchMap(([hasDefaultPayment, currentPaymentService]) => {
         if (hasDefaultPayment) {
-          return this.removePaymentUsingService(paymentService).pipe(
-            switchMap(() => this.createPaymentUsingService(paymentService)
+          return this.removePaymentUsingService(currentPaymentService).pipe(
+            switchMap(() => this.createPaymentUsingService(nextPaymentService)
             ));
         } else {
-          return this.createPaymentUsingService(paymentService);
+          return this.createPaymentUsingService(nextPaymentService);
         }
       }),
       finalize(() => this.syncService.triggerRefresh()),
