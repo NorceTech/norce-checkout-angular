@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SyncService} from '~/app/core/sync/sync.service';
@@ -13,8 +13,10 @@ import {
   finalize,
   map,
   retry,
+  shareReplay,
   switchMap,
-  take
+  take,
+  tap
 } from 'rxjs';
 import {IngridService} from '~/app/checkout/shippings/ingrid/ingrid.service';
 import {AsyncPipe} from '@angular/common';
@@ -33,7 +35,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   ],
   templateUrl: './ingrid.component.html',
 })
-export class IngridComponent {
+export class IngridComponent implements OnInit {
   private ingridService = inject(IngridService);
   private orderService = inject(OrderService);
   private domSanitizer = inject(DomSanitizer);
@@ -44,24 +46,29 @@ export class IngridComponent {
 
   snippetTargetId = "ingrid-target";
 
-  private firstShipping$ = this.orderService.nonRemovedShippings$.pipe(
-    map(shippings => shippings?.[0]),
-    filter(shipping => typeof shipping !== 'undefined'),
+  private shippingId$ = this.orderService.nonRemovedShippings$.pipe(
+    map(shippings => {
+      return shippings.find(shipping => shipping.adapterId === this.ingridService.adapterId)?.id;
+    }),
+    filter(shippingId => typeof shippingId !== 'undefined'),
+    distinctUntilChanged(),
+    shareReplay(1),
   )
 
-  html$ = this.contextService.context$.pipe(
-    combineLatestWith(this.firstShipping$),
-    distinctUntilChanged(([, prevShipping], [, nextShipping]) => {
-      return prevShipping?.id === nextShipping?.id
+  private ingridSession = this.contextService.context$.pipe(
+    combineLatestWith(this.shippingId$),
+    switchMap(([ctx, shippingId]) => {
+      return this.ingridService.getShipping(ctx.orderId, shippingId)
     }),
-    switchMap(([ctx, payment]) => {
-      return this.ingridService.getShipping(ctx.orderId, payment.id!).pipe(
-        map(ingridSession => ingridSession.htmlSnippet),
-        filter(html => typeof html !== 'undefined'),
-        map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
-      );
-    }),
-  )
+    tap(() => console.log('Ingrid session updated')),
+    shareReplay(1),
+  );
+  html$ = this.ingridSession.pipe(
+    map(ingridSession => ingridSession.htmlSnippet),
+    filter(html => typeof html !== 'undefined'),
+    distinctUntilChanged(),
+    map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
+  );
 
   constructor() {
     this.syncService.hasInFlightRequest$.pipe(takeUntilDestroyed())
@@ -76,6 +83,7 @@ export class IngridComponent {
 
   ngOnInit(): void {
     this.html$.pipe(
+      tap(() => console.log('Ingrid HTML updated')),
       switchMap(() => bindCallback(this.addEventListeners.bind(this)).call(undefined)),
       retry({
         count: 2,
@@ -112,11 +120,11 @@ export class IngridComponent {
     _sw((api: IngridApi) => {
       api.on(IngridEventName.SummaryChanged, (data, meta) => {
         this.contextService.context$.pipe(
-          combineLatestWith(this.firstShipping$),
-          switchMap(([ctx, payment]) => {
-            return this.ingridService.updateCustomer(ctx.orderId, payment.id!)
-          }),
+          combineLatestWith(this.shippingId$),
           take(1),
+          switchMap(([ctx, shippingId]) => {
+            return this.ingridService.updateCustomer(ctx.orderId, shippingId)
+          }),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe()
       });
@@ -124,11 +132,11 @@ export class IngridComponent {
       api.on(IngridEventName.DataChanged, (data, meta) => {
         if (meta?.initial_load) return;
         this.contextService.context$.pipe(
-          combineLatestWith(this.firstShipping$),
-          switchMap(([ctx, payment]) => {
-            return this.ingridService.updateShipping(ctx.orderId, payment.id!)
-          }),
+          combineLatestWith(this.shippingId$),
           take(1),
+          switchMap(([ctx, shippingId]) => {
+            return this.ingridService.updateShipping(ctx.orderId, shippingId)
+          }),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe()
       })

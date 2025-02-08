@@ -39,7 +39,7 @@ export class PaymentSelectorComponent {
   private toastService = inject(ToastService);
   private syncService = inject(SyncService);
 
-  enabledPaymentAdapters$: Observable<PaymentAdapter[]> = this.configService.getConfigs().pipe(
+  enabledPaymentAdapters$: Observable<PaymentAdapter[]> = this.configService.configs$.pipe(
     map(configs => {
       return configs
         .filter(config => {
@@ -63,6 +63,7 @@ export class PaymentSelectorComponent {
 
   constructor() {
     this.orderService.hasDefaultPayment$.pipe(
+      take(1),
       filter(hasDefaultPayment => !hasDefaultPayment),
       switchMap(() => {
         return this.enabledPaymentAdapters$.pipe(
@@ -74,13 +75,13 @@ export class PaymentSelectorComponent {
           })
         )
       }),
-      take(1),
       finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }
 
   private createPaymentUsingService(paymentSerice: IPaymentService) {
     return this.orderService.order$.pipe(
+      take(1),
       map(order => order.id),
       switchMap(orderId => paymentSerice.createPayment(orderId!)),
     )
@@ -90,6 +91,7 @@ export class PaymentSelectorComponent {
     return this.orderService.order$.pipe(
       map(order => order.id),
       combineLatestWith(this.orderService.defaultPayment$),
+      take(1),
       switchMap(([orderId, payment]) => paymentSerice.removePayment(orderId!, payment.id!)),
     )
   }
@@ -97,6 +99,7 @@ export class PaymentSelectorComponent {
   createOrReplacePaymentByAdapterId(paymentId: string) {
     const paymentService = this.paymentServices.find(service => service.adapterId === paymentId)!;
     this.orderService.hasDefaultPayment$.pipe(
+      take(1),
       switchMap(hasDefaultPayment => {
         if (hasDefaultPayment) {
           return this.removePaymentUsingService(paymentService).pipe(
@@ -106,7 +109,6 @@ export class PaymentSelectorComponent {
           return this.createPaymentUsingService(paymentService);
         }
       }),
-      take(1),
       finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }

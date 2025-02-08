@@ -40,7 +40,7 @@ export class ShippingSelectorComponent {
   private toastService = inject(ToastService);
   private syncService = inject(SyncService);
 
-  enabledShippingAdapters$: Observable<ShippingAdapter[]> = this.configService.getConfigs().pipe(
+  enabledShippingAdapters$: Observable<ShippingAdapter[]> = this.configService.configs$.pipe(
     map(configs => {
       return configs
         .filter(config => {
@@ -64,6 +64,7 @@ export class ShippingSelectorComponent {
 
   constructor() {
     this.orderService.hasShipping$.pipe(
+      take(1),
       filter(hasDefaultShipping => !hasDefaultShipping),
       switchMap(() => {
         return this.enabledShippingAdapters$.pipe(
@@ -75,13 +76,13 @@ export class ShippingSelectorComponent {
           })
         )
       }),
-      take(1),
       finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }
 
   private createShippingUsingService(shippingSerice: IShippingService) {
     return this.orderService.order$.pipe(
+      take(1),
       map(order => order.id),
       switchMap(orderId => shippingSerice.createShipping(orderId!)),
     )
@@ -89,9 +90,11 @@ export class ShippingSelectorComponent {
 
   private removeShippingUsingService(shippingSerice: IShippingService) {
     return this.orderService.order$.pipe(
+      take(1),
       map(order => order.id),
       switchMap(orderId => {
         return this.orderService.nonRemovedShippings$.pipe(
+          take(1),
           map(shippings => shippings.filter(shipping => shipping.adapterId === shippingSerice.adapterId)),
           mergeMap(shippings => from(shippings).pipe(
             switchMap(shipping => shippingSerice.removeShipping(orderId!, shipping.id!)),
@@ -104,6 +107,7 @@ export class ShippingSelectorComponent {
   createOrReplaceShippingByAdapterId(shippingId: string) {
     const shippingService = this.shippingServices.find(service => service.adapterId === shippingId)!;
     this.orderService.hasShipping$.pipe(
+      take(1),
       switchMap(hasDefaultShipping => {
         if (hasDefaultShipping) {
           return this.removeShippingUsingService(shippingService).pipe(
@@ -113,7 +117,6 @@ export class ShippingSelectorComponent {
           return this.createShippingUsingService(shippingService);
         }
       }),
-      take(1),
       finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }

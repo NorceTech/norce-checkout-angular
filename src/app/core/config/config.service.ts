@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {catchError, EMPTY, Observable, retry, switchMap} from 'rxjs';
+import {catchError, EMPTY, Observable, retry, shareReplay, switchMap} from 'rxjs';
 import {Configuration} from '~/openapi/configuration';
 import {ContextService} from '~/app/core/context/context.service';
 import {DataService} from '~/app/core/config/data.service';
@@ -12,6 +12,8 @@ export class ConfigService {
   private dataService = inject(DataService);
   private contextService = inject(ContextService);
   private toastService = inject(ToastService);
+
+  configs$ = this.getConfigs();
 
   getConfig(configurationName: string): Observable<Configuration> {
     return this.contextService.context$.pipe(
@@ -27,7 +29,7 @@ export class ConfigService {
     )
   }
 
-  getConfigs(): Observable<Configuration[]> {
+  private getConfigs(): Observable<Configuration[]> {
     return this.contextService.context$.pipe(
       switchMap(ctx => {
         return this.dataService.getConfigs(ctx).pipe(
@@ -37,7 +39,8 @@ export class ConfigService {
             return EMPTY;
           })
         )
-      })
+      }),
+      shareReplay(1)
     )
   }
 }
