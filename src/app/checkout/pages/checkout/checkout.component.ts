@@ -11,6 +11,7 @@ import {AsyncPipe} from '@angular/common';
 import {PaymentFactoryComponent} from '~/app/checkout/support/payment-factory/payment-factory.component';
 import {ShippingFactoryComponent} from '~/app/checkout/support/shipping-factory/shipping-factory.component';
 import {PaymentSelectorComponent} from '~/app/checkout/support/payment-selector/payment-selector.component';
+import {ShippingSelectorComponent} from '~/app/checkout/support/shipping-selector/shipping-selector.component';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +22,8 @@ import {PaymentSelectorComponent} from '~/app/checkout/support/payment-selector/
     AsyncPipe,
     PaymentFactoryComponent,
     ShippingFactoryComponent,
-    PaymentSelectorComponent
+    PaymentSelectorComponent,
+    ShippingSelectorComponent
   ],
   templateUrl: './checkout.component.html',
 })

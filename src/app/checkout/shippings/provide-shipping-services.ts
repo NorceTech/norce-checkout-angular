@@ -1,9 +1,9 @@
 import {InjectionToken, Provider} from '@angular/core';
-import {IPaymentService} from '~/app/checkout/payments/payment.service.interface';
 import {IngridService} from '~/app/checkout/shippings/ingrid/ingrid.service';
+import {IShippingService} from '~/app/checkout/shippings/shipping.service.interface';
 
 export const SHIPPING_SERVICES =
-  new InjectionToken<IPaymentService[]>('PAYMENT_ADAPTER');
+  new InjectionToken<IShippingService[]>('PAYMENT_ADAPTER');
 
 export function provideShippingServices(): Provider {
   return [

@@ -1,1 +1,14 @@
-<p>shipping-selector works!</p>
+@if (enabledShippingAdapters$ | async; as shippingAdapters) {
+  @if (shippingAdapters.length > 1) {
+    <p-card>
+      <label for="shipping-selector" class="block font-bold text-lg mb-4 w-full text-center">Select Payment</label>
+      <div class="flex items-center gap-2">
+        <p-select-button
+          [options]="shippingAdapters"
+          [ngModel]="selectedShippingAdapter$ | async"
+          (ngModelChange)="createOrReplaceShippingByAdapterId($event)"
+          id="shipping-selector"/>
+      </div>
+    </p-card>
+  }
+}

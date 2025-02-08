@@ -57,6 +57,11 @@ export class OrderService {
     filter(shippings => typeof shippings !== 'undefined'),
     shareReplay(1)
   )
+  hasShipping$ = this.order$.pipe(
+    map(order => !!order.shippings?.some(payment => {
+      return payment.state !== 'removed'
+    })),
+  )
 
   defaultPayment$ = this.nonRemovePayments$.pipe(
     map(payments => payments.find(payment => payment.type === 'default')),
