@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {catchError, EMPTY, Observable, retry, shareReplay, switchMap} from 'rxjs';
+import {catchError, EMPTY, Observable, retry, switchMap} from 'rxjs';
 import {Configuration} from '~/openapi/configuration';
 import {ContextService} from '~/app/core/context/context.service';
 import {DataService} from '~/app/core/config/data.service';
@@ -40,7 +40,6 @@ export class ConfigService {
           })
         )
       }),
-      shareReplay(1)
     )
   }
 }
