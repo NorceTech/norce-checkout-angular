@@ -6,9 +6,9 @@ import {TestBed} from '@angular/core/testing';
 import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Order} from '~/openapi/order';
-import {VoucherAdapter} from '~/app/core/adapter';
 import {provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {Context} from '~/app/core/entities/Context';
+import {IAdapters} from '~/app/core/adapter';
 
 const mockOrderFixture = {
   id: 'oSiRRhDR',
@@ -162,8 +162,11 @@ describe('OrderService', () => {
   let service: OrderService;
   let contextSubject: BehaviorSubject<Context>;
   let refreshSubject: Subject<void>;
+
   let dataServiceSpy: jasmine.SpyObj<DataService>;
   let toastServiceSpy: jasmine.SpyObj<ToastService>;
+  let adaptersSpy: jasmine.SpyObj<IAdapters>;
+
   let context = new Context({
     orderId: mockOrderFixture.id!,
     merchant: mockOrderFixture.merchant,
@@ -174,8 +177,8 @@ describe('OrderService', () => {
     contextSubject = new BehaviorSubject<Context>(context);
     refreshSubject = new Subject<void>();
 
-    const dataSpy = jasmine.createSpyObj('DataService', ['getOrder']);
-    const toastSpy = jasmine.createSpyObj('ToastService', ['error']);
+    dataServiceSpy = jasmine.createSpyObj('DataService', ['getOrder']);
+    toastServiceSpy = jasmine.createSpyObj('ToastService', ['error']);
 
     const contextServiceStub = {
       context$: contextSubject.asObservable()
@@ -189,20 +192,14 @@ describe('OrderService', () => {
       providers: [
         provideExperimentalZonelessChangeDetection(),
         OrderService,
-        {provide: DataService, useValue: dataSpy},
-        {provide: ToastService, useValue: toastSpy},
         {provide: ContextService, useValue: contextServiceStub},
-        {provide: SyncService, useValue: syncServiceStub}
+        {provide: SyncService, useValue: syncServiceStub},
+        {provide: DataService, useValue: dataServiceSpy},
+        {provide: ToastService, useValue: toastServiceSpy},
       ]
     });
 
     service = TestBed.inject(OrderService);
-    dataServiceSpy = TestBed.inject(
-      DataService
-    ) as jasmine.SpyObj<DataService>;
-    toastServiceSpy = TestBed.inject(
-      ToastService
-    ) as jasmine.SpyObj<ToastService>;
   });
 
   it('should be created', () => {
@@ -354,15 +351,15 @@ describe('OrderService', () => {
     const mockOrder: Order = {
       ...mockOrderFixture,
       payments: [
-        {...payment, type: 'voucher', state: 'removed', adapterId: VoucherAdapter.Awardit},
-        {...payment, type: 'voucher', state: 'intent', adapterId: VoucherAdapter.Awardit},
+        {...payment, type: 'voucher', state: 'removed', adapterId: "adapter-1"},
+        {...payment, type: 'voucher', state: 'intent', adapterId: "adapter-1"},
       ]
     }
     dataServiceSpy.getOrder.and.returnValue(of(mockOrder));
 
-    service.getPayment(VoucherAdapter.Awardit).subscribe((payment) => {
+    service.getPayment("adapter-1").subscribe((payment) => {
       expect(payment.state).toEqual('intent');
-      expect(payment.adapterId).toEqual(VoucherAdapter.Awardit);
+      expect(payment.adapterId).toEqual("adapter-1");
       done();
     });
   });

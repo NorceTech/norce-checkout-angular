@@ -44,9 +44,7 @@ describe('PaymentFactoryComponent', () => {
         {provide: ADAPTERS, useValue: adaptersSpy},
       ],
     }).compileComponents();
-  });
 
-  const createComponentWithDefaultState = () => {
     // Create the component and componentRef.
     fixture = TestBed.createComponent(PaymentFactoryComponent);
     component = fixture.componentInstance;
@@ -58,7 +56,7 @@ describe('PaymentFactoryComponent', () => {
 
     // By default, set the adapterId input to undefined.
     componentRef.setInput('adapterId', undefined);
-  }
+  });
 
   const setComponentRenderMap = (renderMap: Record<string, any>) => {
     component['PAYMENT_COMPONENTS'] = renderMap as any;
@@ -66,11 +64,10 @@ describe('PaymentFactoryComponent', () => {
 
   it('should load the correct payment component for a valid adapter', () => {
     // Arrange
-    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
     setComponentRenderMap({
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
     })
-    createComponentWithDefaultState();
+    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -83,7 +80,6 @@ describe('PaymentFactoryComponent', () => {
   it('should not load any component if adapterId is not provided', () => {
     // Arrange
     componentRef.setInput('adapterId', undefined);
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -97,7 +93,6 @@ describe('PaymentFactoryComponent', () => {
   it('should call toastService.error if an unknown adapter id is provided', () => {
     // Arrange
     componentRef.setInput('adapterId', 'Invalid');
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -116,7 +111,6 @@ describe('PaymentFactoryComponent', () => {
     })
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
     component.container = undefined;
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -132,7 +126,6 @@ describe('PaymentFactoryComponent', () => {
     const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
     (component as any).componentRef = fakeComponentRef;
     component.container = fakeContainer as unknown as ViewContainerRef;
-    createComponentWithDefaultState();
 
     // Act
     (component as any).clearContainer();
@@ -150,7 +143,6 @@ describe('PaymentFactoryComponent', () => {
     })
     spyOn<any>(component, 'loadPaymentComponent');
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
-    createComponentWithDefaultState();
 
     // Assert
     setTimeout(() => {

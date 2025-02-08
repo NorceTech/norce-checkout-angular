@@ -44,9 +44,7 @@ describe('ShippingFactoryComponent', () => {
         {provide: ADAPTERS, useValue: adaptersSpy},
       ],
     }).compileComponents();
-  });
 
-  const createComponentWithDefaultState = () => {
     fixture = TestBed.createComponent(ShippingFactoryComponent);
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
@@ -57,7 +55,7 @@ describe('ShippingFactoryComponent', () => {
 
     // By default, set adapterId to return undefined.
     componentRef.setInput('adapterId', undefined);
-  }
+  });
 
   const setComponentRenderMap = (renderMap: Record<string, any>) => {
     component['SHIPPING_COMPONENTS'] = renderMap as any;
@@ -69,7 +67,6 @@ describe('ShippingFactoryComponent', () => {
       [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
     })
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadShippingComponent(component.adapterId());
@@ -96,7 +93,6 @@ describe('ShippingFactoryComponent', () => {
   it('should not load any shipping component if adapterId is part of PaymentAdapters', () => {
     // Arrange
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadShippingComponent(component.adapterId());
@@ -110,7 +106,6 @@ describe('ShippingFactoryComponent', () => {
   it('should call toastService.error if an unknown shipping adapter id is provided', () => {
     // Arrange
     componentRef.setInput('adapterId', 'Invalid');
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadShippingComponent(component.adapterId());
@@ -129,7 +124,6 @@ describe('ShippingFactoryComponent', () => {
     })
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
     component.container = undefined;
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadShippingComponent(component.adapterId());
@@ -165,7 +159,7 @@ describe('ShippingFactoryComponent', () => {
 
     setTimeout(() => {
       expect((component as any).loadShippingComponent).toHaveBeenCalledWith(
-        defaultTestAdapters.shipping
+        defaultTestAdapters.shipping.Ingrid
       );
       done();
     }, 0);

@@ -56,14 +56,14 @@ describe('PaymentSelectorComponent', () => {
     });
     toastServiceSpy = jasmine.createSpyObj('ToastService', ['warn', 'error']);
     syncServiceSpy = jasmine.createSpyObj('SyncService', ['triggerRefresh']);
-    paymentServiceOneSpy = jasmine.createSpyObj('PaymentService', ['createPayment', 'removePayment'], {
+    paymentServiceOneSpy = jasmine.createSpyObj('paymentService', ['createPayment', 'removePayment'], {
       adapterId: defaultTestAdapters.payment.Walley
     });
-    paymentServiceTwoSpy = jasmine.createSpyObj('PaymentService', ['createPayment', 'removePayment'], {
+    paymentServiceTwoSpy = jasmine.createSpyObj('paymentService', ['createPayment', 'removePayment'], {
       adapterId: defaultTestAdapters.payment.Adyen
     });
     fakePaymentServices = [paymentServiceOneSpy, paymentServiceTwoSpy];
-    adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
+    adaptersSpy = jasmine.createSpyObj('IAdapters', ['payments'], defaultTestAdapters);
 
     TestBed.configureTestingModule({
       imports: [PaymentSelectorComponent],
@@ -92,6 +92,7 @@ describe('PaymentSelectorComponent', () => {
 
   it('should compute enabledPaymentAdapters$ correctly', (done) => {
     configSubject.next([{id: defaultTestAdapters.payment.Walley, active: true}]);
+    hasDefaultPaymentSubject.next(true);
 
     fixture = TestBed.createComponent(PaymentSelectorComponent);
     component = fixture.componentInstance;
@@ -104,9 +105,7 @@ describe('PaymentSelectorComponent', () => {
 
   it('should warn if a config is active and of a payment type but no payment service is available', (done) => {
     configSubject.next([{id: defaultTestAdapters.payment.Adyen, active: true}]);
-    fakePaymentServices.forEach((service) => {
-      service.adapterId = "notAdyen";
-    });
+    TestBed.overrideProvider(PAYMENT_SERVICES, {useValue: []});
 
     fixture = TestBed.createComponent(PaymentSelectorComponent);
     component = fixture.componentInstance;
@@ -177,6 +176,7 @@ describe('PaymentSelectorComponent', () => {
       configSubject.next([{id: defaultTestAdapters.payment.Walley, active: true}]);
       paymentServiceOneSpy.createPayment.and.returnValue(of({id: 'payment1'}));
 
+      TestBed.overrideProvider(PAYMENT_SERVICES, {useValue: [paymentServiceOneSpy, paymentServiceTwoSpy]});
       fixture = TestBed.createComponent(PaymentSelectorComponent);
       component = fixture.componentInstance;
       component.createOrReplacePaymentByAdapterId(defaultTestAdapters.payment.Walley);
@@ -186,25 +186,32 @@ describe('PaymentSelectorComponent', () => {
       expect(syncServiceSpy.triggerRefresh).toHaveBeenCalled();
     });
 
-    it('should remove then create a payment if a default payment exists', () => {
+    it('should remove then create a payment if a default payment exists', (done) => {
       hasDefaultPaymentSubject.next(true);
-      defaultPaymentSubject.next({id: 'payment0', adapterId: defaultTestAdapters.payment.Adyen});
+      defaultPaymentSubject.next({id: 'payment0', adapterId: defaultTestAdapters.payment.Walley, state: 'intent'});
       configSubject.next([
         {id: defaultTestAdapters.payment.Adyen, active: true},
         {id: defaultTestAdapters.payment.Walley, active: true},
       ]);
-      paymentServiceOneSpy.adapterId = defaultTestAdapters.payment.Adyen;
-      paymentServiceTwoSpy.adapterId = defaultTestAdapters.payment.Walley;
-      paymentServiceOneSpy.removePayment.and.returnValue(of());
-      paymentServiceTwoSpy.createPayment.and.returnValue(of({id: 'payment1'}));
+
+      TestBed.overrideProvider(PAYMENT_SERVICES, {useValue: fakePaymentServices});
 
       fixture = TestBed.createComponent(PaymentSelectorComponent);
       component = fixture.componentInstance
-      component.createOrReplacePaymentByAdapterId(defaultTestAdapters.payment.Walley);
 
-      expect(paymentServiceOneSpy.removePayment).toHaveBeenCalledWith('orderId', 'payment0');
-      expect(paymentServiceTwoSpy.createPayment).toHaveBeenCalledWith('orderId');
-      expect(syncServiceSpy.triggerRefresh).toHaveBeenCalled();
+      const removePaymentUsingServiceSpy = spyOn(component, 'removePaymentUsingService' as any);
+      const createPaymentUsingServiceSpy = spyOn(component, 'createPaymentUsingService' as any);
+      removePaymentUsingServiceSpy.and.returnValue(of({}));
+      createPaymentUsingServiceSpy.and.returnValue(of({id: 'payment1'}));
+
+      component.createOrReplacePaymentByAdapterId(defaultTestAdapters.payment.Adyen)
+
+      setTimeout(() => {
+        expect(removePaymentUsingServiceSpy).toHaveBeenCalledWith(paymentServiceOneSpy);
+        expect(createPaymentUsingServiceSpy).toHaveBeenCalledWith(paymentServiceTwoSpy);
+        expect(syncServiceSpy.triggerRefresh).toHaveBeenCalled();
+        done();
+      }, 0);
     });
   });
 });

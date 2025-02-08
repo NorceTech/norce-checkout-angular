@@ -47,9 +47,7 @@ describe('ConfirmationFactoryComponent', () => {
         {provide: ADAPTERS, useValue: adaptersSpy},
       ],
     }).compileComponents();
-  });
 
-  const createComponentWithDefaultState = () => {
     // Create the component and componentRef.
     fixture = TestBed.createComponent(ConfirmationFactoryComponent);
     component = fixture.componentInstance;
@@ -61,7 +59,7 @@ describe('ConfirmationFactoryComponent', () => {
 
     // By default, set the adapterId input to undefined.
     componentRef.setInput('adapterId', undefined);
-  }
+  });
 
   it('should load the correct confirmation component for a valid adapter', () => {
     // Assert
@@ -69,7 +67,6 @@ describe('ConfirmationFactoryComponent', () => {
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
     } as any;
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -82,7 +79,6 @@ describe('ConfirmationFactoryComponent', () => {
   it('should load FallbackConfirmationComponent if adapterId is not registered', () => {
     // Arrange
     componentRef.setInput('adapterId', 'Invalid');
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -98,7 +94,6 @@ describe('ConfirmationFactoryComponent', () => {
   it('should do nothing if adapterId is not provided', () => {
     // Arrange
     componentRef.setInput('adapterId', undefined);
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -113,7 +108,6 @@ describe('ConfirmationFactoryComponent', () => {
     // Arrange
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
     component.container = undefined;
-    createComponentWithDefaultState();
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -129,7 +123,6 @@ describe('ConfirmationFactoryComponent', () => {
     const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
     (component as any).componentRef = fakeComponentRef;
     component.container = fakeContainer as unknown as ViewContainerRef;
-    createComponentWithDefaultState();
 
     // Act
     (component as any).clearContainer();
