@@ -5,13 +5,14 @@ import {WalleyCheckoutOrder} from '~/openapi/walley-adapter';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Context} from '~/app/core/entities/Context';
 import {IPaymentService} from '~/app/checkout/payments/payment.service.interface';
-import {PaymentAdapter} from '~/app/core/adapter';
+import {ADAPTERS} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WalleyService implements IPaymentService {
-  readonly adapterId = PaymentAdapter.Walley
+  private adapters = inject(ADAPTERS);
+  readonly adapterId = this.adapters.payment.Walley;
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
 

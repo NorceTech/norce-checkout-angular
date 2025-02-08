@@ -2,8 +2,8 @@ import {ComponentRef, provideExperimentalZonelessChangeDetection, ViewContainerR
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ShippingFactoryComponent} from './shipping-factory.component';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {PaymentAdapter, ShippingAdapter} from '~/app/core/adapter';
 import {IngridComponent} from '~/app/checkout/shippings/ingrid/ingrid.component';
+import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 
 // --- Fake ViewContainerRef ---
 class FakeViewContainerRef implements Partial<ViewContainerRef> {
@@ -19,9 +19,20 @@ describe('ShippingFactoryComponent', () => {
   let fixture: ComponentFixture<ShippingFactoryComponent>;
   let fakeContainer: FakeViewContainerRef;
   let toastServiceSpy: jasmine.SpyObj<ToastService>;
+  let adaptersSpy: jasmine.SpyObj<IAdapters>;
+
+  const defaultTestAdapters = {
+    shipping: {Ingrid: 'spy_ingrid_adapter'},
+    voucher: {Awardit: 'spy_awardit_adapter'},
+    payment: {
+      Walley: 'spy_walley_adapter',
+      Adyen: 'spy_adyen_adapter'
+    }
+  };
 
   beforeEach(async () => {
     toastServiceSpy = jasmine.createSpyObj('ToastService', ['error']);
+    adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -30,13 +41,13 @@ describe('ShippingFactoryComponent', () => {
       providers: [
         provideExperimentalZonelessChangeDetection(),
         {provide: ToastService, useValue: toastServiceSpy},
+        {provide: ADAPTERS, useValue: adaptersSpy},
       ],
     }).compileComponents();
   });
 
-  beforeEach(async () => {
+  const createComponentWithDefaultState = () => {
     fixture = TestBed.createComponent(ShippingFactoryComponent);
-    await fixture.whenStable();
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
 
@@ -46,55 +57,65 @@ describe('ShippingFactoryComponent', () => {
 
     // By default, set adapterId to return undefined.
     componentRef.setInput('adapterId', undefined);
-  });
+  }
+
+  const setComponentRenderMap = (renderMap: Record<string, any>) => {
+    component['SHIPPING_COMPONENTS'] = renderMap as any;
+  }
 
   it('should load the correct shipping component for a valid adapter (Ingrid)', () => {
-    // Arrange: set adapterId to return a valid shipping adapter.
-    componentRef.setInput('adapterId', ShippingAdapter.Ingrid);
+    // Arrange
+    setComponentRenderMap({
+      [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
+    })
+    componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
+    createComponentWithDefaultState();
 
-    // Act: invoke the private loadShippingComponent helper.
+    // Act
     (component as any).loadShippingComponent(component.adapterId());
 
-    // Assert: container should be cleared and createComponent called.
+    // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
     expect(fakeContainer.createComponent).toHaveBeenCalled();
     expect(fakeContainer.createComponent).toHaveBeenCalledWith(IngridComponent);
   });
 
   it('should not load any component if adapterId is not provided', () => {
-    // Arrange: adapterId returns undefined.
+    // Arrange
     componentRef.setInput('adapterId', undefined);
 
-    // Act:
+    // Act
     (component as any).loadShippingComponent(component.adapterId());
 
-    // Assert: nothing should happen – container methods not called, no error.
+    // Assert
     expect(fakeContainer.clear).not.toHaveBeenCalled();
     expect(fakeContainer.createComponent).not.toHaveBeenCalled();
     expect(toastServiceSpy.error).not.toHaveBeenCalled();
   });
 
   it('should not load any shipping component if adapterId is part of PaymentAdapters', () => {
-    // Arrange: set adapterId to a value that is in PaymentAdapters.
-    componentRef.setInput('adapterId', PaymentAdapter.Walley);
+    // Arrange
+    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
+    createComponentWithDefaultState();
 
-    // Act:
+    // Act
     (component as any).loadShippingComponent(component.adapterId());
 
-    // Assert: since the adapter comes from payments, nothing is rendered.
+    // Assert
     expect(fakeContainer.clear).not.toHaveBeenCalled();
     expect(fakeContainer.createComponent).not.toHaveBeenCalled();
     expect(toastServiceSpy.error).not.toHaveBeenCalled();
   });
 
   it('should call toastService.error if an unknown shipping adapter id is provided', () => {
-    // Arrange: use an invalid shipping adapter id.
+    // Arrange
     componentRef.setInput('adapterId', 'Invalid');
+    createComponentWithDefaultState();
 
-    // Act:
+    // Act
     (component as any).loadShippingComponent(component.adapterId());
 
-    // Assert: toastService.error is called with the proper message.
+    // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
       'No shipping component registered for adapter Invalid'
     );
@@ -102,42 +123,49 @@ describe('ShippingFactoryComponent', () => {
   });
 
   it('should call toastService.error if container is not available', () => {
-    componentRef.setInput('adapterId', ShippingAdapter.Ingrid);
-    // Simulate missing container.
+    // Arrange
+    setComponentRenderMap({
+      [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
+    })
+    componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
     component.container = undefined;
+    createComponentWithDefaultState();
 
-    // Act:
+    // Act
     (component as any).loadShippingComponent(component.adapterId());
 
-    // Assert:
+    // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
       'No container to load shipping component into'
     );
   });
 
   it('should clear the container and destroy previous component if one exists', () => {
-    // Arrange: simulate an existing componentRef.
+    // Arrange
     const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
     (component as any).componentRef = fakeComponentRef;
     component.container = fakeContainer as unknown as ViewContainerRef;
 
-    // Act: call clearContainer.
+    // Act
     (component as any).clearContainer();
 
-    // Assert: container is cleared, previous component destroyed, and componentRef reset.
+    // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
     expect(fakeComponentRef.destroy).toHaveBeenCalled();
     expect((component as any).componentRef).toBeUndefined();
   });
 
   it('should call loadShippingComponent after render (via afterRenderEffect)', (done) => {
-    // Arrange: spy on the private loadShippingComponent.
+    // Arrange
+    setComponentRenderMap({
+      [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
+    })
     spyOn<any>(component, 'loadShippingComponent');
-    componentRef.setInput('adapterId', ShippingAdapter.Ingrid);
+    componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
 
     setTimeout(() => {
       expect((component as any).loadShippingComponent).toHaveBeenCalledWith(
-        ShippingAdapter.Ingrid
+        defaultTestAdapters.shipping
       );
       done();
     }, 0);

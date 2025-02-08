@@ -1,13 +1,8 @@
 import {afterRenderEffect, Component, ComponentRef, inject, input, ViewChild, ViewContainerRef} from '@angular/core';
-import {PaymentAdapter} from '~/app/core/adapter';
+import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/checkout/payments/walley/walley.component';
 import {AdyenComponent} from '~/app/checkout/payments/adyen/adyen.component';
 import {ToastService} from '~/app/core/toast/toast.service';
-
-const PAYMENT_COMPONENTS = {
-  [PaymentAdapter.Walley]: WalleyComponent,
-  [PaymentAdapter.Adyen]: AdyenComponent
-} as const;
 
 @Component({
   selector: 'app-payment-factory',
@@ -18,6 +13,14 @@ const PAYMENT_COMPONENTS = {
 export class PaymentFactoryComponent {
   adapterId = input<string>();
   private toastService = inject(ToastService);
+  private adapters = inject<IAdapters>(ADAPTERS);
+
+  private paymentAdapters = Object.values(this.adapters.payment || []);
+
+  private PAYMENT_COMPONENTS = {
+    [this.adapters.payment.Walley]: WalleyComponent,
+    [this.adapters.payment.Adyen]: AdyenComponent
+  } as const;
 
   @ViewChild('paymentContainer', {read: ViewContainerRef}) container: ViewContainerRef | undefined;
 
@@ -33,7 +36,7 @@ export class PaymentFactoryComponent {
     if (!adapterId) return;
     this.clearContainer();
 
-    const componentType = PAYMENT_COMPONENTS[adapterId as keyof typeof PAYMENT_COMPONENTS];
+    const componentType = this.PAYMENT_COMPONENTS[adapterId as keyof typeof this.PAYMENT_COMPONENTS];
     if (!componentType) {
       this.toastService.error(`No payment component registered for adapter: ${adapterId}`);
       return;

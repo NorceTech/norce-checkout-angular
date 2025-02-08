@@ -1,8 +1,7 @@
 import {Observable} from 'rxjs';
-import {ShippingAdapter} from '~/app/core/adapter';
 
 export interface IShippingService {
-  readonly adapterId: ShippingAdapter;
+  adapterId: string;
 
   createShipping(orderId: string): Observable<any>;
 

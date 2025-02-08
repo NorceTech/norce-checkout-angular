@@ -14,7 +14,6 @@ import {
   take
 } from 'rxjs';
 import {OrderService} from '~/app/core/order/order.service';
-import {PaymentAdapter, PaymentAdapters} from '~/app/core/adapter';
 import {IPaymentService} from '~/app/checkout/payments/payment.service.interface';
 import {AsyncPipe} from '@angular/common';
 import {SelectButton} from 'primeng/selectbutton';
@@ -22,6 +21,7 @@ import {FormsModule} from '@angular/forms';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Card} from 'primeng/card';
 import {SyncService} from '~/app/core/sync/sync.service';
+import {ADAPTERS} from '~/app/core/adapter';
 
 @Component({
   selector: 'app-payment-selector',
@@ -39,20 +39,23 @@ export class PaymentSelectorComponent {
   private orderService = inject(OrderService);
   private toastService = inject(ToastService);
   private syncService = inject(SyncService);
+  private adapters = inject(ADAPTERS);
 
-  enabledPaymentAdapters$: Observable<PaymentAdapter[]> = this.configService.configs$.pipe(
+  private paymentAdapters = Object.values(this.adapters.payment || []);
+
+  enabledPaymentAdapters$: Observable<string[]> = this.configService.configs$.pipe(
     map(configs => {
       return configs
         .filter(config => {
           const isActive = config['active'] === true;
-          const isPayment = PaymentAdapters.includes(config.id as PaymentAdapter);
+          const isPayment = this.paymentAdapters.includes(config.id);
           const hasPaymentService = this.paymentServices.some(service => service.adapterId === config.id)
           if (isPayment && !hasPaymentService) {
             this.toastService.warn(`Payment service for ${config.id} is not available`);
           }
           return isActive && isPayment && hasPaymentService;
         })
-        .map(config => config.id as PaymentAdapter)
+        .map(config => config.id)
     }),
     shareReplay(1)
   );

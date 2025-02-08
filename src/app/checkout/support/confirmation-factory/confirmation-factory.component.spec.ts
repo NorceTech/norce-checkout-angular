@@ -2,11 +2,11 @@ import {ComponentRef, provideExperimentalZonelessChangeDetection, ViewContainerR
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ConfirmationFactoryComponent} from './confirmation-factory.component';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {PaymentAdapter} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/checkout/payments/walley/walley.component';
 import {
   FallbackConfirmationComponent
 } from '~/app/checkout/support/fallback-confirmation/fallback-confirmation.component';
+import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 
 // --- Fake ViewContainerRef ---
 class FakeViewContainerRef implements Partial<ViewContainerRef> {
@@ -24,22 +24,34 @@ describe('ConfirmationFactoryComponent', () => {
   let fixture: ComponentFixture<ConfirmationFactoryComponent>;
   let fakeContainer: FakeViewContainerRef;
   let toastServiceSpy: jasmine.SpyObj<ToastService>;
+  let adaptersSpy: jasmine.SpyObj<IAdapters>;
+
+  const defaultTestAdapters = {
+    shipping: {Ingrid: 'spy_ingrid_adapter'},
+    voucher: {Awardit: 'spy_awardit_adapter'},
+    payment: {
+      Walley: 'spy_walley_adapter',
+      Adyen: 'spy_adyen_adapter'
+    }
+  };
 
   beforeEach(async () => {
     toastServiceSpy = jasmine.createSpyObj('ToastService', ['error']);
+    adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
 
     await TestBed.configureTestingModule({
       imports: [ConfirmationFactoryComponent],
       providers: [
         provideExperimentalZonelessChangeDetection(),
         {provide: ToastService, useValue: toastServiceSpy},
+        {provide: ADAPTERS, useValue: adaptersSpy},
       ],
     }).compileComponents();
   });
 
-  beforeEach(async () => {
+  const createComponentWithDefaultState = () => {
+    // Create the component and componentRef.
     fixture = TestBed.createComponent(ConfirmationFactoryComponent);
-    await fixture.whenStable();
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
 
@@ -49,28 +61,33 @@ describe('ConfirmationFactoryComponent', () => {
 
     // By default, set the adapterId input to undefined.
     componentRef.setInput('adapterId', undefined);
-  });
+  }
 
-  it('should load the correct confirmation component for a valid adapter (Walley)', () => {
-    // Arrange: set adapterId to a known adapter from CONFIRMATION_COMPONENTS.
-    componentRef.setInput('adapterId', PaymentAdapter.Walley);
+  it('should load the correct confirmation component for a valid adapter', () => {
+    // Assert
+    component['CONFIRMATION_COMPONENTS'] = {
+      [defaultTestAdapters.payment.Walley]: WalleyComponent,
+    } as any;
+    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
+    createComponentWithDefaultState();
 
-    // Act: invoke the private loadPaymentComponent helper.
+    // Act
     (component as any).loadPaymentComponent(component.adapterId());
 
-    // Assert: container should be cleared and createComponent called with WalleyComponent.
+    // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
     expect(fakeContainer.createComponent).toHaveBeenCalledWith(WalleyComponent);
   });
 
   it('should load FallbackConfirmationComponent if adapterId is not registered', () => {
-    // Arrange: use an invalid adapter id.
+    // Arrange
     componentRef.setInput('adapterId', 'Invalid');
+    createComponentWithDefaultState();
 
-    // Act:
+    // Act
     (component as any).loadPaymentComponent(component.adapterId());
 
-    // Assert: container is cleared and FallbackConfirmationComponent is created.
+    // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
     expect(toastServiceSpy.error).not.toHaveBeenCalled();
     expect(fakeContainer.createComponent).toHaveBeenCalledWith(
@@ -79,57 +96,59 @@ describe('ConfirmationFactoryComponent', () => {
   });
 
   it('should do nothing if adapterId is not provided', () => {
-    // Arrange: adapterId is left undefined.
+    // Arrange
     componentRef.setInput('adapterId', undefined);
+    createComponentWithDefaultState();
 
-    // Act:
+    // Act
     (component as any).loadPaymentComponent(component.adapterId());
 
-    // Assert: container methods are not called and no error is thrown.
+    // Assert
     expect(fakeContainer.clear).not.toHaveBeenCalled();
     expect(fakeContainer.createComponent).not.toHaveBeenCalled();
     expect(toastServiceSpy.error).not.toHaveBeenCalled();
   });
 
   it('should call toastService.error if container is not available', () => {
-    // Arrange: set a valid adapter id.
-    componentRef.setInput('adapterId', PaymentAdapter.Walley);
-    // Simulate missing container.
+    // Arrange
+    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
     component.container = undefined;
+    createComponentWithDefaultState();
 
-    // Act:
+    // Act
     (component as any).loadPaymentComponent(component.adapterId());
 
-    // Assert: the toast error is displayed.
+    // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
       'No container to load confirmation component into'
     );
   });
 
   it('should clear the container and destroy previous component if one exists', () => {
-    // Arrange: simulate an existing component reference.
+    // Arrange
     const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
     (component as any).componentRef = fakeComponentRef;
     component.container = fakeContainer as unknown as ViewContainerRef;
+    createComponentWithDefaultState();
 
-    // Act: call clearContainer.
+    // Act
     (component as any).clearContainer();
 
-    // Assert: container is cleared, the fake component is destroyed, and componentRef is reset.
+    // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
     expect(fakeComponentRef.destroy).toHaveBeenCalled();
     expect((component as any).componentRef).toBeUndefined();
   });
 
   it('should call loadPaymentComponent after render (via afterRenderEffect)', (done) => {
-    // Arrange: spy on the private loadPaymentComponent.
+    // Arrange
     spyOn<any>(component, 'loadPaymentComponent');
-    componentRef.setInput('adapterId', PaymentAdapter.Walley);
+    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
-    // Since afterRenderEffect defers the call until after render, wait a tick.
+    // Assert
     setTimeout(() => {
       expect((component as any).loadPaymentComponent).toHaveBeenCalledWith(
-        PaymentAdapter.Walley
+        defaultTestAdapters.payment.Walley
       );
       done();
     }, 0);

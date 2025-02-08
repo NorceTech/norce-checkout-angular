@@ -20,7 +20,7 @@ import {
   switchMap,
   take
 } from 'rxjs';
-import {ShippingAdapter, ShippingAdapters} from '~/app/core/adapter';
+import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 import {IShippingService} from '~/app/checkout/shippings/shipping.service.interface';
 import {FormsModule} from '@angular/forms';
 
@@ -35,25 +35,28 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './shipping-selector.component.html',
 })
 export class ShippingSelectorComponent {
+  private adapters = inject<IAdapters>(ADAPTERS);
   private shippingServices = inject(SHIPPING_SERVICES)
   private configService = inject(ConfigService);
   private orderService = inject(OrderService);
   private toastService = inject(ToastService);
   private syncService = inject(SyncService);
 
-  enabledShippingAdapters$: Observable<ShippingAdapter[]> = this.configService.configs$.pipe(
+  private shippingAdapters = Object.values(this.adapters.shipping || []);
+
+  enabledShippingAdapters$: Observable<string[]> = this.configService.configs$.pipe(
     map(configs => {
       return configs
         .filter(config => {
           const isActive = config['active'] === true;
-          const isShipping = ShippingAdapters.includes(config.id as ShippingAdapter);
+          const isShipping = this.shippingAdapters.includes(config.id);
           const hasShippingService = this.shippingServices.some(service => service.adapterId === config.id)
           if (isShipping && !hasShippingService) {
             this.toastService.warn(`Shipping service for ${config.id} is not available`);
           }
           return isActive && isShipping && hasShippingService;
         })
-        .map(config => config.id as ShippingAdapter)
+        .map(config => config.id)
     }),
     shareReplay(1)
   );

@@ -1,11 +1,8 @@
 import {afterRenderEffect, Component, ComponentRef, inject, input, ViewChild, ViewContainerRef} from '@angular/core';
-import {PaymentAdapters, ShippingAdapter} from '~/app/core/adapter';
 import {IngridComponent} from '~/app/checkout/shippings/ingrid/ingrid.component';
 import {ToastService} from '~/app/core/toast/toast.service';
+import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 
-const SHIPPING_COMPONENTS = {
-  [ShippingAdapter.Ingrid]: IngridComponent,
-} as const;
 
 @Component({
   selector: 'app-shipping-factory',
@@ -16,6 +13,13 @@ const SHIPPING_COMPONENTS = {
 export class ShippingFactoryComponent {
   adapterId = input<string>();
   private toastService = inject(ToastService);
+  private adapters = inject<IAdapters>(ADAPTERS);
+
+  private SHIPPING_COMPONENTS = {
+    [this.adapters.shipping.Ingrid]: IngridComponent,
+  } as const;
+  private paymentAdapters = Object.values(this.adapters.payment);
+  private shippingAdapters = Object.values(this.adapters.shipping);
 
   @ViewChild('shippingContainer', {read: ViewContainerRef}) container: ViewContainerRef | undefined;
 
@@ -31,11 +35,11 @@ export class ShippingFactoryComponent {
     if (!adapterId) return;
 
     // Payments might provide shipping, so don't render them
-    if (PaymentAdapters.includes(adapterId as any)) return;
+    if (this.paymentAdapters.includes(adapterId as any)) return;
 
     this.clearContainer();
 
-    const componentType = SHIPPING_COMPONENTS[adapterId as keyof typeof SHIPPING_COMPONENTS];
+    const componentType = this.SHIPPING_COMPONENTS[adapterId as keyof typeof this.SHIPPING_COMPONENTS];
     if (!componentType) {
       this.toastService.error(`No shipping component registered for adapter ${adapterId}`);
       return;

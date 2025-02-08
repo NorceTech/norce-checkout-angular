@@ -7,8 +7,8 @@ import {ToastService} from '~/app/core/toast/toast.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {PAYMENT_SERVICES} from '~/app/checkout/payments/provide-payment-services';
 import {IPaymentService} from '~/app/checkout/payments/payment.service.interface';
-import {PaymentAdapter} from '~/app/core/adapter';
 import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 
 describe('PaymentSelectorComponent', () => {
   let fixture: ComponentFixture<PaymentSelectorComponent>;
@@ -21,15 +21,23 @@ describe('PaymentSelectorComponent', () => {
   let hasDefaultPaymentSubject: BehaviorSubject<boolean>;
 
   // Create spies for the injected services.
-  let fakeConfigService: any;
-  let fakeOrderService: any;
+  let configServiceSpy: jasmine.SpyObj<ConfigService>;
+  let orderServiceSpy: jasmine.SpyObj<OrderService>;
   let toastServiceSpy: jasmine.SpyObj<ToastService>;
-  let fakeSyncService: jasmine.SpyObj<SyncService>;
-
-  // Fake payment service implementing IPaymentService.
-  let fakeWalleyPaymentService: jasmine.SpyObj<IPaymentService>;
-  let fakeNotWalleyPaymentService: jasmine.SpyObj<IPaymentService>;
+  let syncServiceSpy: jasmine.SpyObj<SyncService>;
+  let paymentServiceOneSpy: jasmine.SpyObj<IPaymentService>;
+  let paymentServiceTwoSpy: jasmine.SpyObj<IPaymentService>;
   let fakePaymentServices: IPaymentService[];
+  let adaptersSpy: jasmine.SpyObj<IAdapters>;
+
+  const defaultTestAdapters = {
+    shipping: {Ingrid: 'spy_ingrid_adapter'},
+    voucher: {Awardit: 'spy_awardit_adapter'},
+    payment: {
+      Walley: 'spy_walley_adapter',
+      Adyen: 'spy_adyen_adapter'
+    }
+  };
 
   beforeEach(() => {
     // Initialize our BehaviorSubjects with default values.
@@ -38,86 +46,74 @@ describe('PaymentSelectorComponent', () => {
     defaultPaymentSubject = new BehaviorSubject(undefined);
     hasDefaultPaymentSubject = new BehaviorSubject(false);
 
-    // Create main spy objects, providing the BehaviorSubjects as property getters.
-    fakeConfigService = jasmine.createSpyObj('ConfigService', [], {
+    configServiceSpy = jasmine.createSpyObj('ConfigService', [], {
       configs$: configSubject.asObservable(),
     });
-
-    fakeOrderService = jasmine.createSpyObj('OrderService', [], {
+    orderServiceSpy = jasmine.createSpyObj('OrderService', [], {
       order$: orderSubject.asObservable(),
       defaultPayment$: defaultPaymentSubject.asObservable(),
       hasDefaultPayment$: hasDefaultPaymentSubject.asObservable(),
     });
-
-    // Create a fake payment service for adapter 'Walley'.
-    fakeWalleyPaymentService = {
-      adapterId: PaymentAdapter.Walley,
-      createPayment: jasmine
-        .createSpy('createPayment')
-        .and.returnValue(of({id: 'payment1'})),
-      removePayment: jasmine
-        .createSpy('removePayment')
-        .and.returnValue(of({})),
-    };
-    fakeNotWalleyPaymentService = {
-      adapterId: 'notWalley' as any,
-      createPayment: jasmine
-        .createSpy('createPayment')
-        .and.returnValue(of({id: 'payment2'})),
-      removePayment: jasmine
-        .createSpy('removePayment')
-        .and.returnValue(of({})),
-    };
-    fakePaymentServices = [fakeWalleyPaymentService, fakeNotWalleyPaymentService];
-
     toastServiceSpy = jasmine.createSpyObj('ToastService', ['warn', 'error']);
-    fakeSyncService = jasmine.createSpyObj('SyncService', ['triggerRefresh']);
+    syncServiceSpy = jasmine.createSpyObj('SyncService', ['triggerRefresh']);
+    paymentServiceOneSpy = jasmine.createSpyObj('PaymentService', ['createPayment', 'removePayment'], {
+      adapterId: defaultTestAdapters.payment.Walley
+    });
+    paymentServiceTwoSpy = jasmine.createSpyObj('PaymentService', ['createPayment', 'removePayment'], {
+      adapterId: defaultTestAdapters.payment.Adyen
+    });
+    fakePaymentServices = [paymentServiceOneSpy, paymentServiceTwoSpy];
+    adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
 
     TestBed.configureTestingModule({
       imports: [PaymentSelectorComponent],
       providers: [
         provideExperimentalZonelessChangeDetection(),
-        {provide: ConfigService, useValue: fakeConfigService},
-        {provide: OrderService, useValue: fakeOrderService},
+        {provide: ConfigService, useValue: configServiceSpy},
+        {provide: OrderService, useValue: orderServiceSpy},
         {provide: ToastService, useValue: toastServiceSpy},
-        {provide: SyncService, useValue: fakeSyncService},
+        {provide: SyncService, useValue: syncServiceSpy},
         {provide: PAYMENT_SERVICES, useValue: fakePaymentServices},
+        {provide: ADAPTERS, useValue: adaptersSpy},
       ],
     }).compileComponents();
   });
 
   afterEach(() => {
     // Reset the spies after each test.
-    fakeWalleyPaymentService.createPayment.calls.reset();
-    fakeWalleyPaymentService.removePayment.calls.reset();
-    fakeNotWalleyPaymentService.createPayment.calls.reset();
-    fakeNotWalleyPaymentService.removePayment.calls.reset();
-    fakeSyncService.triggerRefresh.calls.reset();
+    paymentServiceOneSpy.createPayment.calls.reset();
+    paymentServiceOneSpy.removePayment.calls.reset();
+    paymentServiceTwoSpy.createPayment.calls.reset();
+    paymentServiceTwoSpy.removePayment.calls.reset();
+    syncServiceSpy.triggerRefresh.calls.reset();
     toastServiceSpy.warn.calls.reset();
     toastServiceSpy.error.calls.reset();
   })
 
   it('should compute enabledPaymentAdapters$ correctly', (done) => {
-    configSubject.next([{id: PaymentAdapter.Walley, active: true}]);
+    configSubject.next([{id: defaultTestAdapters.payment.Walley, active: true}]);
 
     fixture = TestBed.createComponent(PaymentSelectorComponent);
     component = fixture.componentInstance;
 
     component.enabledPaymentAdapters$.subscribe((adapters) => {
-      expect(adapters).toEqual([PaymentAdapter.Walley]);
+      expect(adapters).toEqual([defaultTestAdapters.payment.Walley]);
       done();
     });
   });
 
   it('should warn if a config is active and of a payment type but no payment service is available', (done) => {
-    configSubject.next([{id: PaymentAdapter.Adyen, active: true}]);
+    configSubject.next([{id: defaultTestAdapters.payment.Adyen, active: true}]);
+    fakePaymentServices.forEach((service) => {
+      service.adapterId = "notAdyen";
+    });
 
     fixture = TestBed.createComponent(PaymentSelectorComponent);
     component = fixture.componentInstance;
 
     component.enabledPaymentAdapters$.subscribe((adapters) => {
       expect(toastServiceSpy.warn).toHaveBeenCalledOnceWith(
-        `Payment service for ${PaymentAdapter.Adyen} is not available`
+        `Payment service for ${defaultTestAdapters.payment.Adyen} is not available`
       );
       expect(adapters).toEqual([]);
       done();
@@ -125,13 +121,13 @@ describe('PaymentSelectorComponent', () => {
   });
 
   it('should compute selectedPaymentAdapter$ correctly', (done) => {
-    defaultPaymentSubject.next({id: 'payment1', adapterId: 'Walley'});
+    defaultPaymentSubject.next({id: 'payment1', adapterId: defaultTestAdapters.payment.Walley});
 
     fixture = TestBed.createComponent(PaymentSelectorComponent);
     component = fixture.componentInstance;
 
     component.selectedPaymentAdapter$.subscribe((adapter) => {
-      expect(adapter).toBe('Walley');
+      expect(adapter).toBe(defaultTestAdapters.payment.Walley);
       done();
     });
   });
@@ -140,13 +136,14 @@ describe('PaymentSelectorComponent', () => {
     it('should create a default payment if no default payment exists', () => {
       hasDefaultPaymentSubject.next(false);
       defaultPaymentSubject.next(undefined);
-      configSubject.next([{id: PaymentAdapter.Walley, active: true}]);
+      configSubject.next([{id: defaultTestAdapters.payment.Walley, active: true}]);
+      paymentServiceOneSpy.createPayment.and.returnValue(of({id: 'payment1'}));
 
       fixture = TestBed.createComponent(PaymentSelectorComponent);
       component = fixture.componentInstance;
 
-      expect(fakeWalleyPaymentService.createPayment).toHaveBeenCalledWith('orderId');
-      expect(fakeSyncService.triggerRefresh).toHaveBeenCalled();
+      expect(paymentServiceOneSpy.createPayment).toHaveBeenCalledWith('orderId');
+      expect(syncServiceSpy.triggerRefresh).toHaveBeenCalled();
     });
 
     it('should not create a default payment if no default payment exists with no configs', () => {
@@ -157,19 +154,19 @@ describe('PaymentSelectorComponent', () => {
       // Reset the createPayment spy.
       fixture = TestBed.createComponent(PaymentSelectorComponent);
 
-      expect(fakeWalleyPaymentService.createPayment).not.toHaveBeenCalled();
-      expect(fakeSyncService.triggerRefresh).toHaveBeenCalledTimes(1);
+      expect(paymentServiceOneSpy.createPayment).not.toHaveBeenCalled();
+      expect(syncServiceSpy.triggerRefresh).toHaveBeenCalledTimes(1);
     });
 
     it('should not create a default payment if a default payment exists', () => {
       hasDefaultPaymentSubject.next(true);
-      defaultPaymentSubject.next({id: 'payment0', adapterId: PaymentAdapter.Walley});
-      configSubject.next([{id: PaymentAdapter.Walley, active: true}]);
+      defaultPaymentSubject.next({id: 'payment0', adapterId: defaultTestAdapters.payment.Walley});
+      configSubject.next([{id: defaultTestAdapters.payment.Walley, active: true}]);
 
       fixture = TestBed.createComponent(PaymentSelectorComponent);
       component = fixture.componentInstance;
 
-      expect(fakeWalleyPaymentService.createPayment).not.toHaveBeenCalled();
+      expect(paymentServiceOneSpy.createPayment).not.toHaveBeenCalled();
     });
   });
 
@@ -177,28 +174,37 @@ describe('PaymentSelectorComponent', () => {
     it('should directly create a payment if no default payment exists', () => {
       hasDefaultPaymentSubject.next(false);
       defaultPaymentSubject.next(undefined);
-      configSubject.next([{id: PaymentAdapter.Walley, active: true}]);
+      configSubject.next([{id: defaultTestAdapters.payment.Walley, active: true}]);
+      paymentServiceOneSpy.createPayment.and.returnValue(of({id: 'payment1'}));
 
       fixture = TestBed.createComponent(PaymentSelectorComponent);
       component = fixture.componentInstance;
-      component.createOrReplacePaymentByAdapterId(PaymentAdapter.Walley);
+      component.createOrReplacePaymentByAdapterId(defaultTestAdapters.payment.Walley);
 
-      expect(fakeWalleyPaymentService.createPayment).toHaveBeenCalledWith('orderId');
-      expect(fakeWalleyPaymentService.removePayment).not.toHaveBeenCalled();
-      expect(fakeSyncService.triggerRefresh).toHaveBeenCalled();
+      expect(paymentServiceOneSpy.createPayment).toHaveBeenCalledWith('orderId');
+      expect(paymentServiceOneSpy.removePayment).not.toHaveBeenCalled();
+      expect(syncServiceSpy.triggerRefresh).toHaveBeenCalled();
     });
 
     it('should remove then create a payment if a default payment exists', () => {
       hasDefaultPaymentSubject.next(true);
-      defaultPaymentSubject.next({id: 'payment0', adapterId: 'notWalley'});
+      defaultPaymentSubject.next({id: 'payment0', adapterId: defaultTestAdapters.payment.Adyen});
+      configSubject.next([
+        {id: defaultTestAdapters.payment.Adyen, active: true},
+        {id: defaultTestAdapters.payment.Walley, active: true},
+      ]);
+      paymentServiceOneSpy.adapterId = defaultTestAdapters.payment.Adyen;
+      paymentServiceTwoSpy.adapterId = defaultTestAdapters.payment.Walley;
+      paymentServiceOneSpy.removePayment.and.returnValue(of());
+      paymentServiceTwoSpy.createPayment.and.returnValue(of({id: 'payment1'}));
 
       fixture = TestBed.createComponent(PaymentSelectorComponent);
       component = fixture.componentInstance
-      component.createOrReplacePaymentByAdapterId(PaymentAdapter.Walley);
+      component.createOrReplacePaymentByAdapterId(defaultTestAdapters.payment.Walley);
 
-      expect(fakeNotWalleyPaymentService.removePayment).toHaveBeenCalledWith('orderId', 'payment0');
-      expect(fakeWalleyPaymentService.createPayment).toHaveBeenCalledWith('orderId');
-      expect(fakeSyncService.triggerRefresh).toHaveBeenCalled();
+      expect(paymentServiceOneSpy.removePayment).toHaveBeenCalledWith('orderId', 'payment0');
+      expect(paymentServiceTwoSpy.createPayment).toHaveBeenCalledWith('orderId');
+      expect(syncServiceSpy.triggerRefresh).toHaveBeenCalled();
     });
   });
 });

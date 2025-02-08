@@ -4,13 +4,14 @@ import {ToastService} from '~/app/core/toast/toast.service';
 import {catchError, EMPTY, Observable, retry} from 'rxjs';
 import {NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder} from '~/openapi/adyen-adapter';
 import {IPaymentService} from '~/app/checkout/payments/payment.service.interface';
-import {PaymentAdapter} from '~/app/core/adapter';
+import {ADAPTERS} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdyenService implements IPaymentService {
-  readonly adapterId = PaymentAdapter.Adyen;
+  private adapters = inject(ADAPTERS);
+  readonly adapterId = this.adapters.payment.Adyen;
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
 
