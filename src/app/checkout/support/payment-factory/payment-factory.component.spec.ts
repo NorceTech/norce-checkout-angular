@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {PaymentFactoryComponent} from './payment-factory.component';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {PaymentAdapter} from '~/app/core/adapter';
+import {WalleyComponent} from '~/app/checkout/payments/walley/walley.component';
 
 // --- Fake ViewContainerRef ---
 class FakeViewContainerRef implements Partial<ViewContainerRef> {
@@ -56,7 +57,7 @@ describe('PaymentFactoryComponent', () => {
 
     // Assert: container should be cleared, and createComponent is called with FakeWalleyComponent.
     expect(fakeContainer.clear).toHaveBeenCalled();
-    expect(fakeContainer.createComponent).toHaveBeenCalled();
+    expect(fakeContainer.createComponent).toHaveBeenCalledWith(WalleyComponent);
   });
 
   it('should not load any component if adapterId is not provided', () => {
