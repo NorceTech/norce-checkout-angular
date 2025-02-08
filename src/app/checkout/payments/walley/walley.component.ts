@@ -5,7 +5,7 @@ import {WalleyEvent, WindowWalley} from '~/app/checkout/payments/walley/walley.t
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
-import {RunScriptsDirective} from '~/app/shared/directives/run-script';
+import {RunScriptsDirective} from '~/app/shared/directives/run-scripts.directive';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Router} from '@angular/router';
 import {ContextService} from '~/app/core/context/context.service';

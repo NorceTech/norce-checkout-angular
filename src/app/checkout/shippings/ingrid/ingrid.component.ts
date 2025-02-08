@@ -21,7 +21,7 @@ import {
 import {IngridService} from '~/app/checkout/shippings/ingrid/ingrid.service';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
-import {RunScriptsDirective} from '~/app/shared/directives/run-script';
+import {RunScriptsDirective} from '~/app/shared/directives/run-scripts.directive';
 import {IngridApi, IngridEventName, WindowIngrid} from '~/app/checkout/shippings/ingrid/ingrid.types';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
