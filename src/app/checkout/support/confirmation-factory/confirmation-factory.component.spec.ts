@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ConfirmationFactoryComponent} from './confirmation-factory.component';
 
-describe('PaymentFactoryComponent', () => {
+describe('ConfirmationFactoryComponent', () => {
   let component: ConfirmationFactoryComponent;
   let fixture: ComponentFixture<ConfirmationFactoryComponent>;
 
