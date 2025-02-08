@@ -8,6 +8,7 @@ import {OrderService} from '~/app/core/order/order.service';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {
+  combineLatestWith,
   distinctUntilChanged,
   filter,
   finalize,
@@ -105,16 +106,21 @@ export class ShippingSelectorComponent {
   }
 
   createOrReplaceShippingByAdapterId(shippingId: string) {
-    const shippingService = this.shippingServices.find(service => service.adapterId === shippingId)!;
+    const currentShippingService = this.selectedShippingAdapter$.pipe(
+      take(1),
+      map(adapterId => this.shippingServices.find(service => service.adapterId === adapterId)!),
+    )
+    const nextShippingService = this.shippingServices.find(service => service.adapterId === shippingId)!;
     this.orderService.hasShipping$.pipe(
       take(1),
-      switchMap(hasDefaultShipping => {
+      combineLatestWith(currentShippingService),
+      switchMap(([hasDefaultShipping, currentShippingService]) => {
         if (hasDefaultShipping) {
-          return this.removeShippingUsingService(shippingService).pipe(
-            switchMap(() => this.createShippingUsingService(shippingService)
+          return this.removeShippingUsingService(currentShippingService).pipe(
+            switchMap(() => this.createShippingUsingService(nextShippingService)
             ));
         } else {
-          return this.createShippingUsingService(shippingService);
+          return this.createShippingUsingService(nextShippingService);
         }
       }),
       finalize(() => this.syncService.triggerRefresh()),
