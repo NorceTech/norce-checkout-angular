@@ -17,7 +17,7 @@ import {ToastService} from '~/app/core/toast/toast.service';
 import {Order, Payment} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
-import {PaymentAdapter} from '~/app/core/adapter';
+import {PaymentAdapter, VoucherAdapter} from '~/app/core/adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +73,7 @@ export class OrderService {
     })),
   )
 
-  getPayment(adapter: PaymentAdapter): Observable<Payment> {
+  getPayment(adapter: PaymentAdapter | VoucherAdapter): Observable<Payment> {
     return this.nonRemovePayments$.pipe(
       map(payments => payments.find(payment => payment.adapterId === adapter)),
       filter(payment => typeof payment !== 'undefined'),
@@ -98,7 +98,6 @@ export class OrderService {
               })
             )
         }),
-        shareReplay(1)
       )
   }
 }
