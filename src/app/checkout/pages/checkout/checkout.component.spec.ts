@@ -147,6 +147,33 @@ describe('CheckoutComponent', () => {
     orderService.nonRemovedShippings$.next(testShippings);
   });
 
+  it('should only emit distinct adapter ids', (done) => {
+    const paymentEmissions: string[] = [];
+    const shippingEmissions: string[] = [];
+
+    component.defaultPaymentAdapterId$.subscribe({
+      next: v => paymentEmissions.push(v as string),
+      complete: done
+    });
+    component.firstShippingAdapterId$.subscribe({
+      next: v => shippingEmissions.push(v as string),
+      complete: done
+    });
+
+    orderService.defaultPayment$.next({adapterId: 'pay_123'});
+    orderService.defaultPayment$.next({adapterId: 'pay_123'}); // Duplicate
+    orderService.defaultPayment$.next({adapterId: 'pay_654'});
+    orderService.nonRemovedShippings$.next([{adapterId: 'ship_1'}]);
+    orderService.nonRemovedShippings$.next([{adapterId: 'ship_1'}]); // Duplicate
+    orderService.nonRemovedShippings$.next([{adapterId: 'ship_2'}]);
+
+    setTimeout(() => {
+      expect(paymentEmissions).toEqual(['pay_123', 'pay_654']);
+      expect(shippingEmissions).toEqual(['ship_1', 'ship_2']);
+      done();
+    }, 0);
+  });
+
   it('should unsubscribe on destroy', () => {
     const order$ = orderService.order$ as Subject<any>;
     fixture.destroy();
