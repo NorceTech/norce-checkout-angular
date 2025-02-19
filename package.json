@@ -22,6 +22,7 @@
     "@angular/router": "^19.1.0",
     "@primeng/themes": "^19.0.5",
     "dotenv": "^16.4.7",
+    "ngxtension": "^4.3.2",
     "primeng": "^19.0.5",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.4.0",
