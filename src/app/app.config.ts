@@ -13,8 +13,8 @@ import {NorceAdapterService} from '~/app/core/platform/norce-adapter/norce-adapt
 import {syncInterceptor} from '~/app/core/sync/interceptors/sync.interceptor';
 import {registerLocaleData} from '@angular/common';
 import localeSv from '@angular/common/locales/sv';
-import {providePaymentServices} from '~/app/checkout/payments/provide-payment-services';
-import {provideShippingServices} from '~/app/checkout/shippings/provide-shipping-services';
+import {providePaymentServices} from '~/app/features/payments/provide-payment-services';
+import {provideShippingServices} from '~/app/features/shippings/provide-shipping-services';
 
 registerLocaleData(localeSv)
 
