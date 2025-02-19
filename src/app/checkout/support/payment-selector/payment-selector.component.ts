@@ -73,6 +73,7 @@ export class PaymentSelectorComponent {
         return this.enabledPaymentAdapters$.pipe(
           take(1),
           map(adapters => adapters[0]),
+          filter(adapter => !!adapter),
           switchMap(adapter => {
             const paymentService = this.paymentServices.find(service => service.adapterId === adapter);
             if (!paymentService) return EMPTY;

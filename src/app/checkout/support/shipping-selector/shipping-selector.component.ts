@@ -74,6 +74,7 @@ export class ShippingSelectorComponent {
         return this.enabledShippingAdapters$.pipe(
           take(1),
           map(adapters => adapters[0]),
+          filter(adapter => !!adapter),
           switchMap(adapter => {
             const shippingService = this.shippingServices.find(service => service.adapterId === adapter)!;
             return this.createShippingUsingService(shippingService);
