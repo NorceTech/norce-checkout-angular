@@ -26,4 +26,19 @@ export class NorceAdapterService extends PlatformAdapterService {
       })
     )
   }
+
+  removeItem(cartItem: Item): Observable<void> {
+    return this.contextService.context$.pipe(
+      switchMap(ctx => {
+        return this.dataService.removeItem(ctx, cartItem.id!)
+          .pipe(
+            retry(1),
+            catchError((error) => {
+              this.toastService.error('Failed to remove item');
+              return EMPTY;
+            }),
+          )
+      })
+    )
+  }
 }

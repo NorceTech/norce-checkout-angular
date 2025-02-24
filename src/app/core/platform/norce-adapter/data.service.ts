@@ -21,4 +21,10 @@ export class DataService {
       map(response => response.body as void)
     )
   }
+
+  removeItem(ctx: Context, itemId: string): Observable<void> {
+    return this.client.delete<void>(
+      `${this.baseUrl}/${ctx.orderId}/cart/items/${itemId}`,
+    )
+  }
 }
