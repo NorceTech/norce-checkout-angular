@@ -61,9 +61,7 @@ describe('CartService', () => {
 
       service.removeItem$.next(itemToRemove);
 
-      // Optimistically removes
       expect(service.items()).toEqual([mockItems[1]]);
-      // Does the actual remove
       expect(platformAdapterService.removeItem).toHaveBeenCalledWith(itemToRemove);
       expect(syncService.triggerRefresh).toHaveBeenCalled();
     });
@@ -85,9 +83,7 @@ describe('CartService', () => {
 
       service.updateItem$.next(updatedItem);
 
-      // Optimistically updates
       expect(service.items()).toEqual([updatedItem, mockItems[1]]);
-      // Does the actual update
       expect(platformAdapterService.updateItem).toHaveBeenCalledWith(updatedItem);
       expect(syncService.triggerRefresh).toHaveBeenCalled();
     });
