@@ -23,7 +23,7 @@ export class CartService {
 
   constructor() {
     connect(this._items)
-      .with(this.orderService.order$, (items, order) => order.cart?.items || items)
+      .with(() => this.orderService.order().cart?.items || [])
       .with(this.removeItem$, (items, item) => items.filter(i => i.id !== item.id))
       .with(this.updateItem$, (items, item) => {
         const idx = items.findIndex(i => i.id === item.id);

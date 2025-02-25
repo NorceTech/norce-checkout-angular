@@ -1,11 +1,11 @@
 import {Component, computed, inject} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
-import {filter, map} from 'rxjs';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
 import {
   ConfirmationFactoryComponent
 } from '~/app/features/confirmation/confirmation-factory/confirmation-factory.component';
+import {OrderStatus} from '~/openapi/order';
+import {effectOnceIf} from 'ngxtension/effect-once-if';
 
 @Component({
   selector: 'app-confirmation',
@@ -17,7 +17,7 @@ import {
 export class ConfirmationComponent {
   private orderService = inject(OrderService);
   private router = inject(Router);
-  private checkoutStates = ['checkout', 'processing']
+  private checkoutStates: string[] = ['checkout', 'processing'] satisfies OrderStatus[];
 
   paymentAdapterId = computed(() => {
     return this.orderService.order()
@@ -28,12 +28,9 @@ export class ConfirmationComponent {
   })
 
   constructor() {
-    this.orderService.order$.pipe(
-      map(order => order.state?.currentStatus),
-      filter(state => !!state && this.checkoutStates.includes(state)),
-      takeUntilDestroyed()
-    ).subscribe(async () => {
-      await this.router.navigate(['/checkout'], {queryParamsHandling: 'preserve'});
-    })
+    effectOnceIf(
+      () => this.checkoutStates.includes(this.orderService.order().state?.currentStatus || ''),
+      async () => await this.router.navigate(['/checkout'], {queryParamsHandling: 'preserve'})
+    )
   }
 }

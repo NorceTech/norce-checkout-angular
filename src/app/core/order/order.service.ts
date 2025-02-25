@@ -19,7 +19,6 @@ export class OrderService {
 
   private _order = signal<Order>({channel: '', merchant: ''});
   order = this._order.asReadonly();
-  order$ = toObservable(this._order);
 
   constructor() {
     const contextOrder$ = toObservable(this.contextService.context).pipe(
