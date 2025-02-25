@@ -21,50 +21,44 @@ describe('CartService', () => {
   const mockOrder$ = new BehaviorSubject({cart: {items: mockItems}});
 
   beforeEach(() => {
-    const orderServiceSpy = jasmine.createSpyObj('OrderService', [], {
-      order$: null,
+    mockOrder$.next({cart: {items: mockItems}});
+    orderService = jasmine.createSpyObj('OrderService', [], {
+      order$: mockOrder$,
     });
-    const platformAdapterServiceSpy = jasmine.createSpyObj('PlatformAdapterService', [
+    platformAdapterService = jasmine.createSpyObj('PlatformAdapterService', [
       'updateItem',
       'removeItem',
     ]);
-    const syncServiceSpy = jasmine.createSpyObj('SyncService', ['triggerRefresh']);
+    syncService = jasmine.createSpyObj('SyncService', ['triggerRefresh']);
+
+    platformAdapterService.removeItem.and.returnValue(of(undefined));
+    platformAdapterService.updateItem.and.returnValue(of(undefined));
 
     TestBed.configureTestingModule({
       providers: [
         provideExperimentalZonelessChangeDetection(),
         CartService,
-        {provide: OrderService, useValue: orderServiceSpy},
-        {provide: PlatformAdapterService, useValue: platformAdapterServiceSpy},
-        {provide: SyncService, useValue: syncServiceSpy},
+        {provide: OrderService, useValue: orderService},
+        {provide: PlatformAdapterService, useValue: platformAdapterService},
+        {provide: SyncService, useValue: syncService},
       ],
     });
 
-
-    orderService = TestBed.inject(OrderService) as jasmine.SpyObj<OrderService>;
-    platformAdapterService = TestBed.inject(
-      PlatformAdapterService,
-    ) as jasmine.SpyObj<PlatformAdapterService>;
-    syncService = TestBed.inject(SyncService) as jasmine.SpyObj<SyncService>;
-
-    platformAdapterService.removeItem.and.returnValue(of(undefined));
+    service = TestBed.inject(CartService);
   });
 
   it('should be created', () => {
-    service = TestBed.inject(CartService);
     expect(service).toBeTruthy();
   });
 
   it('should initialize items from order$', () => {
-    service = TestBed.inject(CartService);
     expect(service.items()).toEqual(mockItems);
   });
 
   describe('removeItem$', () => {
-    it('should remove item from items array', async () => {
+    it('should remove item from items array', () => {
       const itemToRemove = mockItems[0];
 
-      service = TestBed.inject(CartService);
       service.removeItem$.next(itemToRemove);
 
       // Optimistically removes
@@ -74,14 +68,13 @@ describe('CartService', () => {
       expect(syncService.triggerRefresh).toHaveBeenCalled();
     });
 
-    it('should do nothing for non-existing item', () => {
+    it('should not explode for non existent item', () => {
       const nonExistentItem = {id: '999', name: 'Non-existent', quantity: 3};
 
-      service = TestBed.inject(CartService);
       service.removeItem$.next(nonExistentItem);
 
-      expect(platformAdapterService.removeItem).not.toHaveBeenCalled();
-      expect(syncService.triggerRefresh).not.toHaveBeenCalled();
+      expect(platformAdapterService.removeItem).toHaveBeenCalled();
+      expect(syncService.triggerRefresh).toHaveBeenCalled();
       expect(service.items()).toEqual(mockItems);
     });
   });
@@ -90,7 +83,6 @@ describe('CartService', () => {
     it('should update existing item in items array', () => {
       const updatedItem = {...mockItems[0], quantity: 3};
 
-      service = TestBed.inject(CartService);
       service.updateItem$.next(updatedItem);
 
       // Optimistically updates
@@ -100,12 +92,13 @@ describe('CartService', () => {
       expect(syncService.triggerRefresh).toHaveBeenCalled();
     });
 
-    it('should do nothing for non-existing item', () => {
+    it('should not explode for non existent item', () => {
       const nonExistentItem = {id: '999', name: 'Non-existent', quantity: 3};
 
       service.updateItem$.next(nonExistentItem);
-      expect(platformAdapterService.updateItem).not.toHaveBeenCalled();
-      expect(syncService.triggerRefresh).not.toHaveBeenCalled();
+
+      expect(platformAdapterService.updateItem).toHaveBeenCalled();
+      expect(syncService.triggerRefresh).toHaveBeenCalled();
       expect(service.items()).toEqual(mockItems);
     });
   });

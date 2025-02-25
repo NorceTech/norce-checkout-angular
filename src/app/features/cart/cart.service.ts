@@ -4,7 +4,7 @@ import {PlatformAdapterService} from '~/app/core/platform/platform';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Item} from '~/openapi/order';
 import {connect} from 'ngxtension/connect';
-import {EMPTY, Subject, switchMap} from 'rxjs';
+import {Subject, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -35,9 +35,6 @@ export class CartService {
     this.updateItem$.pipe(
       takeUntilDestroyed(),
       switchMap(item => {
-        if (!this.items().find(i => i.id === item.id)) {
-          return EMPTY;
-        }
         return this.platformAdapterService.updateItem(item);
       }),
     ).subscribe(() => this.syncService.triggerRefresh());
@@ -45,9 +42,6 @@ export class CartService {
     this.removeItem$.pipe(
       takeUntilDestroyed(),
       switchMap(item => {
-        if (!this.items().find(i => i.id === item.id)) {
-          return EMPTY;
-        }
         return this.platformAdapterService.removeItem(item);
       }),
     ).subscribe(() => this.syncService.triggerRefresh());
