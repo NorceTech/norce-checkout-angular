@@ -5,7 +5,7 @@
       <div class="flex items-center gap-2">
         <p-select-button
           [options]="shippingAdapters"
-          [ngModel]="selectedShippingAdapter$ | async"
+          [ngModel]="selectedShipping()?.adapterId"
           (ngModelChange)="createOrReplaceShippingByAdapterId($event)"
           id="shipping-selector"/>
       </div>

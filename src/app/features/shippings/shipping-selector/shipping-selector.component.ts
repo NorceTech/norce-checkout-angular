@@ -1,5 +1,4 @@
 import {Component, computed, inject} from '@angular/core';
-import {AsyncPipe} from '@angular/common';
 import {Card} from 'primeng/card';
 import {SelectButton} from 'primeng/selectbutton';
 import {SHIPPING_SERVICES} from '~/app/features/shippings/provide-shipping-services';
@@ -7,26 +6,14 @@ import {ConfigService} from '~/app/core/config/config.service';
 import {OrderService} from '~/app/core/order/order.service';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {SyncService} from '~/app/core/sync/sync.service';
-import {
-  combineLatestWith,
-  distinctUntilChanged,
-  EMPTY,
-  filter,
-  finalize,
-  from,
-  map,
-  mergeMap,
-  switchMap,
-  take
-} from 'rxjs';
+import {EMPTY, filter, finalize, map, switchMap, take} from 'rxjs';
 import {ADAPTERS, IAdapters} from '~/app/core/adapter';
-import {IShippingService} from '~/app/features/shippings/shipping.service.interface';
 import {FormsModule} from '@angular/forms';
+import {toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-shipping-selector',
   imports: [
-    AsyncPipe,
     Card,
     SelectButton,
     FormsModule
@@ -59,13 +46,18 @@ export class ShippingSelectorComponent {
       .map(config => config.id)
   })
 
-  selectedShippingAdapter$ = this.orderService.nonRemovedShippings$.pipe(
-    map(shippings => shippings?.[0].adapterId || ''),
-    distinctUntilChanged(),
+  selectedShipping = computed(() => {
+    return this.orderService.order()
+      .shippings
+      ?.find(shipping => shipping.state !== 'removed')
+  });
+
+  private hasShipping$ = toObservable(this.selectedShipping).pipe(
+    map(selectedShipping => !!selectedShipping),
   );
 
   constructor() {
-    this.orderService.hasShipping$.pipe(
+    this.hasShipping$.pipe(
       take(1),
       filter(hasDefaultShipping => !hasDefaultShipping),
       switchMap(() => {
@@ -86,28 +78,16 @@ export class ShippingSelectorComponent {
     ).subscribe()
   }
 
-  private removeShippingUsingService(shippingSerice: IShippingService) {
-    return this.orderService.nonRemovedShippings$.pipe(
-      take(1),
-      map(shippings => shippings.filter(shipping => shipping.adapterId === shippingSerice.adapterId)),
-      mergeMap(shippings => from(shippings).pipe(
-        switchMap(shipping => shippingSerice.removeShipping(shipping.id!)),
-      ))
-    )
-  }
-
   createOrReplaceShippingByAdapterId(adapterId: string) {
-    const currentShippingService = this.selectedShippingAdapter$.pipe(
-      take(1),
-      map(adapterId => this.shippingServices.find(service => service.adapterId === adapterId)!),
-    )
+    const currentShippingService = this.shippingServices.find(service => service.adapterId === this.selectedShipping()?.adapterId);
+
     const nextShippingService = this.shippingServices.find(service => service.adapterId === adapterId)!;
-    this.orderService.hasShipping$.pipe(
+    this.hasShipping$.pipe(
       take(1),
-      combineLatestWith(currentShippingService),
-      switchMap(([hasDefaultShipping, currentShippingService]) => {
-        if (hasDefaultShipping) {
-          return this.removeShippingUsingService(currentShippingService).pipe(
+      switchMap(hasShipping => {
+        if (hasShipping) {
+          if (!currentShippingService) return EMPTY;
+          return currentShippingService.removeShipping(this.selectedShipping()?.id!).pipe(
             switchMap(() => nextShippingService.createShipping()
             ));
         } else {

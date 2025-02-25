@@ -1,21 +1,19 @@
 import {Component, computed, inject} from '@angular/core';
 import {PAYMENT_SERVICES} from '~/app/features/payments/provide-payment-services';
 import {ConfigService} from '~/app/core/config/config.service';
-import {combineLatestWith, distinctUntilChanged, EMPTY, filter, finalize, map, switchMap, take} from 'rxjs';
+import {EMPTY, filter, finalize, map, switchMap, take} from 'rxjs';
 import {OrderService} from '~/app/core/order/order.service';
-import {IPaymentService} from '~/app/features/payments/payment.service.interface';
-import {AsyncPipe} from '@angular/common';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Card} from 'primeng/card';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {ADAPTERS} from '~/app/core/adapter';
+import {toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-payment-selector',
   imports: [
-    AsyncPipe,
     SelectButton,
     FormsModule,
     Card
@@ -48,19 +46,25 @@ export class PaymentSelectorComponent {
       .map(config => config.id)
   })
 
-  selectedPaymentAdapter$ = this.orderService.defaultPayment$.pipe(
-    map(payment => payment?.adapterId || ''),
-    distinctUntilChanged(),
+  selectedPayment = computed(() => {
+    return this.orderService.order()
+      .payments
+      ?.filter(payment => payment.type === 'default')
+      ?.find(payment => payment.state !== 'removed')
+  });
+
+  private hasPayment$ = toObservable(this.selectedPayment).pipe(
+    map(selectedPayment => !!selectedPayment),
   );
 
   constructor() {
-    this.orderService.hasDefaultPayment$.pipe(
+    this.hasPayment$.pipe(
       take(1),
       filter(hasDefaultPayment => !hasDefaultPayment),
       switchMap(() => {
         const adapters = this.enabledPaymentAdapters();
         if (!adapters) return EMPTY;
-        
+
         const adapter = this.enabledPaymentAdapters()?.[0];
         if (!adapter) {
           this.toastService.warn('No payment adapter configured');
@@ -74,27 +78,15 @@ export class PaymentSelectorComponent {
     ).subscribe()
   }
 
-  private removePaymentUsingService(paymentSerice: IPaymentService) {
-    return this.orderService.order$.pipe(
-      map(order => order.id),
-      combineLatestWith(this.orderService.defaultPayment$),
-      take(1),
-      switchMap(([orderId, payment]) => paymentSerice.removePayment(payment.id!)),
-    )
-  }
-
   createOrReplacePaymentByAdapterId(adapterId: string) {
-    const currentPaymentService = this.selectedPaymentAdapter$.pipe(
-      take(1),
-      map(adapterId => this.paymentServices.find(service => service.adapterId === adapterId)!),
-    )
+    const currentPaymentService = this.paymentServices.find(service => service.adapterId === this.selectedPayment()?.adapterId);
     const nextPaymentService = this.paymentServices.find(service => service.adapterId === adapterId)!;
-    this.orderService.hasDefaultPayment$.pipe(
+    this.hasPayment$.pipe(
       take(1),
-      combineLatestWith(currentPaymentService),
-      switchMap(([hasDefaultPayment, currentPaymentService]) => {
-        if (hasDefaultPayment) {
-          return this.removePaymentUsingService(currentPaymentService).pipe(
+      switchMap(hasPayment => {
+        if (hasPayment) {
+          if (!currentPaymentService) return EMPTY;
+          return currentPaymentService.removePayment(this.selectedPayment()?.id!).pipe(
             switchMap(() => nextPaymentService.createPayment()
             ));
         } else {

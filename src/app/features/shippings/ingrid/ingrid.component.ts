@@ -1,8 +1,7 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, computed, inject, OnInit} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SyncService} from '~/app/core/sync/sync.service';
-import {ContextService} from '~/app/core/context/context.service';
 import {
   bindCallback,
   catchError,
@@ -14,7 +13,6 @@ import {
   retry,
   shareReplay,
   switchMap,
-  take,
   tap
 } from 'rxjs';
 import {IngridService} from '~/app/features/shippings/ingrid/ingrid.service';
@@ -23,7 +21,7 @@ import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-scripts.directive';
 import {IngridApi, IngridEventName, WindowIngrid} from '~/app/features/shippings/ingrid/ingrid.types';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-ingrid',
@@ -41,21 +39,16 @@ export class IngridComponent implements OnInit {
   private syncService = inject(SyncService);
   private toastService = inject(ToastService);
 
-  private contextService = inject(ContextService);
-
   snippetTargetId = "ingrid-target";
 
-  private shippingId$ = this.orderService.nonRemovedShippings$.pipe(
-    map(shippings => {
-      return shippings.find(shipping => shipping.adapterId === this.ingridService.adapterId)?.id;
-    }),
-    filter(shippingId => typeof shippingId !== 'undefined'),
-    distinctUntilChanged(),
-    shareReplay(1),
-  )
+  private shippingId = computed(() => {
+    return this.orderService.order().shippings
+      ?.filter(s => s.state !== 'removed')
+      .find(s => s.adapterId === this.ingridService.adapterId)?.id;
+  })
 
-  html$ = this.shippingId$.pipe(
-    switchMap(shippingId => this.ingridService.getShipping(shippingId)),
+  html$ = toObservable(this.shippingId).pipe(
+    switchMap(shippingId => this.ingridService.getShipping(shippingId!)),
     map(ingridSession => ingridSession.htmlSnippet),
     filter(html => typeof html !== 'undefined'),
     distinctUntilChanged(),
@@ -112,22 +105,14 @@ export class IngridComponent implements OnInit {
     }
     _sw((api: IngridApi) => {
       api.on(IngridEventName.SummaryChanged, (data, meta) => {
-        this.shippingId$.pipe(
-          take(1),
-          switchMap(shippingId => {
-            return this.ingridService.updateCustomer(shippingId)
-          }),
+        this.ingridService.updateCustomer(this.shippingId()!).pipe(
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe()
       });
 
       api.on(IngridEventName.DataChanged, (data, meta) => {
         if (meta?.initial_load) return;
-        this.shippingId$.pipe(
-          take(1),
-          switchMap(shippingId => {
-            return this.ingridService.updateShipping(shippingId)
-          }),
+        this.ingridService.updateShipping(this.shippingId()!).pipe(
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe()
       })

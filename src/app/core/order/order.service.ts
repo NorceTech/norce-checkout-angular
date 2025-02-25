@@ -1,12 +1,11 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {DataService} from '~/app/core/order/data.service';
-import {catchError, distinctUntilChanged, EMPTY, filter, map, Observable, retry, shareReplay, switchMap} from 'rxjs';
+import {catchError, EMPTY, filter, map, Observable, retry, shareReplay, switchMap} from 'rxjs';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Order, Payment} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {toObservable} from '@angular/core/rxjs-interop';
-import {toObservableSignal} from 'ngxtension/to-observable-signal';
 import {connect} from 'ngxtension/connect';
 
 @Injectable({
@@ -18,36 +17,14 @@ export class OrderService {
   private contextService = inject(ContextService);
   private syncService = inject(SyncService);
 
-  order$ = toObservableSignal(signal<Order>({channel: '', merchant: ''}));
-
-  currency$ = this.order$.pipe(
-    map(order => order.currency),
-    filter(currency => typeof currency !== 'undefined'),
-    distinctUntilChanged(),
-    shareReplay(1)
-  )
-  culture$ = this.order$.pipe(
-    map(order => order.culture),
-    filter(culture => typeof culture !== 'undefined'),
-    distinctUntilChanged(),
-    shareReplay(1)
-  )
+  private _order = signal<Order>({channel: '', merchant: ''});
+  order = this._order.asReadonly();
+  order$ = toObservable(this._order);
 
   private nonRemovePayments$: Observable<Payment[]> = this.order$.pipe(
     map(order => order.payments?.filter(payment => payment.state !== 'removed')),
     filter(payments => typeof payments !== 'undefined'),
     shareReplay(1)
-  )
-
-  nonRemovedShippings$: Observable<Payment[]> = this.order$.pipe(
-    map(order => order.shippings?.filter(shipping => shipping.state !== 'removed')),
-    filter(shippings => typeof shippings !== 'undefined'),
-    shareReplay(1)
-  )
-  hasShipping$ = this.order$.pipe(
-    map(order => !!order.shippings?.some(payment => {
-      return payment.state !== 'removed'
-    })),
   )
 
   defaultPayment$ = this.nonRemovePayments$.pipe(
@@ -71,12 +48,10 @@ export class OrderService {
     const contextOrder$ = toObservable(this.contextService.context).pipe(
       switchMap(ctx => this.getOrder(ctx?.orderId!)),
     );
-
     const refreshOrder$ = this.syncService.getRefreshStream().pipe(
       switchMap(() => this.getOrder(this.contextService.context()?.orderId!)),
     )
-
-    connect(this.order$)
+    connect(this._order)
       .with(contextOrder$)
       .with(refreshOrder$);
   }

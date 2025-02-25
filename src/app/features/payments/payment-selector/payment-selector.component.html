@@ -5,7 +5,7 @@
       <div class="flex items-center gap-2">
         <p-select-button
           [options]="paymentAdapters"
-          [ngModel]="selectedPaymentAdapter$ | async"
+          [ngModel]="selectedPayment()?.adapterId"
           (ngModelChange)="createOrReplacePaymentByAdapterId($event)"
           id="payment-selector"/>
       </div>

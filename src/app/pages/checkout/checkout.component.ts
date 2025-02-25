@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {CartComponent} from '~/app/features/cart/cart.component';
 import {SummaryComponent} from '~/app/features/summary/summary.component';
 import {Card} from 'primeng/card';
@@ -38,11 +38,12 @@ export class CheckoutComponent {
     distinctUntilChanged(),
   )
 
-  firstShippingAdapterId$ = this.orderService.nonRemovedShippings$.pipe(
-    map(shippings => shippings?.[0]?.adapterId),
-    filter(adapterId => typeof adapterId !== 'undefined'),
-    distinctUntilChanged(),
-  )
+  firstShippingAdapterId = computed(() => {
+    return this.orderService.order()
+      ?.shippings
+      ?.find(shipping => shipping.state !== 'removed')
+      ?.adapterId
+  })
 
   constructor() {
     this.orderService.order$.pipe(
