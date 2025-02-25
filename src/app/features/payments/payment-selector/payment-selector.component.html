@@ -1,4 +1,4 @@
-@if (enabledPaymentAdapters$ | async; as paymentAdapters) {
+@if (enabledPaymentAdapters(); as paymentAdapters) {
   @if (paymentAdapters.length > 1) {
     <p-card>
       <label for="payment-selector" class="block font-bold text-lg mb-4 w-full text-center">Select Payment</label>

@@ -1,4 +1,4 @@
-@if (enabledShippingAdapters$ | async; as shippingAdapters) {
+@if (enabledShippingAdapters(); as shippingAdapters) {
   @if (shippingAdapters.length > 1) {
     <p-card>
       <label for="shipping-selector" class="block font-bold text-lg mb-4 w-full text-center">Select Payment</label>

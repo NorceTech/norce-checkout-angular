@@ -15,8 +15,6 @@ export class PaymentFactoryComponent {
   private toastService = inject(ToastService);
   private adapters = inject<IAdapters>(ADAPTERS);
 
-  private paymentAdapters = Object.values(this.adapters.payment || []);
-
   private PAYMENT_COMPONENTS = {
     [this.adapters.payment.Walley]: WalleyComponent,
     [this.adapters.payment.Adyen]: AdyenComponent

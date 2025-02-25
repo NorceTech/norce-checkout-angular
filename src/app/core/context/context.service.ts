@@ -1,47 +1,30 @@
-import {inject, Injectable} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {distinctUntilChanged, filter, map, pairwise, shareReplay, startWith} from 'rxjs';
+import {computed, inject, Injectable} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {Context} from '~/app/core/entities/Context';
-import {ContextError, ContextErrorCode} from '~/app/core/entities/errors/ContextError';
 import {environment} from '~/environments/environment';
-
-const empty = Symbol('empty')
+import {injectQueryParams} from 'ngxtension/inject-query-params';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContextService {
   private activatedRoute = inject(ActivatedRoute);
+  private queryParams = injectQueryParams();
 
-  context$ = this.activatedRoute.queryParams.pipe(
-    startWith(empty),
-    pairwise(),
-    filter(pair => {
-      const [prev, next] = pair as [typeof empty | Params, Params];
-      if (prev === empty) return true;
+  context = computed(() => {
+    const qp = this.queryParams();
+    const merchant: string | undefined = environment.context?.merchant || qp['merchant'];
+    const channel: string | undefined = environment.context?.channel || qp['channel'];
+    const orderId: string | undefined = qp['orderId'];
 
-      if (prev['orderId'] !== next['orderId']) return true;
-      if (prev['channel'] !== next['channel']) return true;
-      if (prev['merchant'] !== next['merchant']) return true;
+    if (!merchant || !channel || !orderId) {
+      return undefined;
+    }
 
-      return false;
-    }),
-    map(([, next]) => next as Params),
-    map(params => {
-      const merchant: string | undefined = environment.context?.merchant || params['merchant'];
-      const channel: string | undefined = environment.context?.['channel'] || params['channel'];
-      const orderId: string | undefined = params['orderId'];
-
-      if (!merchant || !channel || !orderId) {
-        throw new ContextError(ContextErrorCode.ContextNotAvailable, 'merchant, channel and orderId are required');
-      }
-      return new Context({
-        merchant,
-        channel,
-        orderId
-      });
-    }),
-    distinctUntilChanged((prev, next) => prev.equals(next)),
-    shareReplay(1),
-  )
+    return new Context({
+      merchant,
+      channel,
+      orderId
+    });
+  });
 }

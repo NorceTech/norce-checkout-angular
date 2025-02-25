@@ -19,7 +19,6 @@ export class ShippingFactoryComponent {
     [this.adapters.shipping.Ingrid]: IngridComponent,
   } as const;
   private paymentAdapters = Object.values(this.adapters.payment);
-  private shippingAdapters = Object.values(this.adapters.shipping);
 
   container = viewChild('shippingContainer', {read: ViewContainerRef});
 

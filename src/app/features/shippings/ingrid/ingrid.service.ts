@@ -1,10 +1,11 @@
-import {inject, Injectable} from '@angular/core';
+import {computed, inject, Injectable} from '@angular/core';
 import {DataService} from '~/app/features/shippings/ingrid/data.service';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {catchError, EMPTY, Observable, retry} from 'rxjs';
 import {IngridSession} from '~/openapi/ingrid-adapter';
 import {IShippingService} from '~/app/features/shippings/shipping.service.interface';
 import {ADAPTERS, IAdapters} from '~/app/core/adapter';
+import {ContextService} from '~/app/core/context/context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,12 @@ export class IngridService implements IShippingService {
   readonly adapterId = this.adapters.shipping.Ingrid;
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
+  private contextService = inject(ContextService);
 
-  createShipping(orderId: string): Observable<IngridSession> {
-    return this.dataService.createShipping(orderId).pipe(
+  private orderId = computed(() => this.contextService.context()?.orderId || '');
+
+  createShipping(): Observable<IngridSession> {
+    return this.dataService.createShipping(this.orderId()).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to create ingrid shipping');
@@ -25,8 +29,8 @@ export class IngridService implements IShippingService {
     )
   }
 
-  getShipping(orderId: string, shippingId: string): Observable<IngridSession> {
-    return this.dataService.getShipping(orderId, shippingId).pipe(
+  getShipping(shippingId: string): Observable<IngridSession> {
+    return this.dataService.getShipping(this.orderId(), shippingId).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to fetch ingrid shipping');
@@ -35,8 +39,8 @@ export class IngridService implements IShippingService {
     )
   }
 
-  removeShipping(orderId: string, shippingId: string): Observable<void> {
-    return this.dataService.removeShipping(orderId, shippingId).pipe(
+  removeShipping(shippingId: string): Observable<void> {
+    return this.dataService.removeShipping(this.orderId(), shippingId).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to remove ingrid shipping');
@@ -45,8 +49,8 @@ export class IngridService implements IShippingService {
     )
   }
 
-  updateCustomer(orderId: string, shippingId: string): Observable<void> {
-    return this.dataService.updateCustomer(orderId, shippingId).pipe(
+  updateCustomer(shippingId: string): Observable<void> {
+    return this.dataService.updateCustomer(this.orderId(), shippingId).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to update customer');
@@ -55,8 +59,8 @@ export class IngridService implements IShippingService {
     )
   }
 
-  updateShipping(orderId: string, shippingId: string): Observable<void> {
-    return this.dataService.updateShipping(orderId, shippingId).pipe(
+  updateShipping(shippingId: string): Observable<void> {
+    return this.dataService.updateShipping(this.orderId(), shippingId).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to update shipping option');

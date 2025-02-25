@@ -1,10 +1,11 @@
-import {inject, Injectable} from '@angular/core';
+import {computed, inject, Injectable} from '@angular/core';
 import {DataService} from '~/app/features/payments/adyen/data.service';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {catchError, EMPTY, Observable, retry} from 'rxjs';
 import {NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder} from '~/openapi/adyen-adapter';
 import {IPaymentService} from '~/app/features/payments/payment.service.interface';
 import {ADAPTERS} from '~/app/core/adapter';
+import {ContextService} from '~/app/core/context/context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,12 @@ export class AdyenService implements IPaymentService {
   readonly adapterId = this.adapters.payment.Adyen;
   private dataService = inject(DataService);
   private toastService = inject(ToastService);
+  private contextService = inject(ContextService);
 
-  createPayment(orderId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
-    return this.dataService.createPayment(orderId).pipe(
+  private orderId = computed(() => this.contextService.context()?.orderId || '');
+
+  createPayment(): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
+    return this.dataService.createPayment(this.orderId()).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to create adyen payment');
@@ -25,8 +29,8 @@ export class AdyenService implements IPaymentService {
     )
   }
 
-  getPayment(orderId: string, paymentId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
-    return this.dataService.getPayment(orderId, paymentId).pipe(
+  getPayment(paymentId: string): Observable<NorceCheckoutAdyenAdapterWebApiModelsAdyenCheckoutOrder> {
+    return this.dataService.getPayment(this.orderId(), paymentId).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to fetch adyen payment');
@@ -35,8 +39,8 @@ export class AdyenService implements IPaymentService {
     )
   }
 
-  removePayment(orderId: string, paymentId: string): Observable<void> {
-    return this.dataService.removePayment(orderId, paymentId).pipe(
+  removePayment(paymentId: string): Observable<void> {
+    return this.dataService.removePayment(this.orderId(), paymentId).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to remove adyen payment');
@@ -45,8 +49,8 @@ export class AdyenService implements IPaymentService {
     )
   }
 
-  startTransaction(orderId: string, paymentId: string, transaction: any): Observable<any> {
-    return this.dataService.startTransaction(orderId, paymentId, transaction).pipe(
+  startTransaction(paymentId: string, transaction: any): Observable<any> {
+    return this.dataService.startTransaction(this.orderId(), paymentId, transaction).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to start adyen transaction');
@@ -55,8 +59,8 @@ export class AdyenService implements IPaymentService {
     )
   }
 
-  submitDetails(orderId: string, paymentId: string, details: any): Observable<any> {
-    return this.dataService.submitDetails(orderId, paymentId, details).pipe(
+  submitDetails(paymentId: string, details: any): Observable<any> {
+    return this.dataService.submitDetails(this.orderId(), paymentId, details).pipe(
       retry(2),
       catchError(() => {
         this.toastService.error('Failed to submit adyen details');

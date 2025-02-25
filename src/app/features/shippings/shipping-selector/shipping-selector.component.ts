@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {Card} from 'primeng/card';
 import {SelectButton} from 'primeng/selectbutton';
@@ -10,13 +10,12 @@ import {SyncService} from '~/app/core/sync/sync.service';
 import {
   combineLatestWith,
   distinctUntilChanged,
+  EMPTY,
   filter,
   finalize,
   from,
   map,
   mergeMap,
-  Observable,
-  shareReplay,
   switchMap,
   take
 } from 'rxjs';
@@ -44,22 +43,21 @@ export class ShippingSelectorComponent {
 
   private shippingAdapters = Object.values(this.adapters.shipping || []);
 
-  enabledShippingAdapters$: Observable<string[]> = this.configService.configs$.pipe(
-    map(configs => {
-      return configs
-        .filter(config => {
-          const isActive = config['active'] === true;
-          const isShipping = this.shippingAdapters.includes(config.id);
-          const hasShippingService = this.shippingServices.some(service => service.adapterId === config.id)
-          if (isShipping && !hasShippingService) {
-            this.toastService.warn(`Shipping service for ${config.id} is not available`);
-          }
-          return isActive && isShipping && hasShippingService;
-        })
-        .map(config => config.id)
-    }),
-    shareReplay(1)
-  );
+  enabledShippingAdapters = computed(() => {
+    const configs = this.configService.configs();
+    if (!configs) return undefined;
+    return configs
+      .filter(config => {
+        const isActive = config['active'] === true;
+        const isShipping = this.shippingAdapters.includes(config.id);
+        const hasShippingService = this.shippingServices.some(service => service.adapterId === config.id)
+        if (isShipping && !hasShippingService) {
+          this.toastService.warn(`Shipping service for ${config.id} is not available`);
+        }
+        return isActive && isShipping && hasShippingService;
+      })
+      .map(config => config.id)
+  })
 
   selectedShippingAdapter$ = this.orderService.nonRemovedShippings$.pipe(
     map(shippings => shippings?.[0].adapterId || ''),
@@ -71,60 +69,49 @@ export class ShippingSelectorComponent {
       take(1),
       filter(hasDefaultShipping => !hasDefaultShipping),
       switchMap(() => {
-        return this.enabledShippingAdapters$.pipe(
-          take(1),
-          map(adapters => adapters[0]),
-          filter(adapter => !!adapter),
-          switchMap(adapter => {
-            const shippingService = this.shippingServices.find(service => service.adapterId === adapter)!;
-            return this.createShippingUsingService(shippingService);
-          })
-        )
+        const adapters = this.enabledShippingAdapters();
+        if (!adapters) return EMPTY;
+
+        const adapter = adapters[0];
+        if (!adapter) {
+          this.toastService.warn('No shipping adapter configured');
+          return EMPTY;
+        }
+
+        const shippingService = this.shippingServices.find(service => service.adapterId === adapter);
+        if (!shippingService) return EMPTY;
+        return shippingService.createShipping();
       }),
       finalize(() => this.syncService.triggerRefresh()),
     ).subscribe()
   }
 
-  private createShippingUsingService(shippingSerice: IShippingService) {
-    return this.orderService.order$.pipe(
-      take(1),
-      map(order => order.id),
-      switchMap(orderId => shippingSerice.createShipping(orderId!)),
-    )
-  }
-
   private removeShippingUsingService(shippingSerice: IShippingService) {
-    return this.orderService.order$.pipe(
+    return this.orderService.nonRemovedShippings$.pipe(
       take(1),
-      map(order => order.id),
-      switchMap(orderId => {
-        return this.orderService.nonRemovedShippings$.pipe(
-          take(1),
-          map(shippings => shippings.filter(shipping => shipping.adapterId === shippingSerice.adapterId)),
-          mergeMap(shippings => from(shippings).pipe(
-            switchMap(shipping => shippingSerice.removeShipping(orderId!, shipping.id!)),
-          )),
-        )
-      }),
+      map(shippings => shippings.filter(shipping => shipping.adapterId === shippingSerice.adapterId)),
+      mergeMap(shippings => from(shippings).pipe(
+        switchMap(shipping => shippingSerice.removeShipping(shipping.id!)),
+      ))
     )
   }
 
-  createOrReplaceShippingByAdapterId(shippingId: string) {
+  createOrReplaceShippingByAdapterId(adapterId: string) {
     const currentShippingService = this.selectedShippingAdapter$.pipe(
       take(1),
       map(adapterId => this.shippingServices.find(service => service.adapterId === adapterId)!),
     )
-    const nextShippingService = this.shippingServices.find(service => service.adapterId === shippingId)!;
+    const nextShippingService = this.shippingServices.find(service => service.adapterId === adapterId)!;
     this.orderService.hasShipping$.pipe(
       take(1),
       combineLatestWith(currentShippingService),
       switchMap(([hasDefaultShipping, currentShippingService]) => {
         if (hasDefaultShipping) {
           return this.removeShippingUsingService(currentShippingService).pipe(
-            switchMap(() => this.createShippingUsingService(nextShippingService)
+            switchMap(() => nextShippingService.createShipping()
             ));
         } else {
-          return this.createShippingUsingService(nextShippingService);
+          return nextShippingService.createShipping();
         }
       }),
       finalize(() => this.syncService.triggerRefresh()),

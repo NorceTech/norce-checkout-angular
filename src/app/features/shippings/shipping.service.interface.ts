@@ -3,7 +3,10 @@ import {Observable} from 'rxjs';
 export interface IShippingService {
   adapterId: string;
 
-  createShipping(orderId: string): Observable<any>;
 
-  removeShipping(orderId: string, shippingId: string): Observable<any>;
+  createShipping(): Observable<any>;
+
+  getShipping(shippingId: string): Observable<any>;
+
+  removeShipping(shippingId: string): Observable<any>;
 }

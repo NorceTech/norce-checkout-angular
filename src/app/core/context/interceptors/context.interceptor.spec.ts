@@ -1,7 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 import {HttpRequest, HttpResponse} from '@angular/common/http';
 import {of, throwError} from 'rxjs';
-import {EnvironmentInjector, provideExperimentalZonelessChangeDetection, runInInjectionContext,} from '@angular/core';
+import {
+  EnvironmentInjector,
+  provideExperimentalZonelessChangeDetection,
+  runInInjectionContext,
+  signal,
+} from '@angular/core';
 
 import {contextInterceptor} from './context.interceptor';
 import {ContextService} from '~/app/core/context/context.service';
@@ -23,7 +28,7 @@ describe('contextInterceptor', () => {
 
     // Provide a fake ContextService that emits our fakeContext.
     fakeContextService = {
-      context$: of(fakeContext),
+      context: signal(fakeContext),
     };
 
     TestBed.configureTestingModule({

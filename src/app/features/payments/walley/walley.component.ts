@@ -1,6 +1,6 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {WalleyService} from '~/app/features/payments/walley/walley.service';
-import {combineLatestWith, distinctUntilChanged, filter, finalize, map, shareReplay, switchMap, take} from 'rxjs';
+import {distinctUntilChanged, filter, finalize, map, shareReplay, switchMap, take} from 'rxjs';
 import {WalleyEvent, WindowWalley} from '~/app/features/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
@@ -37,16 +37,13 @@ export class WalleyComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-  html$ = this.contextService.context$.pipe(
-    combineLatestWith(this.paymentId$),
-    switchMap(([ctx, paymentId]) => {
-      return this.walleyService.getPayment(ctx.orderId, paymentId).pipe(
-        map(walleyOrder => walleyOrder.htmlSnippet),
-        filter(html => typeof html !== 'undefined'),
-        map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
-      );
-    }),
-    distinctUntilChanged()
+  html$ = this.paymentId$.pipe(
+    switchMap(paymentId => this.walleyService.getPayment(paymentId)),
+    map(walleyOrder => walleyOrder.htmlSnippet),
+    filter(html => typeof html !== 'undefined'),
+    map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
+    distinctUntilChanged(),
+    shareReplay(1),
   )
   readonly snippetTargetId = "walley-target";
 
@@ -97,38 +94,36 @@ export class WalleyComponent implements OnInit, OnDestroy {
     const eventName = event.type;
     switch (eventName) {
       case WalleyEvent.CustomerUpdated: {
-        this.contextService.context$.pipe(
-          combineLatestWith(this.paymentId$),
-          switchMap(([ctx, paymentId]) => {
-            return this.walleyService.updateCustomer(ctx, paymentId)
-          }),
+        this.paymentId$.pipe(
           take(1),
+          switchMap(paymentId => {
+            return this.walleyService.updateCustomer(paymentId)
+          }),
           finalize(() => this.syncService.triggerRefresh())
         ).subscribe();
         break;
       }
       case WalleyEvent.ShippingUpdated: {
-        this.contextService.context$.pipe(
-          combineLatestWith(this.paymentId$),
-          switchMap(([ctx, paymentId]) => {
-            return this.walleyService.updateShippingOption(ctx, paymentId)
-          }),
+        this.paymentId$.pipe(
           take(1),
+          switchMap(paymentId => {
+            return this.walleyService.updateShippingOption(paymentId)
+          }),
           finalize(() => this.syncService.triggerRefresh())
-        ).subscribe();
+        ).subscribe()
         break;
       }
       case WalleyEvent.Expired: {
-        this.contextService.context$.pipe(
-          combineLatestWith(this.paymentId$),
-          switchMap(([ctx, paymentId]) => {
-            return this.walleyService.removePayment(ctx.orderId, paymentId).pipe(
-              switchMap(() => this.walleyService.createPayment(ctx.orderId))
-            )
-          }),
-          take(1),
-          finalize(() => this.syncService.triggerRefresh())
-        ).subscribe();
+        this.paymentId$
+          .pipe(
+            take(1),
+            switchMap(paymentId => {
+              return this.walleyService.removePayment(paymentId).pipe(
+                switchMap(() => this.walleyService.createPayment())
+              )
+            }),
+            finalize(() => this.syncService.triggerRefresh())
+          ).subscribe();
         break;
       }
       case WalleyEvent.PurchaseCompleted: {

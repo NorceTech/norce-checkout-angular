@@ -1,22 +1,13 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {DataService} from '~/app/core/order/data.service';
-import {
-  catchError,
-  distinctUntilChanged,
-  distinctUntilKeyChanged,
-  EMPTY,
-  filter,
-  map,
-  mergeWith,
-  Observable,
-  retry,
-  shareReplay,
-  switchMap
-} from 'rxjs';
+import {catchError, distinctUntilChanged, EMPTY, filter, map, Observable, retry, shareReplay, switchMap} from 'rxjs';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Order, Payment} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {toObservableSignal} from 'ngxtension/to-observable-signal';
+import {connect} from 'ngxtension/connect';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +18,7 @@ export class OrderService {
   private contextService = inject(ContextService);
   private syncService = inject(SyncService);
 
-  order$ = this.getOrder().pipe(
-    distinctUntilKeyChanged('lastModified'),
-    shareReplay(1),
-  )
+  order$ = toObservableSignal(signal<Order>({channel: '', merchant: ''}));
 
   currency$ = this.order$.pipe(
     map(order => order.currency),
@@ -79,24 +67,28 @@ export class OrderService {
     )
   }
 
-  private getOrder(): Observable<Order> {
-    return this.contextService.context$
+  constructor() {
+    const contextOrder$ = toObservable(this.contextService.context).pipe(
+      switchMap(ctx => this.getOrder(ctx?.orderId!)),
+    );
+
+    const refreshOrder$ = this.syncService.getRefreshStream().pipe(
+      switchMap(() => this.getOrder(this.contextService.context()?.orderId!)),
+    )
+
+    connect(this.order$)
+      .with(contextOrder$)
+      .with(refreshOrder$);
+  }
+
+  private getOrder(orderId: string): Observable<Order> {
+    return this.dataService.getOrder(orderId)
       .pipe(
-        mergeWith(
-          this.syncService.getRefreshStream().pipe(
-            switchMap(() => this.contextService.context$)
-          )
-        ),
-        switchMap(ctx => {
-          return this.dataService.getOrder(ctx.orderId)
-            .pipe(
-              retry(2),
-              catchError(() => {
-                this.toastService.error('Failed to fetch order data');
-                return EMPTY;
-              })
-            )
-        }),
+        retry(2),
+        catchError(() => {
+          this.toastService.error('Failed to fetch order data');
+          return EMPTY;
+        })
       )
   }
 }

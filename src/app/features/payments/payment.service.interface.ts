@@ -3,7 +3,9 @@ import {Observable} from 'rxjs';
 export interface IPaymentService {
   adapterId: string;
 
-  createPayment(orderId: string): Observable<any>;
+  createPayment(): Observable<any>;
 
-  removePayment(orderId: string, paymentId: string): Observable<any>;
+  getPayment(paymentId: string): Observable<any>;
+
+  removePayment(paymentId: string): Observable<any>;
 }

@@ -2,7 +2,7 @@ import {Component, DestroyRef, inject, OnDestroy, OnInit} from '@angular/core';
 import {AdyenService} from '~/app/features/payments/adyen/adyen.service';
 import {OrderService} from '~/app/core/order/order.service';
 import {SyncService} from '~/app/core/sync/sync.service';
-import {combineLatestWith, filter, finalize, map, shareReplay, switchMap, take} from 'rxjs';
+import {filter, finalize, map, shareReplay, switchMap, take} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import AdyenCheckout from '@adyen/adyen-web';
@@ -44,14 +44,10 @@ export class AdyenComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-  private adyenPayment$ = this.contextService.context$
-    .pipe(
-      combineLatestWith(this.orderPayment$),
-      switchMap(([ctx, payment]) => {
-        return this.adyenService.getPayment(ctx.orderId, payment.id!)
-      }),
-      shareReplay(1),
-    );
+  private adyenPayment$ = this.orderPayment$.pipe(
+    switchMap(payment => this.adyenService.getPayment(payment.id!)),
+    shareReplay(1),
+  )
 
   coreOptions$ = this.adyenPayment$.pipe(
     filter(config => typeof config !== 'undefined'),
@@ -109,12 +105,9 @@ export class AdyenComponent implements OnInit, OnDestroy {
   }
 
   private handleOnSubmit(state: any, element: UIElement) {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
+    return this.orderPayment$.pipe(
       take(1),
-      switchMap(([ctx, payment]) => {
-        return this.adyenService.startTransaction(ctx.orderId, payment.id!, state.data)
-      }),
+      switchMap(payment => this.adyenService.startTransaction(payment.id!, state.data)),
       finalize(() => this.resume())
     ).subscribe((response) => {
       if (typeof response?.action?.actualInstance !== 'undefined') {
@@ -128,12 +121,9 @@ export class AdyenComponent implements OnInit, OnDestroy {
   };
 
   private handleOnError(error: AdyenCheckoutError, element?: UIElement) {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
+    return this.orderPayment$.pipe(
       take(1),
-      switchMap(([ctx, payment]) => {
-        return this.adyenService.submitDetails(ctx.orderId, payment.id!, error.data)
-      }),
+      switchMap(payment => this.adyenService.submitDetails(payment.id!, error.data)),
       finalize(() => this.resume())
     ).subscribe((response) => {
       if (response.resultCode) {
@@ -144,12 +134,9 @@ export class AdyenComponent implements OnInit, OnDestroy {
   }
 
   private handleOnAdditionalDetails(state: any, element?: UIElement) {
-    return this.contextService.context$.pipe(
-      combineLatestWith(this.orderPayment$),
+    return this.orderPayment$.pipe(
       take(1),
-      switchMap(([ctx, payment]) => {
-        return this.adyenService.submitDetails(ctx.orderId, payment.id!, state.data);
-      }),
+      switchMap(payment => this.adyenService.submitDetails(payment.id!, state.data)),
       finalize(() => this.resume())
     ).subscribe((response) => {
       if (response.resultCode) {
