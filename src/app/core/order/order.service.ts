@@ -1,8 +1,8 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {DataService} from '~/app/core/order/data.service';
-import {catchError, EMPTY, filter, map, Observable, retry, shareReplay, switchMap} from 'rxjs';
+import {catchError, EMPTY, Observable, retry, switchMap} from 'rxjs';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {Order, Payment} from '~/openapi/order';
+import {Order} from '~/openapi/order';
 import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {toObservable} from '@angular/core/rxjs-interop';
@@ -20,19 +20,6 @@ export class OrderService {
   private _order = signal<Order>({channel: '', merchant: ''});
   order = this._order.asReadonly();
   order$ = toObservable(this._order);
-
-  private nonRemovePayments$: Observable<Payment[]> = this.order$.pipe(
-    map(order => order.payments?.filter(payment => payment.state !== 'removed')),
-    filter(payments => typeof payments !== 'undefined'),
-    shareReplay(1)
-  )
-
-  getPayment(adapter: string): Observable<Payment> {
-    return this.nonRemovePayments$.pipe(
-      map(payments => payments.find(payment => payment.adapterId === adapter)),
-      filter(payment => typeof payment !== 'undefined'),
-    )
-  }
 
   constructor() {
     const contextOrder$ = toObservable(this.contextService.context).pipe(

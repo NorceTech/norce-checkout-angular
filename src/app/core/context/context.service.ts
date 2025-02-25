@@ -1,15 +1,14 @@
-import {computed, inject, Injectable} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {computed, Injectable, Signal} from '@angular/core';
 import {Context} from '~/app/core/entities/Context';
 import {environment} from '~/environments/environment';
 import {injectQueryParams} from 'ngxtension/inject-query-params';
+import {Params} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContextService {
-  private activatedRoute = inject(ActivatedRoute);
-  private queryParams = injectQueryParams();
+  private queryParams: Signal<Params> = injectQueryParams();
 
   context = computed(() => {
     const qp = this.queryParams();

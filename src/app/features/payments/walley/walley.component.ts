@@ -1,6 +1,6 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, computed, inject, OnDestroy, OnInit} from '@angular/core';
 import {WalleyService} from '~/app/features/payments/walley/walley.service';
-import {distinctUntilChanged, filter, finalize, map, shareReplay, switchMap, take} from 'rxjs';
+import {distinctUntilChanged, filter, finalize, map, switchMap} from 'rxjs';
 import {WalleyEvent, WindowWalley} from '~/app/features/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AsyncPipe} from '@angular/common';
@@ -8,9 +8,9 @@ import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-scripts.directive';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Router} from '@angular/router';
-import {ContextService} from '~/app/core/context/context.service';
 import {OrderService} from '~/app/core/order/order.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {derivedAsync} from 'ngxtension/derived-async';
 
 @Component({
   selector: 'app-walley',
@@ -28,23 +28,25 @@ export class WalleyComponent implements OnInit, OnDestroy {
   private syncService = inject(SyncService);
   private router = inject(Router);
 
-  private contextService = inject(ContextService);
-  private paymentId$ = this.orderService.getPayment(this.walleyService.adapterId)
-    .pipe(
-      map(payment => payment.id),
-      filter(id => typeof id !== 'undefined'),
-      distinctUntilChanged(),
-      shareReplay(1),
-    );
+  private paymentId = computed(() => {
+    return this.orderService.order()
+      .payments
+      ?.filter(payment => payment.state !== 'removed')
+      .find(payment => payment.adapterId === this.walleyService.adapterId)
+      ?.adapterId
+  })
 
-  html$ = this.paymentId$.pipe(
-    switchMap(paymentId => this.walleyService.getPayment(paymentId)),
-    map(walleyOrder => walleyOrder.htmlSnippet),
-    filter(html => typeof html !== 'undefined'),
-    map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
-    distinctUntilChanged(),
-    shareReplay(1),
-  )
+  html = derivedAsync(() => {
+    const paymentId = this.paymentId();
+    if (typeof paymentId === 'undefined') return;
+    return this.walleyService.getPayment(paymentId).pipe(
+      map(walleyOrder => walleyOrder.htmlSnippet),
+      filter(html => typeof html !== 'undefined'),
+      distinctUntilChanged(),
+      map(html => this.domSanitizer.bypassSecurityTrustHtml(html)),
+    )
+  })
+
   readonly snippetTargetId = "walley-target";
 
   constructor() {
@@ -94,34 +96,21 @@ export class WalleyComponent implements OnInit, OnDestroy {
     const eventName = event.type;
     switch (eventName) {
       case WalleyEvent.CustomerUpdated: {
-        this.paymentId$.pipe(
-          take(1),
-          switchMap(paymentId => {
-            return this.walleyService.updateCustomer(paymentId)
-          }),
-          finalize(() => this.syncService.triggerRefresh())
-        ).subscribe();
+        this.walleyService.updateCustomer(this.paymentId()!)
+          .pipe(finalize(() => this.syncService.triggerRefresh()))
+          .subscribe()
         break;
       }
       case WalleyEvent.ShippingUpdated: {
-        this.paymentId$.pipe(
-          take(1),
-          switchMap(paymentId => {
-            return this.walleyService.updateShippingOption(paymentId)
-          }),
-          finalize(() => this.syncService.triggerRefresh())
-        ).subscribe()
+        this.walleyService.updateShippingOption(this.paymentId()!)
+          .pipe(finalize(() => this.syncService.triggerRefresh()))
+          .subscribe()
         break;
       }
       case WalleyEvent.Expired: {
-        this.paymentId$
+        this.walleyService.removePayment(this.paymentId()!)
           .pipe(
-            take(1),
-            switchMap(paymentId => {
-              return this.walleyService.removePayment(paymentId).pipe(
-                switchMap(() => this.walleyService.createPayment())
-              )
-            }),
+            switchMap(() => this.walleyService.createPayment()),
             finalize(() => this.syncService.triggerRefresh())
           ).subscribe();
         break;
