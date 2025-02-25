@@ -5,12 +5,12 @@
   </p-card>
 
   <app-shipping-selector></app-shipping-selector>
-  @if (firstShippingAdapterId(); as shippingAdapterId) {
+  @if (shippingAdapterId(); as shippingAdapterId) {
     <app-shipping-factory [adapterId]="shippingAdapterId"></app-shipping-factory>
   }
 
   <app-payment-selector></app-payment-selector>
-  @if (defaultPaymentAdapterId$ | async; as paymentAdapterId) {
+  @if (paymentAdapterId(); as paymentAdapterId) {
     <app-payment-factory [adapterId]="paymentAdapterId"></app-payment-factory>
   }
 

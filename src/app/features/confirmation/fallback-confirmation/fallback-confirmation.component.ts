@@ -1,9 +1,9 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
 import {Card} from 'primeng/card';
 import {Tag} from 'primeng/tag';
 import {PricePipe} from '~/app/shared/pipes/price.pipe';
-import {AsyncPipe, DatePipe, TitleCasePipe} from '@angular/common';
+import {DatePipe, TitleCasePipe} from '@angular/common';
 import {OrderStatus, PaymentState} from '~/openapi/order';
 
 @Component({
@@ -13,7 +13,6 @@ import {OrderStatus, PaymentState} from '~/openapi/order';
     Tag,
     PricePipe,
     DatePipe,
-    AsyncPipe,
     TitleCasePipe,
   ],
   templateUrl: './fallback-confirmation.component.html',
@@ -21,8 +20,13 @@ import {OrderStatus, PaymentState} from '~/openapi/order';
 export class FallbackConfirmationComponent {
   private orderService = inject(OrderService);
 
-  order$ = this.orderService.order$;
-  payment$ = this.orderService.defaultPayment$;
+  order = this.orderService.order;
+  payment = computed(() => {
+    return this.order()
+      ?.payments
+      ?.filter(payment => payment.type === 'default')
+      ?.find(payment => payment.state !== 'removed')
+  });
 
   getStatusSeverity(status?: OrderStatus) {
     switch (status?.toLowerCase()) {

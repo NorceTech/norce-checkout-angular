@@ -1,5 +1,5 @@
 <!-- order-confirmation.component.html -->
-@if (order$ | async; as order) {
+@if (order(); as order) {
   <!-- Order Summary -->
   <p-card class="mb-6">
     <div class="grid grid-cols-4 gap-6">
@@ -18,7 +18,7 @@
       </div>
       <div>
         <h3 class="font-bold">Payment</h3>
-        <p>{{ (payment$ | async)?.name | titlecase }}</p>
+        <p>{{ payment()?.name | titlecase }}</p>
       </div>
     </div>
 

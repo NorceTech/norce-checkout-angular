@@ -3,11 +3,10 @@ import {CartComponent} from '~/app/features/cart/cart.component';
 import {SummaryComponent} from '~/app/features/summary/summary.component';
 import {Card} from 'primeng/card';
 import {OrderService} from '~/app/core/order/order.service';
-import {distinctUntilChanged, filter, map} from 'rxjs';
+import {filter, map} from 'rxjs';
 import {OrderStatus} from '~/openapi/order';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
-import {AsyncPipe} from '@angular/common';
 import {PaymentFactoryComponent} from '~/app/features/payments/payment-factory/payment-factory.component';
 import {ShippingFactoryComponent} from '~/app/features/shippings/shipping-factory/shipping-factory.component';
 import {PaymentSelectorComponent} from '~/app/features/payments/payment-selector/payment-selector.component';
@@ -19,7 +18,6 @@ import {ShippingSelectorComponent} from '~/app/features/shippings/shipping-selec
     CartComponent,
     SummaryComponent,
     Card,
-    AsyncPipe,
     PaymentFactoryComponent,
     ShippingFactoryComponent,
     PaymentSelectorComponent,
@@ -32,13 +30,15 @@ export class CheckoutComponent {
   private router = inject(Router);
   private completedStates: OrderStatus[] = ['accepted', 'completed', 'declined', 'removed']
 
-  defaultPaymentAdapterId$ = this.orderService.defaultPayment$.pipe(
-    map(payment => payment.adapterId),
-    filter(adapterId => typeof adapterId !== 'undefined'),
-    distinctUntilChanged(),
-  )
+  paymentAdapterId = computed(() => {
+    return this.orderService.order()
+      ?.payments
+      ?.filter(payment => payment.type === 'default')
+      ?.find(payment => payment.state !== 'removed')
+      ?.adapterId
+  })
 
-  firstShippingAdapterId = computed(() => {
+  shippingAdapterId = computed(() => {
     return this.orderService.order()
       ?.shippings
       ?.find(shipping => shipping.state !== 'removed')

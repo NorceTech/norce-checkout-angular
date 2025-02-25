@@ -1,15 +1,15 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
-import {distinctUntilChanged, filter, map} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
+import {filter, map} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
-import {ConfirmationFactoryComponent} from '~/app/features/confirmation/confirmation-factory/confirmation-factory.component';
+import {
+  ConfirmationFactoryComponent
+} from '~/app/features/confirmation/confirmation-factory/confirmation-factory.component';
 
 @Component({
   selector: 'app-confirmation',
   imports: [
-    AsyncPipe,
     ConfirmationFactoryComponent
   ],
   templateUrl: './confirmation.component.html',
@@ -18,11 +18,14 @@ export class ConfirmationComponent {
   private orderService = inject(OrderService);
   private router = inject(Router);
   private checkoutStates = ['checkout', 'processing']
-  defaultPaymentAdapterId$ = this.orderService.defaultPayment$.pipe(
-    map(payment => payment.adapterId),
-    filter(adapterId => typeof adapterId !== 'undefined'),
-    distinctUntilChanged(),
-  )
+
+  paymentAdapterId = computed(() => {
+    return this.orderService.order()
+      ?.payments
+      ?.filter(payment => payment.type === 'default')
+      ?.find(payment => payment.state !== 'removed')
+      ?.adapterId
+  })
 
   constructor() {
     this.orderService.order$.pipe(

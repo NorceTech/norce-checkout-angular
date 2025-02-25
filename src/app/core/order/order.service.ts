@@ -27,16 +27,6 @@ export class OrderService {
     shareReplay(1)
   )
 
-  defaultPayment$ = this.nonRemovePayments$.pipe(
-    map(payments => payments.find(payment => payment.type === 'default')),
-    filter(payment => typeof payment !== 'undefined'),
-  );
-  hasDefaultPayment$ = this.order$.pipe(
-    map(order => !!order.payments?.some(payment => {
-      return payment.type === 'default' && payment.state !== 'removed'
-    })),
-  )
-
   getPayment(adapter: string): Observable<Payment> {
     return this.nonRemovePayments$.pipe(
       map(payments => payments.find(payment => payment.adapterId === adapter)),

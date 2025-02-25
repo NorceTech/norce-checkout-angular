@@ -1,3 +1,3 @@
-@if (defaultPaymentAdapterId$ | async; as adapterId) {
+@if (paymentAdapterId(); as adapterId) {
   <app-confirmation-factory [adapterId]="adapterId"></app-confirmation-factory>
 }
