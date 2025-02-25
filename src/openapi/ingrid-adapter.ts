@@ -14,7 +14,7 @@ export type paths = {
         get?: never;
         put?: never;
         /**
-         * Handle Shipping changed in Norce order.
+         * Customer changed
          * @description Customer changed inside ingrid shipping form.
          */
         post: operations["CustomerChanged"];
@@ -34,7 +34,7 @@ export type paths = {
         get?: never;
         put?: never;
         /**
-         * Handle Shipping changed in Norce order.
+         * Shipping changed
          * @description Shipping changed.
          */
         post: operations["ShippingChanged"];
@@ -238,6 +238,8 @@ export type components = {
             sessionId?: string;
             /** @description Shipping identifier */
             shippingId?: string;
+            /** @description Use address form */
+            useAddressForm?: boolean;
         };
         Item: {
             attributes?: {

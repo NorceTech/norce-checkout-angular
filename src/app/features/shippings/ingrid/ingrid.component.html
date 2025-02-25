@@ -1,4 +1,4 @@
-@if (html$ | async; as snippet) {
+@if (html(); as snippet) {
   <div [id]="snippetTargetId" [innerHTML]="snippet" runScripts></div>
 } @else {
   <div class="flex justify-center py-4">

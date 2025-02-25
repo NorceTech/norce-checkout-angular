@@ -1,9 +1,8 @@
-import {Component, computed, effect, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, computed, effect, inject, OnDestroy} from '@angular/core';
 import {AdyenService} from '~/app/features/payments/adyen/adyen.service';
 import {OrderService} from '~/app/core/order/order.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {filter, finalize, map} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import AdyenCheckout from '@adyen/adyen-web';
 // @ts-ignore
@@ -23,13 +22,12 @@ import {derivedAsync} from 'ngxtension/derived-async';
 @Component({
   selector: 'app-adyen',
   imports: [
-    AsyncPipe,
     ProgressSpinner
   ],
   templateUrl: './adyen.component.html',
   styleUrls: ['./adyen.component.css']
 })
-export class AdyenComponent implements OnInit, OnDestroy {
+export class AdyenComponent implements OnDestroy {
   private orderService = inject(OrderService);
   private adyenService = inject(AdyenService);
   private syncService = inject(SyncService);
@@ -37,24 +35,25 @@ export class AdyenComponent implements OnInit, OnDestroy {
   readonly containerId = 'adyen-container';
   private dropin: DropinElement | undefined;
 
-  private paymentId = computed(() => {
+  private payment = computed(() => {
     return this.orderService.order()
       .payments
       ?.filter(payment => payment.state !== 'removed')
-      .find(payment => payment.adapterId === this.adyenService.adapterId)
-      ?.adapterId
+      .find(payment => payment.adapterId === this.adyenService.adapterId);
   })
+  private paymentId = computed(() => this.payment()?.id)
 
   coreOptions = derivedAsync(() => {
-    const paymentId = this.paymentId();
-    if (typeof paymentId === 'undefined') return;
+    const payment = this.payment();
+    if (typeof payment?.id === 'undefined') return;
 
-    return this.adyenService.getPayment(paymentId).pipe(
+    return this.adyenService.getPayment(payment.id).pipe(
       filter(config => typeof config !== 'undefined'),
       map(config => {
         return {
           environment: 'test',
           showPayButton: true,
+          amount: payment?.amount,
           ...config,
           onSubmit: this.handleOnSubmit.bind(this),
           onError: this.handleOnError.bind(this),
@@ -75,9 +74,7 @@ export class AdyenComponent implements OnInit, OnDestroy {
           this.resume();
         }
       })
-  }
 
-  ngOnInit(): void {
     effect(async () => {
       const coreOptions = this.coreOptions();
       if (typeof coreOptions === 'undefined') return;

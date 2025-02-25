@@ -1,5 +1,5 @@
 import {Component, computed, inject, signal, untracked} from '@angular/core';
-import {EMPTY, finalize, Subject, switchMap} from 'rxjs';
+import {EMPTY, Subject, switchMap} from 'rxjs';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 import {ToastService} from '~/app/core/toast/toast.service';
@@ -41,22 +41,6 @@ export class PaymentSelectorComponent {
   enabledPayments = computed(() => this.state().enabledPayments);
 
   constructor() {
-    const enabledPayments = computed(() => {
-      const configs = this.configService.configs();
-      if (!configs) return null;
-
-      return configs
-        .filter(config => {
-          const isActive = config['active'] === true;
-          const isPayment = this.paymentAdapters.includes(config.id);
-          const hasPaymentService = this.paymentServices.some(service => service.adapterId === config.id)
-          if (isPayment && !hasPaymentService) {
-            this.toastService.warn(`Payment service for ${config.id} is not available`);
-          }
-          return isActive && isPayment && hasPaymentService;
-        })
-        .map(config => config.id)
-    })
     connect(this.state)
       .with(() => {
         const state = untracked(() => this.state());
@@ -115,8 +99,7 @@ export class PaymentSelectorComponent {
           return nextPaymentService.createPayment();
         }
       }),
-      finalize(() => this.syncService.triggerRefresh())
-    ).subscribe()
+    ).subscribe(() => this.syncService.triggerRefresh())
 
     effectOnceIf(
       () => !this.currentPayment() && this.enabledPayments()?.length! > 0,

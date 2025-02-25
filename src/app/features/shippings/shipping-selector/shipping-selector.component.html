@@ -1,12 +1,14 @@
-@if (enabledShippingAdapters(); as shippingAdapters) {
-  @if (shippingAdapters.length > 1) {
+@if (enabledShippings(); as shippingAdapters) {
+  <!-- By checking that the shipping is one of the enabled shippings,
+  we prevent rendering the selection if the shipping is from a payment adapter -->
+  @if (shippingAdapters.length > 1 && shippingAdapters.includes(currentShipping()?.adapterId || '')) {
     <p-card>
       <label for="shipping-selector" class="block font-bold text-lg mb-4 w-full text-center">Select Payment</label>
       <div class="flex items-center gap-2">
         <p-select-button
           [options]="shippingAdapters"
-          [ngModel]="selectedShipping()?.adapterId"
-          (ngModelChange)="createOrReplaceShippingByAdapterId($event)"
+          [ngModel]="currentShipping()?.adapterId"
+          (ngModelChange)="useShippingAdapter$.next($event)"
           id="shipping-selector"/>
       </div>
     </p-card>

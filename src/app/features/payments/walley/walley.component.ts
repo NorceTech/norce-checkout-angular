@@ -3,7 +3,6 @@ import {WalleyService} from '~/app/features/payments/walley/walley.service';
 import {distinctUntilChanged, filter, finalize, map, switchMap} from 'rxjs';
 import {WalleyEvent, WindowWalley} from '~/app/features/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
-import {AsyncPipe} from '@angular/common';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {RunScriptsDirective} from '~/app/shared/directives/run-scripts.directive';
 import {SyncService} from '~/app/core/sync/sync.service';
@@ -15,7 +14,6 @@ import {derivedAsync} from 'ngxtension/derived-async';
 @Component({
   selector: 'app-walley',
   imports: [
-    AsyncPipe,
     ProgressSpinner,
     RunScriptsDirective
   ],
@@ -33,7 +31,7 @@ export class WalleyComponent implements OnInit, OnDestroy {
       .payments
       ?.filter(payment => payment.state !== 'removed')
       .find(payment => payment.adapterId === this.walleyService.adapterId)
-      ?.adapterId
+      ?.id
   })
 
   html = derivedAsync(() => {

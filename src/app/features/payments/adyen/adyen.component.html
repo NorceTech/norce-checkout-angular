@@ -1,6 +1,5 @@
 <div [id]="containerId"></div>
-@let config = coreOptions$ | async;
-@if (!config) {
+@if (!coreOptions()) {
   <div class="flex justify-center py-4">
     <p-progress-spinner></p-progress-spinner>
   </div>
