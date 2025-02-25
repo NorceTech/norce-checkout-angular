@@ -1,4 +1,4 @@
-import {ComponentRef, provideExperimentalZonelessChangeDetection, ViewContainerRef} from '@angular/core';
+import {ComponentRef, provideExperimentalZonelessChangeDetection, signal, ViewContainerRef} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ShippingFactoryComponent} from './shipping-factory.component';
 import {ToastService} from '~/app/core/toast/toast.service';
@@ -51,7 +51,7 @@ describe('ShippingFactoryComponent', () => {
 
     // Provide a fake container instance and assign it to the ViewChild.
     fakeContainer = new FakeViewContainerRef();
-    component.container = fakeContainer as unknown as ViewContainerRef;
+    component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
     // By default, set adapterId to return undefined.
     componentRef.setInput('adapterId', undefined);
@@ -123,7 +123,7 @@ describe('ShippingFactoryComponent', () => {
       [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
     })
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
-    component.container = undefined;
+    component.container = signal(undefined);
 
     // Act
     (component as any).loadShippingComponent(component.adapterId());
@@ -138,7 +138,7 @@ describe('ShippingFactoryComponent', () => {
     // Arrange
     const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
     (component as any).componentRef = fakeComponentRef;
-    component.container = fakeContainer as unknown as ViewContainerRef;
+    component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
     // Act
     (component as any).clearContainer();

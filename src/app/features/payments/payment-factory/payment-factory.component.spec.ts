@@ -1,4 +1,4 @@
-import {ComponentRef, provideExperimentalZonelessChangeDetection, ViewContainerRef} from '@angular/core';
+import {ComponentRef, provideExperimentalZonelessChangeDetection, signal, ViewContainerRef} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {PaymentFactoryComponent} from './payment-factory.component';
 import {ToastService} from '~/app/core/toast/toast.service';
@@ -52,7 +52,7 @@ describe('PaymentFactoryComponent', () => {
 
     // Provide a fake container instance and assign it to the ViewChild.
     fakeContainer = new FakeViewContainerRef();
-    component.container = fakeContainer as unknown as ViewContainerRef;
+    component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
     // By default, set the adapterId input to undefined.
     componentRef.setInput('adapterId', undefined);
@@ -110,7 +110,7 @@ describe('PaymentFactoryComponent', () => {
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
     })
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
-    component.container = undefined;
+    component.container = signal(undefined);
 
     // Act
     (component as any).loadPaymentComponent(component.adapterId());
@@ -125,7 +125,7 @@ describe('PaymentFactoryComponent', () => {
     // Arrange
     const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
     (component as any).componentRef = fakeComponentRef;
-    component.container = fakeContainer as unknown as ViewContainerRef;
+    component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
     // Act
     (component as any).clearContainer();
