@@ -5,7 +5,7 @@ import {
   inject,
   input,
   Type,
-  ViewChild,
+  viewChild,
   ViewContainerRef
 } from '@angular/core';
 import {ADAPTERS} from '~/app/core/adapter';
@@ -31,7 +31,7 @@ export class ConfirmationFactoryComponent {
     [this.adapters.payment.Walley]: WalleyComponent,
   } as const;
 
-  @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef | undefined;
+  container = viewChild('container', {read: ViewContainerRef});
 
   private componentRef?: ComponentRef<any>;
 
@@ -50,17 +50,18 @@ export class ConfirmationFactoryComponent {
       componentType = FallbackConfirmationComponent;
     }
 
-    if (!this.container) {
+    const container = this.container();
+    if (!container) {
       this.toastService.error('No container to load confirmation component into');
       return;
     }
-    this.container.clear();
+    container.clear();
 
-    this.componentRef = this.container.createComponent(componentType as any);
+    this.componentRef = container.createComponent(componentType as any);
   }
 
   private clearContainer() {
-    this.container?.clear();
+    this.container()?.clear();
     this.componentRef?.destroy();
     this.componentRef = undefined;
   }

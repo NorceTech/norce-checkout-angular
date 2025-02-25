@@ -1,4 +1,4 @@
-import {afterRenderEffect, Component, ComponentRef, inject, input, ViewChild, ViewContainerRef} from '@angular/core';
+import {afterRenderEffect, Component, ComponentRef, inject, input, viewChild, ViewContainerRef} from '@angular/core';
 import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/features/payments/walley/walley.component';
 import {AdyenComponent} from '~/app/features/payments/adyen/adyen.component';
@@ -22,7 +22,7 @@ export class PaymentFactoryComponent {
     [this.adapters.payment.Adyen]: AdyenComponent
   } as const;
 
-  @ViewChild('paymentContainer', {read: ViewContainerRef}) container: ViewContainerRef | undefined;
+  container = viewChild('paymentContainer', {read: ViewContainerRef});
 
   private componentRef?: ComponentRef<any>;
 
@@ -42,17 +42,18 @@ export class PaymentFactoryComponent {
       return;
     }
 
-    if (!this.container) {
+    const container = this.container();
+    if (!container) {
       this.toastService.error('No container to load payment component into');
       return;
     }
-    this.container.clear();
+    container.clear();
 
-    this.componentRef = this.container.createComponent(componentType as any);
+    this.componentRef = container.createComponent(componentType as any);
   }
 
   private clearContainer() {
-    this.container?.clear();
+    this.container()?.clear();
     this.componentRef?.destroy();
     this.componentRef = undefined;
   }

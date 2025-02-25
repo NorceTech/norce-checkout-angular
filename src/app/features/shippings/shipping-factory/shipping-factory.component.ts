@@ -1,4 +1,4 @@
-import {afterRenderEffect, Component, ComponentRef, inject, input, ViewChild, ViewContainerRef} from '@angular/core';
+import {afterRenderEffect, Component, ComponentRef, inject, input, viewChild, ViewContainerRef} from '@angular/core';
 import {IngridComponent} from '~/app/features/shippings/ingrid/ingrid.component';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {ADAPTERS, IAdapters} from '~/app/core/adapter';
@@ -21,7 +21,7 @@ export class ShippingFactoryComponent {
   private paymentAdapters = Object.values(this.adapters.payment);
   private shippingAdapters = Object.values(this.adapters.shipping);
 
-  @ViewChild('shippingContainer', {read: ViewContainerRef}) container: ViewContainerRef | undefined;
+  container = viewChild('shippingContainer', {read: ViewContainerRef});
 
   private componentRef?: ComponentRef<any>;
 
@@ -45,17 +45,18 @@ export class ShippingFactoryComponent {
       return;
     }
 
-    if (!this.container) {
+    const container = this.container();
+    if (!container) {
       this.toastService.error('No container to load shipping component into');
       return;
     }
-    this.container.clear();
+    container.clear();
 
-    this.componentRef = this.container.createComponent(componentType as any);
+    this.componentRef = container.createComponent(componentType as any);
   }
 
   private clearContainer() {
-    this.container?.clear();
+    this.container()?.clear();
     this.componentRef?.destroy();
     this.componentRef = undefined;
   }

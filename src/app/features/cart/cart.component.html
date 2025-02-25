@@ -1,5 +1,5 @@
-@if (items; as items) {
-  <p-table [value]="items()" [tableStyle]="">
+@if (items(); as items) {
+  <p-table [value]="items" [tableStyle]="">
     <ng-template #caption>
       <div class="flex items-center justify-center">
         <span class="text-lg font-bold mb-4 font-[feature-setting='ss02']">Cart</span>
