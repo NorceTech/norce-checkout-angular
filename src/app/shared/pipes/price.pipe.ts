@@ -13,8 +13,8 @@ const ZERO: Price = {
 })
 export class PricePipe implements PipeTransform {
   private orderService = inject(OrderService);
-  private currency = computed(() => this.orderService.order().currency)
-  private culture = computed(() => this.orderService.order().culture);
+  private currency = computed(() => this.orderService.order().currency || 'SEK')
+  private culture = computed(() => this.orderService.order().culture || 'sv-SE');
 
   transform(value?: Price | number | null | undefined, ...args: unknown[]): string {
     if (!value) return this.formatPrice(ZERO);

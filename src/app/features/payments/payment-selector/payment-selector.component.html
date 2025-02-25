@@ -1,12 +1,12 @@
-@if (enabledPaymentAdapters(); as paymentAdapters) {
+@if (enabledPayments(); as paymentAdapters) {
   @if (paymentAdapters.length > 1) {
     <p-card>
       <label for="payment-selector" class="block font-bold text-lg mb-4 w-full text-center">Select Payment</label>
       <div class="flex items-center gap-2">
         <p-select-button
           [options]="paymentAdapters"
-          [ngModel]="selectedPayment()?.adapterId"
-          (ngModelChange)="createOrReplacePaymentByAdapterId($event)"
+          [ngModel]="currentPayment()?.adapterId"
+          (ngModelChange)="usePaymentAdapter$.next($event)"
           id="payment-selector"/>
       </div>
     </p-card>

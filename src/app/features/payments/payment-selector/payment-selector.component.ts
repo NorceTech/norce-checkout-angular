@@ -1,15 +1,17 @@
-import {Component, computed, inject} from '@angular/core';
-import {PAYMENT_SERVICES} from '~/app/features/payments/provide-payment-services';
-import {ConfigService} from '~/app/core/config/config.service';
-import {EMPTY, filter, finalize, map, switchMap, take} from 'rxjs';
-import {OrderService} from '~/app/core/order/order.service';
+import {Component, computed, inject, signal, untracked} from '@angular/core';
+import {EMPTY, finalize, Subject, switchMap} from 'rxjs';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {Card} from 'primeng/card';
+import {PAYMENT_SERVICES} from '~/app/features/payments/provide-payment-services';
+import {ConfigService} from '~/app/core/config/config.service';
+import {OrderService} from '~/app/core/order/order.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {ADAPTERS} from '~/app/core/adapter';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {Payment} from '~/openapi/order';
+import {connect} from 'ngxtension/connect';
+import {effectOnceIf} from 'ngxtension/effect-once-if';
 
 @Component({
   selector: 'app-payment-selector',
@@ -27,73 +29,100 @@ export class PaymentSelectorComponent {
   private toastService = inject(ToastService);
   private syncService = inject(SyncService);
   private adapters = inject(ADAPTERS);
-
   private paymentAdapters = Object.values(this.adapters.payment || []);
 
-  enabledPaymentAdapters = computed(() => {
-    const configs = this.configService.configs();
-    if (!configs) return undefined;
-    return configs
-      .filter(config => {
-        const isActive = config['active'] === true;
-        const isPayment = this.paymentAdapters.includes(config.id);
-        const hasPaymentService = this.paymentServices.some(service => service.adapterId === config.id)
-        if (isPayment && !hasPaymentService) {
-          this.toastService.warn(`Payment service for ${config.id} is not available`);
-        }
-        return isActive && isPayment && hasPaymentService;
-      })
-      .map(config => config.id)
+  usePaymentAdapter$ = new Subject<string>()
+
+  private state = signal({
+    currentPayment: null as Payment | null,
+    enabledPayments: null as string[] | null,
   })
-
-  selectedPayment = computed(() => {
-    return this.orderService.order()
-      .payments
-      ?.filter(payment => payment.type === 'default')
-      ?.find(payment => payment.state !== 'removed')
-  });
-
-  private hasPayment$ = toObservable(this.selectedPayment).pipe(
-    map(selectedPayment => !!selectedPayment),
-  );
+  currentPayment = computed(() => this.state().currentPayment);
+  enabledPayments = computed(() => this.state().enabledPayments);
 
   constructor() {
-    this.hasPayment$.pipe(
-      take(1),
-      filter(hasDefaultPayment => !hasDefaultPayment),
-      switchMap(() => {
-        const adapters = this.enabledPaymentAdapters();
-        if (!adapters) return EMPTY;
+    const enabledPayments = computed(() => {
+      const configs = this.configService.configs();
+      if (!configs) return null;
 
-        const adapter = this.enabledPaymentAdapters()?.[0];
-        if (!adapter) {
-          this.toastService.warn('No payment adapter configured');
+      return configs
+        .filter(config => {
+          const isActive = config['active'] === true;
+          const isPayment = this.paymentAdapters.includes(config.id);
+          const hasPaymentService = this.paymentServices.some(service => service.adapterId === config.id)
+          if (isPayment && !hasPaymentService) {
+            this.toastService.warn(`Payment service for ${config.id} is not available`);
+          }
+          return isActive && isPayment && hasPaymentService;
+        })
+        .map(config => config.id)
+    })
+    connect(this.state)
+      .with(() => {
+        const state = untracked(() => this.state());
+        const configs = this.configService.configs();
+        if (!configs) return untracked(() => state);
+
+        const enabledPayments = configs
+          .filter(config => {
+            const isActive = config['active'] === true;
+            const isPayment = this.paymentAdapters.includes(config.id);
+            const hasPaymentService = this.paymentServices.some(service => service.adapterId === config.id)
+            if (isPayment && !hasPaymentService) {
+              this.toastService.warn(`Payment service for ${config.id} is not available`);
+            }
+            return isActive && isPayment && hasPaymentService;
+          })
+          .map(config => config.id);
+
+        return {
+          ...state,
+          enabledPayments: enabledPayments
+        }
+      })
+      .with(() => {
+        const state = untracked(() => this.state());
+        const payment = this.orderService.order()
+          ?.payments
+          ?.filter(payment => payment.type === 'default')
+          ?.find(payment => payment.state !== 'removed')
+
+        if (!payment) return state;
+
+        return {
+          ...state,
+          currentPayment: payment,
+        }
+      })
+
+    this.usePaymentAdapter$.pipe(
+      switchMap(adapterId => {
+        const enabledPayments = this.state().enabledPayments;
+        if (!enabledPayments) return EMPTY;
+        if (!enabledPayments.includes(adapterId)) {
+          this.toastService.error(`Payment service for ${adapterId} is not available`);
           return EMPTY;
         }
-        const paymentService = this.paymentServices.find(service => service.adapterId === adapter);
-        if (!paymentService) return EMPTY;
-        return paymentService.createPayment();
-      }),
-      finalize(() => this.syncService.triggerRefresh()),
-    ).subscribe()
-  }
 
-  createOrReplacePaymentByAdapterId(adapterId: string) {
-    const currentPaymentService = this.paymentServices.find(service => service.adapterId === this.selectedPayment()?.adapterId);
-    const nextPaymentService = this.paymentServices.find(service => service.adapterId === adapterId)!;
-    this.hasPayment$.pipe(
-      take(1),
-      switchMap(hasPayment => {
-        if (hasPayment) {
-          if (!currentPaymentService) return EMPTY;
-          return currentPaymentService.removePayment(this.selectedPayment()?.id!).pipe(
-            switchMap(() => nextPaymentService.createPayment()
-            ));
+        const currentPayment = this.currentPayment();
+        const currentPaymentService = this.paymentServices.find(service => service.adapterId === currentPayment?.adapterId);
+        const nextPaymentService = this.paymentServices.find(service => service.adapterId === adapterId)!;
+        if (currentPaymentService) {
+          return currentPaymentService.removePayment(currentPayment!.id!).pipe(
+            switchMap(() => nextPaymentService.createPayment())
+          )
         } else {
-          return nextPaymentService.createPayment()
+          return nextPaymentService.createPayment();
         }
       }),
-      finalize(() => this.syncService.triggerRefresh()),
+      finalize(() => this.syncService.triggerRefresh())
     ).subscribe()
+
+    effectOnceIf(
+      () => !this.currentPayment() && this.enabledPayments()?.length! > 0,
+      () => {
+        const adapterId = this.enabledPayments()![0];
+        this.usePaymentAdapter$.next(adapterId);
+      })
   }
 }
