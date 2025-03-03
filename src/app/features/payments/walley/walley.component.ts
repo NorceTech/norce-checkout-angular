@@ -1,6 +1,6 @@
 import {Component, computed, inject, OnDestroy, OnInit} from '@angular/core';
 import {WalleyService} from '~/app/features/payments/walley/walley.service';
-import {distinctUntilChanged, filter, finalize, map, switchMap} from 'rxjs';
+import {distinctUntilChanged, filter, map, Subject, switchMap} from 'rxjs';
 import {WalleyEvent, WindowWalley} from '~/app/features/payments/walley/walley.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ProgressSpinner} from 'primeng/progressspinner';
@@ -47,6 +47,10 @@ export class WalleyComponent implements OnInit, OnDestroy {
 
   readonly snippetTargetId = "walley-target";
 
+  private customerUpdated$ = new Subject<void>();
+  private shippingUpdated$ = new Subject<void>();
+  private expired$ = new Subject<void>();
+
   constructor() {
     this.syncService.hasInFlightRequest$.pipe(takeUntilDestroyed())
       .subscribe(hasInFlightRequest => {
@@ -56,6 +60,19 @@ export class WalleyComponent implements OnInit, OnDestroy {
           this.resume();
         }
       })
+
+    this.customerUpdated$.pipe(
+      switchMap(() => this.walleyService.updateCustomer(this.paymentId()!))
+    ).subscribe(() => this.syncService.triggerRefresh());
+
+    this.shippingUpdated$.pipe(
+      switchMap(() => this.walleyService.updateShippingOption(this.paymentId()!))
+    ).subscribe(() => this.syncService.triggerRefresh());
+
+    this.expired$.pipe(
+      switchMap(() => this.walleyService.removePayment(this.paymentId()!)),
+      switchMap(() => this.walleyService.createPayment())
+    ).subscribe(() => this.syncService.triggerRefresh());
   }
 
   ngOnInit(): void {
@@ -94,23 +111,15 @@ export class WalleyComponent implements OnInit, OnDestroy {
     const eventName = event.type;
     switch (eventName) {
       case WalleyEvent.CustomerUpdated: {
-        this.walleyService.updateCustomer(this.paymentId()!)
-          .pipe(finalize(() => this.syncService.triggerRefresh()))
-          .subscribe()
+        this.customerUpdated$.next();
         break;
       }
       case WalleyEvent.ShippingUpdated: {
-        this.walleyService.updateShippingOption(this.paymentId()!)
-          .pipe(finalize(() => this.syncService.triggerRefresh()))
-          .subscribe()
+        this.shippingUpdated$.next();
         break;
       }
       case WalleyEvent.Expired: {
-        this.walleyService.removePayment(this.paymentId()!)
-          .pipe(
-            switchMap(() => this.walleyService.createPayment()),
-            finalize(() => this.syncService.triggerRefresh())
-          ).subscribe();
+        this.expired$.next();
         break;
       }
       case WalleyEvent.PurchaseCompleted: {

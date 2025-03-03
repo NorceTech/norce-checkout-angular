@@ -75,6 +75,7 @@ export class AdyenComponent implements OnDestroy {
         }
       })
 
+    // Reload widget to reflect changes in payment (e.g. amount)
     effect(async () => {
       const coreOptions = this.coreOptions();
       if (typeof coreOptions === 'undefined') return;
