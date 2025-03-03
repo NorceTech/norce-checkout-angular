@@ -29,15 +29,38 @@
     </div>
 
     <!-- Total -->
-    <div class="border-t border-gray-900 pt-4">
+    <div class="flex flex-col border-t border-gray-900 pt-4">
       <div class="flex justify-between items-center">
         <span class="text-lg font-semibold">Total</span>
         <span
-          class="text-lg font-semibold">{{ order.total | price }}</span>
+          class="text-lg font-semibold"
+          [class.opacity-80]="paidForWithVouchers() > 0"
+        >
+          {{ order.total | price }}
+        </span>
       </div>
-      <div class="text-gray-500 text-sm text-right mt-1">
+      <div class="text-gray-500 text-sm self-end">
         Including VAT
       </div>
+
+      @if (paidForWithVouchers() > 0) {
+        <div
+          class="self-end mt-2"
+          pTooltip="Paid for with vouchers"
+          tooltipPosition="bottom"
+          aria-label="Paid for with vouchers">
+          {{ -paidForWithVouchers() | price }}
+        </div>
+
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-lg font-semibold">Remaining</span>
+          <span
+            class="text-lg font-semibold"
+          >
+          {{ paidForWithPayment() | price }}
+        </span>
+        </div>
+      }
     </div>
   }
 </div>
