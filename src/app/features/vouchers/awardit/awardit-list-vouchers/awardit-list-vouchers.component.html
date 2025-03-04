@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-2 py-2">
+  @for (voucher of vouchers(); track voucher.id) {
+    <div class="flex items-center justify-between">
+      <span>{{ voucher.reference }} - ({{ voucher.amount | price }})</span>
+      <p-button
+        icon="iconify mdi--delete"
+        (click)="onDelete.emit(voucher)"
+        variant="text"
+        rounded
+      ></p-button>
+    </div>
+  }
+</div>

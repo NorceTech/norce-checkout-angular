@@ -1,0 +1,27 @@
+<p-button
+  (click)="open$.next()"
+  label="Add a voucher"
+  icon="iconify hugeicons--gift-card"
+  fluid
+  severity="primary"
+  outlined
+/>
+
+<app-awardit-list-vouchers
+  [vouchers]="awarditVouchers()"
+  (onDelete)="deleteVoucher$.next($event)"
+></app-awardit-list-vouchers>
+
+
+<p-dialog
+  header="Edit Profile"
+  (visibleChange)="close$.next()"
+  [modal]="true"
+  [visible]="visible()"
+  [style]="{ width: '25rem' }"
+>
+  <app-awardit-voucher-form
+    #formRef
+    (onSubmit)="submit$.next($event)"
+  ></app-awardit-voucher-form>
+</p-dialog>

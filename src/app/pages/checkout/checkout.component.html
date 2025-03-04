@@ -4,6 +4,18 @@
     <app-summary></app-summary>
   </p-card>
 
+  <p-card>
+    <div class="grid sm:grid-cols-2 gap-2">
+      <p-button
+        label="Add a discount code"
+        outlined
+        icon="iconify hugeicons--discount"
+        fluid
+      />
+      <app-awardit></app-awardit>
+    </div>
+  </p-card>
+
   <app-shipping-selector></app-shipping-selector>
   @if (shippingAdapterId(); as shippingAdapterId) {
     <app-shipping-factory [adapterId]="shippingAdapterId"></app-shipping-factory>

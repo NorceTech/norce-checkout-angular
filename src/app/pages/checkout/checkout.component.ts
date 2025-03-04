@@ -10,6 +10,8 @@ import {ShippingFactoryComponent} from '~/app/features/shippings/shipping-factor
 import {PaymentSelectorComponent} from '~/app/features/payments/payment-selector/payment-selector.component';
 import {ShippingSelectorComponent} from '~/app/features/shippings/shipping-selector/shipping-selector.component';
 import {effectOnceIf} from 'ngxtension/effect-once-if';
+import {AwarditComponent} from '~/app/features/vouchers/awardit/awardit.component';
+import {Button} from "primeng/button";
 
 @Component({
   selector: 'app-checkout',
@@ -20,7 +22,9 @@ import {effectOnceIf} from 'ngxtension/effect-once-if';
     PaymentFactoryComponent,
     ShippingFactoryComponent,
     PaymentSelectorComponent,
-    ShippingSelectorComponent
+    ShippingSelectorComponent,
+    AwarditComponent,
+    Button
   ],
   templateUrl: './checkout.component.html',
 })

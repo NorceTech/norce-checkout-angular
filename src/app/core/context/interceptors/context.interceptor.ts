@@ -5,7 +5,7 @@ import {ContextService} from '~/app/core/context/context.service';
 export const contextInterceptor: HttpInterceptorFn = (req, next) => {
   const contextService = inject(ContextService);
   const context = contextService.context();
-  
+
   if (!context) {
     return next(req);
   }
