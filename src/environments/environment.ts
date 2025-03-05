@@ -1,14 +1,5 @@
-export type Environment = {
-  environment: 'prod' | 'playground' | 'test';
-  platform: 'norce',
-  showPriceIncludingVat: boolean;
-  context: {
-    merchant: string | undefined;
-    channel: string | undefined;
-  } | undefined;
-};
-
-export const environment: Environment = {
+/** @type {Environment} */
+export const environment = {
   environment: 'prod',
   platform: 'norce',
   showPriceIncludingVat: true,

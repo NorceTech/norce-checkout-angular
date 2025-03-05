@@ -82,7 +82,7 @@
             },
             "playground": {
               "buildTarget": "norce-checkout:build:playground",
-              "proxyConfig": "src/proxy.conf.js"
+              "proxyConfig": "src/proxy.conf.playground.js"
             },
             "test": {
               "buildTarget": "norce-checkout:build:test",

@@ -1,4 +1,4 @@
-/** @type {import('./environment').Environment} */
+/** @type {Environment} */
 export const environment = {
   environment: 'playground',
   platform: 'norce',
