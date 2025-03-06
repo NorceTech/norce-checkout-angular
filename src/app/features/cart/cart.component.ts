@@ -5,6 +5,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {Item} from '~/openapi/order';
 import {PricePipe} from '~/app/shared/pipes/price.pipe';
 import {CartService} from '~/app/features/cart/cart.service';
+import {CartSummaryComponent} from '~/app/features/cart/cart-summary/cart-summary.component';
 
 @Component({
   selector: 'app-cart',
@@ -13,6 +14,7 @@ import {CartService} from '~/app/features/cart/cart.service';
     TableModule,
     InputNumberModule,
     PricePipe,
+    CartSummaryComponent,
   ],
   templateUrl: './cart.component.html',
 })

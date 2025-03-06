@@ -4,7 +4,7 @@
       <span>{{ voucher.reference }} - ({{ voucher.amount | price }})</span>
       <p-button
         icon="iconify mdi--delete"
-        (click)="onDelete.emit(voucher)"
+        (click)="deleteVoucher$.next(voucher)"
         variant="text"
         rounded
       ></p-button>

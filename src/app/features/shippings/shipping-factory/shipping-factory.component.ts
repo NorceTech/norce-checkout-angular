@@ -26,11 +26,11 @@ export class ShippingFactoryComponent {
 
   constructor() {
     afterRenderEffect(() => {
-      this.loadShippingComponent(this.adapterId());
+      this.loadComponent(this.adapterId());
     });
   }
 
-  private loadShippingComponent(adapterId?: string) {
+  private loadComponent(adapterId?: string) {
     if (!adapterId) return;
 
     // Payments might provide shipping, so don't render them

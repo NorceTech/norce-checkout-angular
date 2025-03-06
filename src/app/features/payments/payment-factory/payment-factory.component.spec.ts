@@ -70,7 +70,7 @@ describe('PaymentFactoryComponent', () => {
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
     // Act
-    (component as any).loadPaymentComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
@@ -82,7 +82,7 @@ describe('PaymentFactoryComponent', () => {
     componentRef.setInput('adapterId', undefined);
 
     // Act
-    (component as any).loadPaymentComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(fakeContainer.clear).not.toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe('PaymentFactoryComponent', () => {
     componentRef.setInput('adapterId', 'Invalid');
 
     // Act
-    (component as any).loadPaymentComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
@@ -113,7 +113,7 @@ describe('PaymentFactoryComponent', () => {
     component.container = signal(undefined);
 
     // Act
-    (component as any).loadPaymentComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
@@ -136,17 +136,17 @@ describe('PaymentFactoryComponent', () => {
     expect((component as any).componentRef).toBeUndefined();
   });
 
-  it('should call loadPaymentComponent after render (via afterRenderEffect)', (done) => {
+  it('should call loadComponent after render (via afterRenderEffect)', (done) => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
     })
-    spyOn<any>(component, 'loadPaymentComponent');
+    spyOn<any>(component, 'loadComponent');
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
     // Assert
     setTimeout(() => {
-      expect((component as any).loadPaymentComponent).toHaveBeenCalledWith(defaultTestAdapters.payment.Walley);
+      expect((component as any).loadComponent).toHaveBeenCalledWith(defaultTestAdapters.payment.Walley);
       done();
     }, 0);
   });

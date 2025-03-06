@@ -4,14 +4,14 @@ import {PricePipe} from '~/app/shared/pipes/price.pipe';
 import {Tooltip} from 'primeng/tooltip';
 
 @Component({
-  selector: 'app-summary',
+  selector: 'app-cart-summary',
   imports: [
     PricePipe,
     Tooltip
   ],
-  templateUrl: './summary.component.html',
+  templateUrl: './cart-summary.component.html',
 })
-export class SummaryComponent {
+export class CartSummaryComponent {
   private orderService = inject(OrderService);
 
   order = this.orderService.order;

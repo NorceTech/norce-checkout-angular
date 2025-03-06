@@ -1,6 +1,5 @@
 import {Component, computed, inject} from '@angular/core';
 import {CartComponent} from '~/app/features/cart/cart.component';
-import {SummaryComponent} from '~/app/features/summary/summary.component';
 import {Card} from 'primeng/card';
 import {OrderService} from '~/app/core/order/order.service';
 import {OrderStatus} from '~/openapi/order';
@@ -10,21 +9,20 @@ import {ShippingFactoryComponent} from '~/app/features/shippings/shipping-factor
 import {PaymentSelectorComponent} from '~/app/features/payments/payment-selector/payment-selector.component';
 import {ShippingSelectorComponent} from '~/app/features/shippings/shipping-selector/shipping-selector.component';
 import {effectOnceIf} from 'ngxtension/effect-once-if';
-import {AwarditComponent} from '~/app/features/vouchers/awardit/awardit.component';
 import {Button} from "primeng/button";
+import {VoucherDialogComponent} from '~/app/features/vouchers/voucher-dialog/voucher-dialog.component';
 
 @Component({
   selector: 'app-checkout',
   imports: [
     CartComponent,
-    SummaryComponent,
     Card,
     PaymentFactoryComponent,
     ShippingFactoryComponent,
     PaymentSelectorComponent,
     ShippingSelectorComponent,
-    AwarditComponent,
-    Button
+    Button,
+    VoucherDialogComponent
   ],
   templateUrl: './checkout.component.html',
 })

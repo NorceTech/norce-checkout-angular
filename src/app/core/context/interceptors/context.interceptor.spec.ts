@@ -10,7 +10,7 @@ import {
 
 import {contextInterceptor} from './context.interceptor';
 import {ContextService} from '~/app/core/context/context.service';
-import {Context} from '~/app/core/entities/Context';
+import {Context} from '~/app/core/entities/context';
 
 describe('contextInterceptor', () => {
   let fakeContext: Context;

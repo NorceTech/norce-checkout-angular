@@ -1,0 +1,43 @@
+@if (form(); as form) {
+  <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+    @for (field of fields(); track field.id) {
+      @if (!form.contains(field.id)) {
+        <p>Form does not contain field: {{ field.id }}</p>
+      } @else {
+        <div class="flex flex-col gap-2">
+          <label for="{{ field.id }}" class="font-semibold w-24">{{ field.label }}</label>
+
+          @switch (field.controlType) {
+            @case (ControlType.Number) {
+              <input
+                pInputNumber
+                id="{{ field.id }}"
+                formControlName="{{ field.id }}"
+                [required]="field.required"
+              />
+            }
+            @case (ControlType.Text) {
+              <input
+                pInputText
+                id="{{ field.id }}"
+                formControlName="{{ field.id }}"
+                [required]="field.required"
+              />
+            }
+            @default {
+              <p>no applicable renderer</p>
+            }
+          }
+        </div>
+      }
+    }
+    <div class="flex justify-end py-4">
+      <p-button
+        type="submit"
+        [disabled]="disabled()"
+      >
+        Submit
+      </p-button>
+    </div>
+  </form>
+}

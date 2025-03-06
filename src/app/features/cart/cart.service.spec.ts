@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {CartService} from './cart.service';
 import {OrderService} from '~/app/core/order/order.service';
-import {PlatformAdapterService} from '~/app/core/platform/platform';
+import {PlatformService} from '~/app/core/platform/platform.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {BehaviorSubject, of} from 'rxjs';
 import {Item} from '~/openapi/order';
@@ -10,7 +10,7 @@ import {Item} from '~/openapi/order';
 describe('CartService', () => {
   let service: CartService;
   let orderService: jasmine.SpyObj<OrderService>;
-  let platformAdapterService: jasmine.SpyObj<PlatformAdapterService>;
+  let platformAdapterService: jasmine.SpyObj<PlatformService>;
   let syncService: jasmine.SpyObj<SyncService>;
 
   const mockItems: Item[] = [
@@ -39,7 +39,7 @@ describe('CartService', () => {
         provideExperimentalZonelessChangeDetection(),
         CartService,
         {provide: OrderService, useValue: orderService},
-        {provide: PlatformAdapterService, useValue: platformAdapterService},
+        {provide: PlatformService, useValue: platformAdapterService},
         {provide: SyncService, useValue: syncService},
       ],
     });

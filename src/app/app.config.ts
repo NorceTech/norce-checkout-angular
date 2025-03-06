@@ -8,13 +8,14 @@ import {providePrimeNG} from 'primeng/config';
 import Aura from "@primeng/themes/aura";
 import {MessageService} from 'primeng/api';
 import {contextInterceptor} from '~/app/core/context/interceptors/context.interceptor';
-import {PlatformAdapterService} from '~/app/core/platform/platform';
+import {PlatformService} from '~/app/core/platform/platform.service';
 import {NorceAdapterService} from '~/app/core/platform/norce-adapter/norce-adapter.service';
 import {syncInterceptor} from '~/app/core/sync/interceptors/sync.interceptor';
 import {registerLocaleData} from '@angular/common';
 import localeSv from '@angular/common/locales/sv';
 import {providePaymentServices} from '~/app/features/payments/provide-payment-services';
 import {provideShippingServices} from '~/app/features/shippings/provide-shipping-services';
+import {provideVoucherServices} from '~/app/features/vouchers/provide-voucher-services';
 
 registerLocaleData(localeSv)
 
@@ -89,9 +90,10 @@ export const appConfig: ApplicationConfig = {
         }
       }
     }),
-    {provide: PlatformAdapterService, useClass: NorceAdapterService},
+    {provide: PlatformService, useClass: NorceAdapterService},
     {provide: LOCALE_ID, useValue: 'sv-SE'},
-    providePaymentServices(),
+    provideVoucherServices(),
     provideShippingServices(),
+    providePaymentServices(),
   ]
 };

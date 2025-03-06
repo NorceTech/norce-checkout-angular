@@ -7,21 +7,14 @@
   outlined
 />
 
-<app-awardit-list-vouchers
-  [vouchers]="awarditVouchers()"
-  (onDelete)="deleteVoucher$.next($event)"
-></app-awardit-list-vouchers>
-
+<app-list-vouchers></app-list-vouchers>
 
 <p-dialog
-  header="Edit Profile"
+  header="Add a voucher"
   (visibleChange)="close$.next()"
   [modal]="true"
   [visible]="visible()"
   [style]="{ width: '25rem' }"
 >
-  <app-awardit-voucher-form
-    #formRef
-    (onSubmit)="submit$.next($event)"
-  ></app-awardit-voucher-form>
+  <app-voucher-form></app-voucher-form>
 </p-dialog>

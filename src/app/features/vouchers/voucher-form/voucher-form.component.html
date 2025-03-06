@@ -1,0 +1,18 @@
+@if (enabledServices().length > 1) {
+  <div class="flex flex-col gap-2 mb-6">
+    <label for="voucher-provider" class="font-semibold">Voucher provider</label>
+    <p-select
+      id="voucher-provider"
+      [options]="enabledServices()"
+      optionLabel="adapterId"
+      placeholder="Select a voucher provider"
+      class="w-full md:w-56"
+      (onChange)="select$.next($event.value)"
+    >
+    </p-select>
+  </div>
+}
+<app-dynamic-form
+  [fields]="dynamicFormFields()"
+  (onSubmit)="submit$.next($event)">
+</app-dynamic-form>

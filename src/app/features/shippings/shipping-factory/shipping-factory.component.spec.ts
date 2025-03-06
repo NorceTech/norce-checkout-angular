@@ -69,7 +69,7 @@ describe('ShippingFactoryComponent', () => {
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
 
     // Act
-    (component as any).loadShippingComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(fakeContainer.clear).toHaveBeenCalled();
@@ -82,7 +82,7 @@ describe('ShippingFactoryComponent', () => {
     componentRef.setInput('adapterId', undefined);
 
     // Act
-    (component as any).loadShippingComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(fakeContainer.clear).not.toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe('ShippingFactoryComponent', () => {
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
     // Act
-    (component as any).loadShippingComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(fakeContainer.clear).not.toHaveBeenCalled();
@@ -108,7 +108,7 @@ describe('ShippingFactoryComponent', () => {
     componentRef.setInput('adapterId', 'Invalid');
 
     // Act
-    (component as any).loadShippingComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
@@ -126,7 +126,7 @@ describe('ShippingFactoryComponent', () => {
     component.container = signal(undefined);
 
     // Act
-    (component as any).loadShippingComponent(component.adapterId());
+    (component as any).loadComponent(component.adapterId());
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
@@ -149,16 +149,16 @@ describe('ShippingFactoryComponent', () => {
     expect((component as any).componentRef).toBeUndefined();
   });
 
-  it('should call loadShippingComponent after render (via afterRenderEffect)', (done) => {
+  it('should call loadComponent after render (via afterRenderEffect)', (done) => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
     })
-    spyOn<any>(component, 'loadShippingComponent');
+    spyOn<any>(component, 'loadComponent');
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
 
     setTimeout(() => {
-      expect((component as any).loadShippingComponent).toHaveBeenCalledWith(
+      expect((component as any).loadComponent).toHaveBeenCalledWith(
         defaultTestAdapters.shipping.Ingrid
       );
       done();

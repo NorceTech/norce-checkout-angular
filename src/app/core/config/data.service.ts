@@ -2,7 +2,7 @@ import {HttpClient} from "@angular/common/http";
 import {inject, Injectable} from "@angular/core";
 import {Observable} from 'rxjs';
 import {Configuration} from '~/openapi/configuration';
-import {Context} from '~/app/core/entities/Context';
+import {Context} from '~/app/core/entities/context';
 
 @Injectable({
   providedIn: 'root',

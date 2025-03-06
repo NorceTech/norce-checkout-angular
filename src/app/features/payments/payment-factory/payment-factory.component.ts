@@ -26,11 +26,11 @@ export class PaymentFactoryComponent {
 
   constructor() {
     afterRenderEffect(() => {
-      this.loadPaymentComponent(this.adapterId());
+      this.loadComponent(this.adapterId());
     });
   }
 
-  private loadPaymentComponent(adapterId?: string) {
+  private loadComponent(adapterId?: string) {
     if (!adapterId) return;
     this.clearContainer();
 

@@ -1,6 +1,6 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {OrderService} from '~/app/core/order/order.service';
-import {PlatformAdapterService} from '~/app/core/platform/platform';
+import {PlatformService} from '~/app/core/platform/platform.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {Item} from '~/openapi/order';
 import {connect} from 'ngxtension/connect';
@@ -12,7 +12,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class CartService {
   private orderService = inject(OrderService);
-  private platformAdapterService = inject(PlatformAdapterService);
+  private platformAdapterService = inject(PlatformService);
   private syncService = inject(SyncService);
 
   private _items = signal<Item[]>([]);

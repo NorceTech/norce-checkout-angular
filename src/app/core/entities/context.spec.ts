@@ -1,4 +1,4 @@
-import {Context} from '~/app/core/entities/Context';
+import {Context} from '~/app/core/entities/context';
 
 describe('Context', () => {
   let entity: Context;

@@ -5,6 +5,7 @@ import {ADAPTERS} from '~/app/core/adapter';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {ContextService} from '~/app/core/context/context.service';
 import {DataService} from '~/app/features/vouchers/awardit/data.service';
+import {TextControl} from '~/app/shared/dynamic-form/dynamic-form.types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,25 @@ export class AwarditService implements IVoucherService {
   private toastService = inject(ToastService);
   private contextService = inject(ContextService);
 
+  readonly formFields = [
+    new TextControl({
+      id: 'cardId',
+      label: 'Card ID',
+      required: true,
+      value: '',
+    }),
+    new TextControl({
+      id: 'code',
+      label: 'Code',
+      required: false,
+      value: '',
+    }),
+  ]
+
   private orderId = computed(() => this.contextService.context()?.orderId || '');
 
-  createPayment(cardId: string, code?: string): Observable<void> {
-    return this.dataService.createPayment(this.orderId(), cardId, code).pipe(
+  createPayment(payload: { cardId: string, code?: string }): Observable<void> {
+    return this.dataService.createPayment(this.orderId(), payload.cardId, payload.code).pipe(
       retry(2),
       catchError((err) => {
         const errorMessage = err?.error?.awarditError?.errorMessages?.[0]

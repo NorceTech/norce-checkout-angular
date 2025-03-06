@@ -1,5 +1,5 @@
 import {computed, Injectable, Signal} from '@angular/core';
-import {Context} from '~/app/core/entities/Context';
+import {Context} from '~/app/core/entities/context';
 import {environment} from '~/environments/environment';
 import {injectQueryParams} from 'ngxtension/inject-query-params';
 import {Params} from '@angular/router';
