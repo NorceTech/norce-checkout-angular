@@ -4,7 +4,7 @@ import {PricePipe} from "~/app/shared/pipes/price.pipe";
 import {OrderService} from '~/app/core/order/order.service';
 import {VOUCHER_SERVICES} from '~/app/features/vouchers/provide-voucher-services';
 import {Payment} from '~/openapi/order';
-import {EMPTY, finalize, Subject, switchMap} from 'rxjs';
+import {EMPTY, Subject, switchMap} from 'rxjs';
 import {ToastService} from '~/app/core/toast/toast.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -44,7 +44,6 @@ export class ListVouchersComponent {
         }
         return service.removePayment(payment.id!);
       }),
-      finalize(() => this.syncService.triggerRefresh())
-    ).subscribe()
+    ).subscribe(() => this.syncService.triggerRefresh())
   }
 }

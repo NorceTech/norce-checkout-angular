@@ -38,7 +38,7 @@ export class DynamicFormComponent {
 
   handleSubmit() {
     if (this.form().invalid) return;
-    this.onSubmit.emit(this.fields);
+    this.onSubmit.emit(this.form().value);
   }
 
   protected readonly ControlType = ControlType;
