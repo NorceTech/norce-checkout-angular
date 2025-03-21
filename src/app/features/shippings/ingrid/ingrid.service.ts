@@ -1,7 +1,7 @@
 import {computed, inject, Injectable} from '@angular/core';
 import {DataService} from '~/app/features/shippings/ingrid/data.service';
 import {ToastService} from '~/app/core/toast/toast.service';
-import {catchError, EMPTY, Observable, retry} from 'rxjs';
+import {catchError, delay, EMPTY, Observable, retry} from 'rxjs';
 import {IngridSession} from '~/openapi/ingrid-adapter';
 import {IShippingService} from '~/app/features/shippings/shipping.service.interface';
 import {ADAPTERS, IAdapters} from '~/app/core/adapter';
@@ -51,7 +51,8 @@ export class IngridService implements IShippingService {
 
   updateCustomer(shippingId: string): Observable<void> {
     return this.dataService.updateCustomer(this.orderId(), shippingId).pipe(
-      retry(2),
+      delay(50),
+      retry({count: 3, delay: 20}),
       catchError(() => {
         this.toastService.error('Failed to update customer');
         return EMPTY;
@@ -61,7 +62,8 @@ export class IngridService implements IShippingService {
 
   updateShipping(shippingId: string): Observable<void> {
     return this.dataService.updateShipping(this.orderId(), shippingId).pipe(
-      retry(2),
+      delay(50),
+      retry({count: 3, delay: 20}),
       catchError(() => {
         this.toastService.error('Failed to update shipping option');
         return EMPTY;

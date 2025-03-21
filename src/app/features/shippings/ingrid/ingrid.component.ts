@@ -39,12 +39,13 @@ export class IngridComponent {
     if (typeof shippingId === 'undefined') return;
     return this.ingridService.getShipping(shippingId)
   })
+  private useAddressForm = computed(() => this.ingridsession()?.useAddressForm)
+
   html = computed(() => {
     const html = this.ingridsession()?.htmlSnippet;
     if (typeof html === 'undefined') return;
     return this.domSanitizer.bypassSecurityTrustHtml(html);
   })
-  useAddressForm = computed(() => this.ingridsession()?.useAddressForm)
 
   constructor() {
     this.syncService.hasInFlightRequest$.pipe(takeUntilDestroyed())
@@ -57,6 +58,7 @@ export class IngridComponent {
       })
 
     toObservable(this.html).pipe(
+      takeUntilDestroyed(),
       switchMap(() => bindCallback(this.addEventListeners.bind(this)).call(undefined)),
       retry({
         count: 10,
