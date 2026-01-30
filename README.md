@@ -15,8 +15,8 @@ cp .env.example .env
 ```
 
 Edit `.env` with your playground credentials:
-- `TOKEN` - Your playground API token for authorization
-- `SLUG` - Your playground merchant slug (e.g., `order-demo`)
+- `TOKEN` - Your playground/stage API token for authorization
+- `SLUG` - Your slug when accessing norce services (e.g., `order-demo` if accessing admin from https://order-demo.admin-se.playground.norce.tech)
 
 2. **Install dependencies**:
 
