@@ -1,3 +1,8 @@
+---
+name: add-adapter
+description: Add a new payment, shipping, or voucher adapter to the Norce Checkout Angular codebase following the adapter pattern. Use when the user wants to add a new adapter integration.
+---
+
 # Add Adapter
 
 You are an expert in the Norce Checkout Angular adapter pattern. Help the user add a new adapter (payment, shipping, or voucher) to the codebase.
