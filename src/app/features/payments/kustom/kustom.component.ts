@@ -77,21 +77,27 @@ export class KustomComponent {
       })
 
     this.addressChanged$.pipe(
-      switchMap(() => this.kustomService.updateAddress(this.paymentId()!).pipe(
-        catchError(() => {
-          this.syncService.triggerRefresh()
-          return EMPTY;
-        })
-      )),
+      // Kustom has backend callbacks which the adapter listens to, so this is optional
+      // We can just trigger a refresh to get the latest data
+
+      // switchMap(() => this.kustomService.updateAddress(this.paymentId()!).pipe(
+      //   catchError(() => {
+      //     this.syncService.triggerRefresh()
+      //     return EMPTY;
+      //   })
+      // )),
     ).subscribe(() => this.syncService.triggerRefresh());
 
     this.shippingOptionChanged$.pipe(
-      switchMap(() => this.kustomService.updateShippingOption(this.paymentId()!).pipe(
-        catchError(() => {
-          this.syncService.triggerRefresh()
-          return EMPTY;
-        })
-      )),
+      // Kustom has backend callbacks which the adapter listens to, so this is optional
+      // We can just trigger a refresh to get the latest data
+
+      // switchMap(() => this.kustomService.updateShippingOption(this.paymentId()!).pipe(
+      //   catchError(() => {
+      //     this.syncService.triggerRefresh()
+      //     return EMPTY;
+      //   })
+      // )),
     ).subscribe(() => this.syncService.triggerRefresh());
 
     this.redirectInitiated$.pipe(
