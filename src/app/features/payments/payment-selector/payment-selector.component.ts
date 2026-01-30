@@ -102,7 +102,11 @@ export class PaymentSelectorComponent {
     ).subscribe(() => this.syncService.triggerRefresh())
 
     effectOnceIf(
-      () => !this.currentPayment() && this.enabledPayments()?.length! > 0,
+      () => {
+        const order = this.orderService.order();
+        const hasOrderLoaded = order?.id !== undefined;
+        return !this.currentPayment() && this.enabledPayments()?.length! > 0 && hasOrderLoaded;
+      },
       () => {
         const adapterId = this.enabledPayments()![0];
         this.usePaymentAdapter$.next(adapterId);

@@ -101,7 +101,11 @@ export class ShippingSelectorComponent {
     ).subscribe(() => this.syncService.triggerRefresh())
 
     effectOnceIf(
-      () => !this.currentShipping() && this.enabledShippings()?.length! > 0,
+      () => {
+        const order = this.orderService.order();
+        const hasOrderLoaded = order?.id !== undefined;
+        return !this.currentShipping() && this.enabledShippings()?.length! > 0 && hasOrderLoaded;
+      },
       () => {
         const adapterId = this.enabledShippings()![0];
         console.log('ShippingSelectorComponent: effectOnceIf', adapterId);
