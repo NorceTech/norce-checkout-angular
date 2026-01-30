@@ -32,36 +32,25 @@ The checkout application dynamically loads adapters based on the configuration r
 
 #### Supported adapter combinations
 
-| Platform | Payment | Shipping | Description |
-|----------|---------|----------|-------------|
-| Norce (with shipping) | Walley (no shipping) | - | Norce handles shipping, Walley handles payment only |
-| Norce (no shipping) | Walley (no shipping) | Ingrid | Ingrid handles shipping, Walley handles payment only |
-| Norce (no shipping) | Adyen | Ingrid | Ingrid handles shipping, Adyen handles payment |
- | Norce (with shipping) | Adyen | - | Norce handles shipping, Adyen handles payment |
+| Platform                | Shipping                   | Payment                |
+|-------------------------|----------------------------|------------------------|
+| Norce (with shipping)   | -                          | Walley                 |
+| Norce                   | -                          | Walley (with shipping) |
+| Norce                   | Ingrid                     | Walley                 |
+| Norce                   | Ingrid (with address form) | Adyen                  |
 
 #### Available adapters
 
-- **Platform**: Norce (only supported platform)
+- **Platform**: Norce
 - **Payment**: Walley, Adyen
-- **Shipping**: Ingrid (supports address form mode)
-- **Voucher**: Awardit
-
-#### Platform adapter configuration
-
-The checkout currently only supports the **Norce** platform adapter. This is fixed and not configurable.
-
-When setting up the Norce platform adapter in the Admin GUI, configure `mapShippingFromNorceCommerce`:
-
-| Setting | When to use |
-|---------|-------------|
-| `mapShippingFromNorceCommerce: true` | Use when Norce handles shipping (combined with Walley payment-only) |
-| `mapShippingFromNorceCommerce: false` | Use when an external shipping adapter is used (Ingrid) |
+- **Shipping**: Ingrid
+- **Voucher**: Awardit (optional in all setup combinations)
 
 #### Setting up adapters
 
-1. Log in to the Norce Admin GUI
+1. Log in to the Norce Checkout Admin GUI
 2. Navigate to your merchant/channel configuration
-3. Configure payment and shipping adapters as needed
+3. Configure platform, payment and shipping adapters as needed
 4. The checkout will automatically use the configured adapters
 
 ### Starting the playground server
