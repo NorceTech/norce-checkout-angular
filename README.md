@@ -35,15 +35,21 @@ The checkout application dynamically loads adapters based on the configuration r
 
 | Platform              | Shipping                   | Payment                |
 | --------------------- | -------------------------- | ---------------------- |
+| Norce                 | Ingrid (with address form) | Adyen                  |
+| Norce (with shipping) | -                          | Kustom                 |
+| Norce                 | -                          | Kustom (with shipping) |
+| Norce                 | Ingrid                     | Kustom                 |
+| Norce (with shipping) | -                          | Qliro                  |
+| Norce                 | -                          | Qliro (with shipping)  |
+| Norce                 | Ingrid                     | Qliro                  |
 | Norce (with shipping) | -                          | Walley                 |
 | Norce                 | -                          | Walley (with shipping) |
 | Norce                 | Ingrid                     | Walley                 |
-| Norce                 | Ingrid (with address form) | Adyen                  |
 
 #### Available adapters
 
 - **Platform**: Norce
-- **Payment**: Walley, Adyen
+- **Payment**: Walley, Adyen, Kustom (Klarna), Qliro
 - **Shipping**: Ingrid
 - **Voucher**: Awardit (optional in all setup combinations)
 
@@ -87,4 +93,6 @@ All configurations automatically include the `TOKEN` from your `.env` file in AP
 [//]: # "npx openapi-typescript https://adyen-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/adyen-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
 [//]: # "npx openapi-typescript https://ingrid-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/ingrid-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
 [//]: # "npx openapi-typescript https://awardit-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/awardit-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://klarna-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/klarna-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://qliro-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/qliro-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
 [//]: # "```"
