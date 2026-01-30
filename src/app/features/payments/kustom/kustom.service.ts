@@ -51,9 +51,9 @@ export class KustomService implements IPaymentService {
   updateAddress(paymentId: string): Observable<void> {
     return this.dataService.updateAddress(this.contextService.context()!, paymentId).pipe(
       retry(2),
-      catchError(() => {
+      catchError((error) => {
         this.toastService.error('Failed to update address from kustom');
-        return EMPTY;
+        throw error;
       }),
     )
   }
@@ -61,9 +61,9 @@ export class KustomService implements IPaymentService {
   updateShippingOption(paymentId: string): Observable<void> {
     return this.dataService.updateShippingOption(this.contextService.context()!, paymentId).pipe(
       retry(2),
-      catchError(() => {
+      catchError((error) => {
         this.toastService.error('Failed to update shipping option from kustom');
-        return EMPTY;
+        throw error;
       }),
     )
   }

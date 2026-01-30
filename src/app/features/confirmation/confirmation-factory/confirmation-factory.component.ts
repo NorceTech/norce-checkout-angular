@@ -14,6 +14,7 @@ import {
   FallbackConfirmationComponent
 } from '~/app/features/confirmation/fallback-confirmation/fallback-confirmation.component';
 import {ToastService} from '~/app/core/toast/toast.service';
+import {KustomComponent} from '~/app/features/payments/kustom/kustom.component';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class ConfirmationFactoryComponent {
 
   private CONFIRMATION_COMPONENTS = {
     [this.adapters.payment.Walley]: WalleyComponent,
+    [this.adapters.payment.Kustom]: KustomComponent,
   } as const;
 
   container = viewChild('container', {read: ViewContainerRef});

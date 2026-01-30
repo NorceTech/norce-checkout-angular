@@ -1,6 +1,17 @@
 import {Component, computed, inject, OnDestroy, OnInit} from '@angular/core';
 import {KustomService} from '~/app/features/payments/kustom/kustom.service';
-import {bindCallback, catchError, distinctUntilChanged, EMPTY, filter, map, retry, Subject, switchMap} from 'rxjs';
+import {
+  bindCallback,
+  catchError,
+  distinctUntilChanged,
+  EMPTY,
+  filter,
+  finalize,
+  map,
+  retry,
+  Subject,
+  switchMap
+} from 'rxjs';
 import {KlarnaApi, KlarnaEvent, WindowKlarna} from '~/app/features/payments/kustom/kustom.types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ProgressSpinner} from 'primeng/progressspinner';
@@ -21,7 +32,7 @@ import {ContextService} from '~/app/core/context/context.service';
   ],
   templateUrl: './kustom.component.html',
 })
-export class KustomComponent implements OnInit, OnDestroy {
+export class KustomComponent {
   private kustomService = inject(KustomService);
   private orderService = inject(OrderService);
   private domSanitizer = inject(DomSanitizer);
@@ -66,11 +77,21 @@ export class KustomComponent implements OnInit, OnDestroy {
       })
 
     this.addressChanged$.pipe(
-      switchMap(() => this.kustomService.updateAddress(this.paymentId()!))
+      switchMap(() => this.kustomService.updateAddress(this.paymentId()!).pipe(
+        catchError(() => {
+          this.syncService.triggerRefresh()
+          return EMPTY;
+        })
+      )),
     ).subscribe(() => this.syncService.triggerRefresh());
 
     this.shippingOptionChanged$.pipe(
-      switchMap(() => this.kustomService.updateShippingOption(this.paymentId()!))
+      switchMap(() => this.kustomService.updateShippingOption(this.paymentId()!).pipe(
+        catchError(() => {
+          this.syncService.triggerRefresh()
+          return EMPTY;
+        })
+      )),
     ).subscribe(() => this.syncService.triggerRefresh());
 
     this.redirectInitiated$.pipe(
@@ -91,14 +112,6 @@ export class KustomComponent implements OnInit, OnDestroy {
         return EMPTY;
       })
     ).subscribe()
-  }
-
-  ngOnInit(): void {
-    this.addEventListeners();
-  }
-
-  ngOnDestroy(): void {
-    this.removeEventListeners();
   }
 
   private suspend() {
@@ -154,14 +167,13 @@ export class KustomComponent implements OnInit, OnDestroy {
   private handleValidationCallback(_: never, callback: (result: { should_proceed: boolean; message?: string }) => void): void {
     const orderId = this.contextService.context()?.orderId;
     this.orderService.validateOrder(orderId!)
-      .pipe()
       .subscribe({
         next: () => {
           callback({ should_proceed: true });
         },
         error: () => {
           callback({ should_proceed: false, message: 'Order validation failed' });
-        }
+        },
       });
   }
 }
