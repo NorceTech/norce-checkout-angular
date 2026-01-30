@@ -1,25 +1,27 @@
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs';
 
 import { PricePipe } from './price.pipe';
 import { OrderService } from '~/app/core/order/order.service';
 import { environment } from '~/environments/environment';
 import { Price } from '~/openapi/order';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import {
+  provideExperimentalZonelessChangeDetection,
+  signal,
+} from '@angular/core';
 
 describe('PricePipe', () => {
   let pipe: PricePipe;
-  let fakeOrderService: FakeOrderService;
+  let fakeOrderService: { order: ReturnType<typeof signal> };
   const originalShowPriceIncludingVat = environment.showPriceIncludingVat;
   const NBSP = '\u00A0'; // Non-breaking space
 
-  class FakeOrderService {
-    currency$ = new BehaviorSubject<string>('SEK');
-    culture$ = new BehaviorSubject<string>('sv-SE');
-  }
-
   beforeEach(() => {
-    fakeOrderService = new FakeOrderService();
+    fakeOrderService = {
+      order: signal({
+        currency: 'SEK',
+        culture: 'sv-SE',
+      }),
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -78,11 +80,12 @@ describe('PricePipe', () => {
     expect(result).toBe(expected);
 
     // Update OrderService values to use a different locale and currency
-    fakeOrderService.currency$.next('USD');
-    fakeOrderService.culture$.next('en-US');
+    fakeOrderService.order.set({
+      currency: 'USD',
+      culture: 'en-US',
+    });
 
-    // Since BehaviorSubjects emit synchronously, the next call to transform should
-    // reflect the updated values.
+    // The next call to transform should reflect the updated values.
     result = pipe.transform(100);
     expected = '$100.00';
     expect(result).toBe(expected);

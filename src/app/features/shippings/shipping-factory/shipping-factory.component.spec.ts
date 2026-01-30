@@ -35,6 +35,9 @@ describe('ShippingFactoryComponent', () => {
       Walley: 'spy_walley_adapter',
       Adyen: 'spy_adyen_adapter',
     },
+    platform: {
+      Klarna: 'spy_klarna_adapter',
+    },
   };
 
   beforeEach(async () => {
