@@ -10,12 +10,12 @@ export const syncInterceptor: HttpInterceptorFn = (req, next) => {
 
   const shouldCount = req.context.get(SHOULD_COUNT_REQUEST);
   if (shouldCount) {
-    syncService['_increment']();
+    syncService._suspend();
   }
   return next(req).pipe(
     finalize(() => {
       if (shouldCount) {
-        syncService['_decrement']();
+        syncService._resume();
       }
     }),
   );

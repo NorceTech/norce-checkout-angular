@@ -11,6 +11,7 @@ import { ADAPTERS, IAdapters } from '~/app/core/adapter';
 import { WalleyComponent } from '~/app/features/payments/walley/walley.component';
 import { AdyenComponent } from '~/app/features/payments/adyen/adyen.component';
 import { KustomComponent } from '~/app/features/payments/kustom/kustom.component';
+import { QliroComponent } from '~/app/features/payments/qliro/qliro.component';
 import { ToastService } from '~/app/core/toast/toast.service';
 
 @Component({
@@ -27,6 +28,7 @@ export class PaymentFactoryComponent {
     [this.adapters.payment.Walley]: WalleyComponent,
     [this.adapters.payment.Adyen]: AdyenComponent,
     [this.adapters.payment.Kustom]: KustomComponent,
+    [this.adapters.payment.Qliro]: QliroComponent,
   } as const;
 
   container = viewChild('paymentContainer', { read: ViewContainerRef });

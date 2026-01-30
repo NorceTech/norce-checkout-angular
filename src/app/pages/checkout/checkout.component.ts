@@ -11,6 +11,7 @@ import { ShippingSelectorComponent } from '~/app/features/shippings/shipping-sel
 import { effectOnceIf } from 'ngxtension/effect-once-if';
 import { Button } from 'primeng/button';
 import { VoucherDialogComponent } from '~/app/features/vouchers/voucher-dialog/voucher-dialog.component';
+import { ADAPTERS, IAdapters } from '~/app/core/adapter';
 
 @Component({
   selector: 'app-checkout',
@@ -35,6 +36,8 @@ export class CheckoutComponent {
     'declined',
     'removed',
   ] satisfies OrderStatus[];
+  private adapters = inject<IAdapters>(ADAPTERS);
+  private shippingAdapters = Object.values(this.adapters.shipping || []);
 
   paymentAdapterId = computed(() => {
     return this.orderService
@@ -46,7 +49,10 @@ export class CheckoutComponent {
   shippingAdapterId = computed(() => {
     return this.orderService
       .order()
-      ?.shippings?.find((shipping) => shipping.state !== 'removed')?.adapterId;
+      ?.shippings?.filter((shipping) =>
+        this.shippingAdapters.includes(shipping?.adapterId!),
+      )
+      ?.find((shipping) => shipping.state !== 'removed')?.adapterId;
   });
 
   constructor() {

@@ -15,15 +15,19 @@
     </div>
   </p-card>
 
-  <app-shipping-selector></app-shipping-selector>
+  <app-shipping-selector class="contents"></app-shipping-selector>
   @if (shippingAdapterId(); as shippingAdapterId) {
-    <app-shipping-factory
-      [adapterId]="shippingAdapterId"
-    ></app-shipping-factory>
+    <p-card>
+      <app-shipping-factory
+        [adapterId]="shippingAdapterId"
+      ></app-shipping-factory>
+    </p-card>
   }
 
-  <app-payment-selector></app-payment-selector>
+  <app-payment-selector class="contents"></app-payment-selector>
   @if (paymentAdapterId(); as paymentAdapterId) {
-    <app-payment-factory [adapterId]="paymentAdapterId"></app-payment-factory>
+    <p-card>
+      <app-payment-factory [adapterId]="paymentAdapterId"></app-payment-factory>
+    </p-card>
   }
 </div>

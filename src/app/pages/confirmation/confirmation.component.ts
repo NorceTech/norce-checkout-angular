@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { ConfirmationFactoryComponent } from '~/app/features/confirmation/confirmation-factory/confirmation-factory.component';
 import { OrderStatus } from '~/openapi/order';
 import { effectOnceIf } from 'ngxtension/effect-once-if';
+import { Card } from 'primeng/card';
 
 @Component({
   selector: 'app-confirmation',
-  imports: [ConfirmationFactoryComponent],
+  imports: [ConfirmationFactoryComponent, Card],
   templateUrl: './confirmation.component.html',
 })
 export class ConfirmationComponent {

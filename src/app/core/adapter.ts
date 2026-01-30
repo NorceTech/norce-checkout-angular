@@ -16,6 +16,7 @@ const PaymentAdapter = {
   Walley: 'walley_checkout_adapter',
   Adyen: 'adyen_dropin_adapter',
   Kustom: 'klarna_checkout_adapter',
+  Qliro: 'qliro_checkout_adapter',
 } as const;
 
 export interface IAdapters {

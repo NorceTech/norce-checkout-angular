@@ -105,6 +105,23 @@ const services = [
 
 The service name must match the internal test service URL (e.g., `https://my-adapter.checkout.test.internal.norce.tech`).
 
+### 9. Add to Confirmation Factory
+
+For snippet payments, you must also add the component to the `ConfirmationFactoryComponent` at `src/app/features/confirmation/confirmation-factory/confirmation-factory.component.ts`:
+
+```typescript
+import { MyAdapterComponent } from '~/app/features/payments/my-adapter/my-adapter.component';
+
+private CONFIRMATION_COMPONENTS = {
+  [this.adapters.payment.Walley]: WalleyComponent,
+  [this.adapters.payment.Kustom]: KustomComponent,
+  [this.adapters.payment.Qliro]: QliroComponent,
+  [this.adapters.payment.MyAdapter]: MyAdapterComponent,  // <- Add for snippet payments
+} as const;
+```
+
+If it is not a snippet payment, you can skip this step.
+
 ## Important Notes
 
 - Always read existing adapter implementations (Walley, Adyen, Ingrid) as reference

@@ -3,6 +3,7 @@ import { IPaymentService } from '~/app/features/payments/payment.service.interfa
 import { AdyenService } from '~/app/features/payments/adyen/adyen.service';
 import { WalleyService } from '~/app/features/payments/walley/walley.service';
 import { KustomService } from '~/app/features/payments/kustom/kustom.service';
+import { QliroService } from '~/app/features/payments/qliro/qliro.service';
 
 export const PAYMENT_SERVICES = new InjectionToken<IPaymentService[]>(
   'PAYMENT_ADAPTER',
@@ -23,6 +24,11 @@ export function providePaymentServices(): Provider {
     {
       provide: PAYMENT_SERVICES,
       useExisting: KustomService,
+      multi: true,
+    },
+    {
+      provide: PAYMENT_SERVICES,
+      useExisting: QliroService,
       multi: true,
     },
   ];

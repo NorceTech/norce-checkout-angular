@@ -11,11 +11,18 @@ export class SyncService {
     map((requests) => requests > 0),
   );
 
-  private _increment() {
+  /**
+   * Manually increments the count of in-flight requests.
+   * You _must_ make sure to have a matching `_resume()` call for every `_suspend()` call.
+   */
+  _suspend() {
     this._inFlightRequests.next(this._inFlightRequests.value + 1);
   }
 
-  private _decrement() {
+  /**
+   * Manually decrements the count of in-flight requests.
+   */
+  _resume() {
     this._inFlightRequests.next(this._inFlightRequests.value - 1);
   }
 

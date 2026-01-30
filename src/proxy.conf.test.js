@@ -6,6 +6,7 @@ const services = [
   "klarna-adapter",
   "norce-adapter",
   "order",
+  "qliro-adapter",
   "walley-adapter",
 ];
 

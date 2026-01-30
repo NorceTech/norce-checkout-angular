@@ -1,3 +1,7 @@
 @if (paymentAdapterId(); as adapterId) {
-  <app-confirmation-factory [adapterId]="adapterId"></app-confirmation-factory>
+  <p-card>
+    <app-confirmation-factory
+      [adapterId]="adapterId"
+    ></app-confirmation-factory>
+  </p-card>
 }

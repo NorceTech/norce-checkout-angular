@@ -13,6 +13,7 @@ import { WalleyComponent } from '~/app/features/payments/walley/walley.component
 import { FallbackConfirmationComponent } from '~/app/features/confirmation/fallback-confirmation/fallback-confirmation.component';
 import { ToastService } from '~/app/core/toast/toast.service';
 import { KustomComponent } from '~/app/features/payments/kustom/kustom.component';
+import { QliroComponent } from '~/app/features/payments/qliro/qliro.component';
 
 @Component({
   selector: 'app-confirmation-factory',
@@ -27,6 +28,7 @@ export class ConfirmationFactoryComponent {
   private CONFIRMATION_COMPONENTS = {
     [this.adapters.payment.Walley]: WalleyComponent,
     [this.adapters.payment.Kustom]: KustomComponent,
+    [this.adapters.payment.Qliro]: QliroComponent,
   } as const;
 
   container = viewChild('container', { read: ViewContainerRef });

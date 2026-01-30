@@ -1,0 +1,12 @@
+@if (html(); as snippet) {
+  <div
+    class="py-8 bg-white"
+    [id]="snippetTargetId"
+    [innerHTML]="snippet"
+    runScripts
+  ></div>
+} @else {
+  <div class="flex justify-center py-4">
+    <p-progress-spinner></p-progress-spinner>
+  </div>
+}
