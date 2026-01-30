@@ -64,7 +64,7 @@
 
     <button
       type="submit"
-      [disabled]="form.invalid"
+      [disabled]="form.invalid || (hasInFlightRequest$ | async)"
       class="px-6 py-3 bg-blue-600 text-white rounded-md text-base cursor-pointer mt-4 disabled:bg-gray-500 disabled:cursor-not-allowed hover:bg-blue-700 disabled:hover:bg-gray-500"
     >
       Create Order

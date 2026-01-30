@@ -1,5 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {Router} from '@angular/router';
+import {AsyncPipe} from '@angular/common';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {environment} from '~/environments/environment';
 import {PlatformService} from '~/app/core/platform/platform.service';
@@ -7,7 +8,7 @@ import {SyncService} from '~/app/core/sync/sync.service';
 
 @Component({
   selector: 'app-create-order',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, AsyncPipe],
   templateUrl: './create-order.component.html'
 })
 export class CreateOrderComponent {
@@ -15,6 +16,8 @@ export class CreateOrderComponent {
   private platformAdapterService = inject(PlatformService);
   private syncService = inject(SyncService);
   private router = inject(Router);
+
+  readonly hasInFlightRequest$ = this.syncService.hasInFlightRequest$;
 
   readonly form = this.fb.group({
     basketId: ['', Validators.required],
