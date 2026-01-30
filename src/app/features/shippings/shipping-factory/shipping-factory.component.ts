@@ -18,6 +18,7 @@ export class ShippingFactoryComponent {
   private SHIPPING_COMPONENTS = {
     [this.adapters.shipping.Ingrid]: IngridComponent,
   } as const;
+  private platformAdapters = Object.values(this.adapters.platform);
   private paymentAdapters = Object.values(this.adapters.payment);
 
   container = viewChild('shippingContainer', {read: ViewContainerRef});
@@ -35,6 +36,8 @@ export class ShippingFactoryComponent {
 
     // Payments might provide shipping, so don't render them
     if (this.paymentAdapters.includes(adapterId as any)) return;
+    // Just ignore if shipping is provided by platform
+    if (this.platformAdapters.includes(adapterId as any)) return;
 
     this.clearContainer();
 

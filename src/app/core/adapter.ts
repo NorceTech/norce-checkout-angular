@@ -1,5 +1,9 @@
 import {InjectionToken} from '@angular/core';
 
+const PlatformAdapters = {
+  Norce: 'norce_adapter',
+} as const;
+
 const ShippingAdapter = {
   Ingrid: 'ingrid_adapter',
 } as const;
@@ -14,6 +18,7 @@ const PaymentAdapter = {
 } as const;
 
 export interface IAdapters {
+  platform: typeof PlatformAdapters & Record<string, string>;
   shipping: typeof ShippingAdapter & Record<string, string>;
   voucher: typeof VoucherAdapter & Record<string, string>;
   payment: typeof PaymentAdapter & Record<string, string>;
@@ -23,6 +28,7 @@ export const ADAPTERS =
   new InjectionToken<IAdapters>('ADAPTERS', {
     providedIn: 'root',
     factory: () => ({
+      platform: PlatformAdapters,
       shipping: ShippingAdapter,
       voucher: VoucherAdapter,
       payment: PaymentAdapter,
