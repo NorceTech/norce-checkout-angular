@@ -20,6 +20,11 @@ export const routes: Routes = [
         }
       },
       {
+        path: "",
+        title: "Create Order Helper | Norce Checkout",
+        loadComponent: () => import('~/app/pages/create-order/create-order.component').then(c => c.CreateOrderComponent)
+      },
+      {
         path: "checkout",
         title: "Order | Norce Checkout",
         loadComponent: () => import('~/app/pages/checkout/checkout.component').then(c => c.CheckoutComponent)

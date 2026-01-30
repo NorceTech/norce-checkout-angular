@@ -1,0 +1,73 @@
+<div class="max-w-md mx-auto p-8 border border-gray-200 rounded-lg bg-white shadow-md">
+  <h2 class="text-2xl font-bold mb-6">Create From Basket</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <label for="basketId" class="font-medium">Basket ID *</label>
+      <input
+        id="basketId"
+        type="text"
+        formControlName="basketId"
+        placeholder="Enter basket ID"
+        class="px-3 py-2 border rounded-md text-base invalid:border-red-600"
+        required
+      />
+      @if (form.controls.basketId.invalid && form.controls.basketId.touched) {
+        <small class="text-red-600 text-sm">Basket ID is required</small>
+      }
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="merchant" class="font-medium">Merchant *</label>
+      <input
+        id="merchant"
+        type="text"
+        formControlName="merchant"
+        placeholder="Enter merchant"
+        class="px-3 py-2 border rounded-md text-base invalid:border-red-600"
+        required
+      />
+      @if (form.controls.merchant.invalid && form.controls.merchant.touched) {
+        <small class="text-red-600 text-sm">Merchant is required</small>
+      }
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="channel" class="font-medium">Channel *</label>
+      <input
+        id="channel"
+        type="text"
+        formControlName="channel"
+        placeholder="Enter channel"
+        class="px-3 py-2 border rounded-md text-base invalid:border-red-600"
+        required
+      />
+      @if (form.controls.channel.invalid && form.controls.channel.touched) {
+        <small class="text-red-600 text-sm">Channel is required</small>
+      }
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="culture" class="font-medium">Culture *</label>
+      <input
+        id="culture"
+        type="text"
+        formControlName="culture"
+        placeholder="Enter culture"
+        class="px-3 py-2 border rounded-md text-base invalid:border-red-600"
+        required
+      />
+      @if (form.controls.culture.invalid && form.controls.culture.touched) {
+        <small class="text-red-600 text-sm">Culture is required</small>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      class="px-6 py-3 bg-blue-600 text-white rounded-md text-base cursor-pointer mt-4 disabled:bg-gray-500 disabled:cursor-not-allowed hover:bg-blue-700 disabled:hover:bg-gray-500"
+    >
+      Create Order
+    </button>
+  </form>
+</div>

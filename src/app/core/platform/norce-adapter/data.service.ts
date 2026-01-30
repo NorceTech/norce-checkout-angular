@@ -11,6 +11,21 @@ export class DataService {
   private client = inject(HttpClient);
   private baseUrl = `/proxy/norce-adapter/api/v1/orders`;
 
+  createOrder(merchant: string, channel: string, cartReference: number, culture: string): Observable<{id: string}> {
+    return this.client.post<{id: string}>(
+      `${this.baseUrl}`,
+      {
+        cartReference,
+        culture
+      }, {
+        headers: {
+          'x-merchant': merchant,
+          'x-channel': channel
+        }
+      }
+    )
+  }
+
   updateItem(ctx: Context, itemId: string, item: CartItem): Observable<void> {
     return this.client.patch<void>(
       `${this.baseUrl}/${ctx.orderId}/cart/items/${itemId}`,
