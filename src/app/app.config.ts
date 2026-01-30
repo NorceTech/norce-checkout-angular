@@ -10,6 +10,7 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { definePreset } from '@primeuix/themes';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
@@ -83,6 +84,7 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([contextInterceptor, syncInterceptor]),
     ),
+    provideAnimationsAsync(),
     providePrimeNG({
       ripple: true,
       theme: {
