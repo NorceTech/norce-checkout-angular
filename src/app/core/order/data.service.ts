@@ -13,4 +13,8 @@ export class DataService {
   getOrder(orderId: string): Observable<Order> {
     return this.client.get<Order>(`${this.baseUrl}/orders/${orderId}`)
   }
+
+  validateOrder(orderId: string): Observable<void> {
+    return this.client.post<void>(`${this.baseUrl}/orders/${orderId}/validate`, {})
+  }
 }

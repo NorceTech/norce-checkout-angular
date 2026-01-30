@@ -26,6 +26,8 @@ Ask the user for:
 
 ### 2. Generate OpenAPI Types
 
+**IMPORTANT: Never edit files in `src/openapi/`** - They are auto-generated and any changes will be overwritten. If the OpenAPI spec has issues (e.g., duplicate operation IDs), report them to the API team rather than fixing the generated file.
+
 Generate the types from the OpenAPI spec (requires access to internal test services):
 
 ```bash
@@ -85,6 +87,20 @@ private PAYMENT_COMPONENTS = {
   [this.adapters.payment.MyAdapter]: MyAdapterComponent,  // <- Add this
 } as const;
 ```
+
+### 8. Add Proxy Configuration
+
+Add the adapter service name to `src/proxy.conf.test.js` in the services array (alphabetically sorted):
+
+```javascript
+const services = [
+  "adyen-adapter",
+  "my-adapter",  // <- Add this (e.g., "klarna-adapter", "quickpay-adapter")
+  "walley-adapter",
+];
+```
+
+The service name must match the internal test service URL (e.g., `https://my-adapter.checkout.test.internal.norce.tech`).
 
 ## Important Notes
 

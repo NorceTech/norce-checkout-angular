@@ -8,7 +8,7 @@
       </div>
 
       <!-- Shipping -->
-      @for (shipping of order?.shippings; track shipping.name) {
+      @for (shipping of nonRemovedShippings(); track shipping.id) {
         <div class="flex justify-between mb-2">
           <span class="text-gray-600">{{ shipping.name }}</span>
           <span>{{ shipping.total | price }}</span>
@@ -18,7 +18,7 @@
       <!-- Discounts -->
       @if (order?.cart?.discounts?.length) {
         <div class="mb-2">
-          @for (discount of order.cart?.discounts; track discount) {
+          @for (discount of order.cart?.discounts; track discount.code) {
             <div class="flex justify-between text-green-600">
               <span>Discount</span>
               <span>-{{ discount.value | price }}</span>

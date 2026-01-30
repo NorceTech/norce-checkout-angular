@@ -70,6 +70,8 @@ No global state library. Uses RxJS + Angular Signals.
 
 `src/openapi/` contains generated type definitions from OpenAPI specs.
 
+**IMPORTANT: Never edit files in `src/openapi/`** - They are auto-generated and any changes will be overwritten. If the OpenAPI spec has issues (e.g., duplicate operation IDs), report them to the API team rather than fixing the generated file.
+
 ## Adding a New Adapter
 
 Use `/add-adapter` skill to add a new payment, shipping, or voucher adapter.

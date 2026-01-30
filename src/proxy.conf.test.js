@@ -3,6 +3,7 @@ const services = [
   "awardit-adapter",
   "configuration",
   "ingrid-adapter",
+  "klarna-adapter",
   "norce-adapter",
   "order",
   "walley-adapter",

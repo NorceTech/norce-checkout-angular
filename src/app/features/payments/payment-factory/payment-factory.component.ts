@@ -2,6 +2,7 @@ import {afterRenderEffect, Component, ComponentRef, inject, input, viewChild, Vi
 import {ADAPTERS, IAdapters} from '~/app/core/adapter';
 import {WalleyComponent} from '~/app/features/payments/walley/walley.component';
 import {AdyenComponent} from '~/app/features/payments/adyen/adyen.component';
+import {KustomComponent} from '~/app/features/payments/kustom/kustom.component';
 import {ToastService} from '~/app/core/toast/toast.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class PaymentFactoryComponent {
 
   private PAYMENT_COMPONENTS = {
     [this.adapters.payment.Walley]: WalleyComponent,
-    [this.adapters.payment.Adyen]: AdyenComponent
+    [this.adapters.payment.Adyen]: AdyenComponent,
+    [this.adapters.payment.Kustom]: KustomComponent
   } as const;
 
   container = viewChild('paymentContainer', {read: ViewContainerRef});

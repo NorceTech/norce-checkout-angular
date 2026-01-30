@@ -7,6 +7,8 @@ import {ContextService} from '~/app/core/context/context.service';
 import {SyncService} from '~/app/core/sync/sync.service';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {connect} from 'ngxtension/connect';
+import {HttpErrorResponse} from '@angular/common/http';
+import type {ValidationError} from '~/openapi/order';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +42,20 @@ export class OrderService {
           this.toastService.error('Failed to fetch order data');
           return EMPTY;
         })
+      )
+  }
+
+  public validateOrder(orderId: string): Observable<void> {
+    return this.dataService.validateOrder(orderId)
+      .pipe(
+        retry(2),
+        catchError((error: HttpErrorResponse) => {
+          const errorResponse = error.error as ValidationError[] | undefined;
+          const firstError = errorResponse?.[0];
+          this.toastService.error(firstError?.code ?? 'Order validation failed');
+          // Rethrow the error so that callers can handle it if needed
+          throw error;
+        }),
       )
   }
 }

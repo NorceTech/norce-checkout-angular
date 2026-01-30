@@ -29,4 +29,9 @@ export class CartSummaryComponent {
     ?.find(payment => payment.type === 'default')
     ?.amount || 0
   );
+
+  nonRemovedShippings = computed(() => this.order()
+    .shippings
+    ?.filter(shipping => shipping.state !== 'removed') || []
+  );
 }
