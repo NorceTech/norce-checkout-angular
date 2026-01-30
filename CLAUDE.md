@@ -70,6 +70,10 @@ No global state library. Uses RxJS + Angular Signals.
 
 `src/openapi/` contains generated type definitions from OpenAPI specs.
 
+## Adding a New Adapter
+
+Use `/add-adapter` skill to add a new payment, shipping, or voucher adapter.
+
 ## Styling
 
 - TailwindCSS with layers: `tailwind-base, primeng, tailwind-utilities`
@@ -78,11 +82,50 @@ No global state library. Uses RxJS + Angular Signals.
 
 ## Adding a New Adapter
 
-1. Create service implementing interface (e.g., `IPaymentService`)
-2. Add to `src/app/features/*/provide-*-services.ts` with multi-provider pattern
-3. Register factory in `app.config.ts`
-4. Add identifier to `src/app/core/adapter.ts`
-5. Create factory component in `src/app/features/*/`
+1. **Generate OpenAPI types** (requires access to internal test services):
+
+```bash
+# Example for a payment adapter (e.g., "my-payment")
+npx openapi-typescript https://my-payment-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml \
+  --output src/openapi/my-payment-adapter.ts \
+  --alphabetize --export-type --root-types --root-types-no-schema-prefix
+```
+
+2. **Create the service** implementing the appropriate interface (e.g., `IPaymentService`, `IShippingService`, `IVoucherService`) in `src/app/features/*/my-adapter/my-adapter.service.ts`
+
+3. **Register the service** in `src/app/features/*/provide-*-services.ts` using the multi-provider pattern:
+
+```typescript
+{
+  provide: PAYMENT_SERVICES,  // or SHIPPING_SERVICES, VOUCHER_SERVICES
+  useExisting: MyAdapterService,
+  multi: true,
+}
+```
+
+4. **Add the adapter identifier** to `src/app/core/adapter.ts`:
+
+```typescript
+const PaymentAdapter = {
+  Walley: 'walley_checkout_adapter',
+  Adyen: 'adyen_dropin_adapter',
+  MyAdapter: 'my_adapter_identifier',  // <- Add this
+} as const;
+```
+
+5. **Create the component** in `src/app/features/*/my-adapter/my-adapter.component.ts` that uses your service
+
+6. **Add component to factory** - Import and register in the factory component (e.g., `PaymentFactoryComponent`):
+
+```typescript
+import {MyAdapterComponent} from '~/app/features/payments/my-adapter/my-adapter.component';
+
+private PAYMENT_COMPONENTS = {
+  [this.adapters.payment.Walley]: WalleyComponent,
+  [this.adapters.payment.Adyen]: AdyenComponent,
+  [this.adapters.payment.MyAdapter]: MyAdapterComponent,  // <- Add this
+} as const;
+```
 
 ## Path Aliases
 
