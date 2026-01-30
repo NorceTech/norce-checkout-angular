@@ -1,3 +1,4 @@
+import type { MockedObject } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 import { ToastService } from './toast.service';
@@ -5,10 +6,12 @@ import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ToastService', () => {
   let service: ToastService;
-  let messageServiceSpy: jasmine.SpyObj<MessageService>;
+  let messageServiceSpy: MockedObject<MessageService>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('MessageService', ['add']);
+    const spy = {
+      add: vi.fn().mockName('MessageService.add'),
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -21,7 +24,7 @@ describe('ToastService', () => {
     service = TestBed.inject(ToastService);
     messageServiceSpy = TestBed.inject(
       MessageService,
-    ) as jasmine.SpyObj<MessageService>;
+    ) as MockedObject<MessageService>;
   });
 
   it('should be created', () => {

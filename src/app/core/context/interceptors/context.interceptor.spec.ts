@@ -1,6 +1,7 @@
+import type { Mock } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
-import { of, throwError } from 'rxjs';
+import { of, throwError, firstValueFrom } from 'rxjs';
 import {
   EnvironmentInjector,
   provideZonelessChangeDetection,
@@ -16,7 +17,7 @@ describe('contextInterceptor', () => {
   let fakeContext: Context;
   let fakeContextService: Partial<ContextService>;
   let req: HttpRequest<any>;
-  let nextSpy: jasmine.Spy;
+  let nextSpy: Mock;
 
   beforeEach(() => {
     // Fake a valid Context instance.
@@ -42,60 +43,44 @@ describe('contextInterceptor', () => {
     req = new HttpRequest('GET', 'http://example.com');
 
     // Set up a spy for next() that simulates a succeeding inner interceptor.
-    nextSpy = jasmine
-      .createSpy('next')
-      .and.callFake((request: HttpRequest<any>) =>
+    nextSpy = vi
+      .fn()
+      .mockImplementation((request: HttpRequest<any>) =>
         of(new HttpResponse({ status: 200, url: request.url })),
       );
   });
 
-  it('should add x-merchant and x-channel headers to the request', (done) => {
+  it('should add x-merchant and x-channel headers to the request', async () => {
     const envInjector = TestBed.inject(EnvironmentInjector);
-    runInInjectionContext(envInjector, () => {
-      contextInterceptor(req, nextSpy).subscribe({
-        next: () => {
-          expect(nextSpy).toHaveBeenCalledTimes(1);
-          // The modified request is the argument passed to the next interceptor.
-          const modifiedReq = nextSpy.calls.mostRecent()
-            .args[0] as HttpRequest<any>;
-          expect(modifiedReq.headers.get('x-merchant')).toBe('testMerchant');
-          expect(modifiedReq.headers.get('x-channel')).toBe('testChannel');
-          done();
-        },
-        error: done.fail,
-      });
+    await runInInjectionContext(envInjector, async () => {
+      await firstValueFrom(contextInterceptor(req, nextSpy));
+      expect(nextSpy).toHaveBeenCalledTimes(1);
+      // The modified request is the argument passed to the next interceptor.
+      const modifiedReq = vi.mocked(nextSpy).mock
+        .lastCall?.[0] as HttpRequest<any>;
+      expect(modifiedReq.headers.get('x-merchant')).toBe('testMerchant');
+      expect(modifiedReq.headers.get('x-channel')).toBe('testChannel');
     });
   });
 
-  it('should forward the response from next', (done) => {
+  it('should forward the response from next', async () => {
     const envInjector = TestBed.inject(EnvironmentInjector);
     const expectedResponse = new HttpResponse({ status: 200, url: req.url });
-    nextSpy.and.returnValue(of(expectedResponse));
-    runInInjectionContext(envInjector, () => {
-      contextInterceptor(req, nextSpy).subscribe({
-        next: (response) => {
-          expect(response).toBe(expectedResponse);
-          done();
-        },
-        error: done.fail,
-      });
+    nextSpy.mockReturnValue(of(expectedResponse));
+    await runInInjectionContext(envInjector, async () => {
+      const response = await firstValueFrom(contextInterceptor(req, nextSpy));
+      expect(response).toBe(expectedResponse);
     });
   });
 
-  it('should propagate errors from next', (done) => {
+  it('should propagate errors from next', async () => {
     const envInjector = TestBed.inject(EnvironmentInjector);
     const errorResponse = new Error('Test error');
-    nextSpy.and.returnValue(throwError(() => errorResponse));
-    runInInjectionContext(envInjector, () => {
-      contextInterceptor(req, nextSpy).subscribe({
-        next: () => {
-          done.fail('Expected error, but received a response');
-        },
-        error: (err) => {
-          expect(err).toBe(errorResponse);
-          done();
-        },
-      });
+    nextSpy.mockReturnValue(throwError(() => errorResponse));
+    await runInInjectionContext(envInjector, async () => {
+      await expect(
+        firstValueFrom(contextInterceptor(req, nextSpy)),
+      ).rejects.toThrow('Test error');
     });
   });
 });

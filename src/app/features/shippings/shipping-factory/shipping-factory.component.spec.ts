@@ -12,12 +12,10 @@ import { ADAPTERS, IAdapters } from '~/app/core/adapter';
 
 // --- Fake ViewContainerRef ---
 class FakeViewContainerRef implements Partial<ViewContainerRef> {
-  clear = jasmine.createSpy('clear');
-  createComponent = jasmine
-    .createSpy('createComponent')
-    .and.callFake((component: any) => {
-      return { instance: {} } as ComponentRef<any>;
-    });
+  clear = vi.fn();
+  createComponent = vi.fn().mockImplementation((component: any) => {
+    return { instance: {} } as ComponentRef<any>;
+  });
 }
 
 describe('ShippingFactoryComponent', () => {
@@ -25,8 +23,8 @@ describe('ShippingFactoryComponent', () => {
   let componentRef: ComponentRef<ShippingFactoryComponent>;
   let fixture: ComponentFixture<ShippingFactoryComponent>;
   let fakeContainer: FakeViewContainerRef;
-  let toastServiceSpy: jasmine.SpyObj<ToastService>;
-  let adaptersSpy: jasmine.SpyObj<IAdapters>;
+  let toastServiceSpy: Partial<ToastService>;
+  let adaptersSpy: Partial<IAdapters>;
 
   const defaultTestAdapters = {
     shipping: { Ingrid: 'spy_ingrid_adapter' },
@@ -41,8 +39,24 @@ describe('ShippingFactoryComponent', () => {
   };
 
   beforeEach(async () => {
-    toastServiceSpy = jasmine.createSpyObj('ToastService', ['error']);
-    adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
+    toastServiceSpy = {
+      error: vi.fn().mockName('ToastService.error'),
+      show: vi.fn(),
+      success: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+    };
+    adaptersSpy = {
+      platform: { Norce: 'norce_adapter' },
+      shipping: { Ingrid: 'ingrid_adapter' },
+      voucher: { Awardit: 'awardit_adapter' },
+      payment: {
+        Walley: 'walley_checkout_adapter',
+        Adyen: 'adyen_dropin_adapter',
+        Kustom: 'klarna_checkout_adapter',
+        Qliro: 'qliro_checkout_adapter',
+      },
+    } as Partial<IAdapters>;
 
     await TestBed.configureTestingModule({
       imports: [ShippingFactoryComponent],
@@ -72,9 +86,9 @@ describe('ShippingFactoryComponent', () => {
   it('should load the correct shipping component for a valid adapter (Ingrid)', () => {
     // Arrange
     setComponentRenderMap({
-      [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
+      [adaptersSpy.shipping!.Ingrid]: IngridComponent,
     });
-    componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
+    componentRef.setInput('adapterId', adaptersSpy.shipping!.Ingrid);
 
     // Act
     (component as any).loadComponent(component.adapterId());
@@ -99,8 +113,8 @@ describe('ShippingFactoryComponent', () => {
   });
 
   it('should not load any shipping component if adapterId is part of PaymentAdapters', () => {
-    // Arrange
-    componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
+    // Arrange - use the actual adapter ID from the injected adapters
+    componentRef.setInput('adapterId', adaptersSpy.payment!.Walley);
 
     // Act
     (component as any).loadComponent(component.adapterId());
@@ -128,9 +142,9 @@ describe('ShippingFactoryComponent', () => {
   it('should call toastService.error if container is not available', () => {
     // Arrange
     setComponentRenderMap({
-      [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
+      [adaptersSpy.shipping!.Ingrid]: IngridComponent,
     });
-    componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
+    componentRef.setInput('adapterId', adaptersSpy.shipping!.Ingrid);
     component.container = signal(undefined);
 
     // Act
@@ -144,7 +158,7 @@ describe('ShippingFactoryComponent', () => {
 
   it('should clear the container and destroy previous component if one exists', () => {
     // Arrange
-    const fakeComponentRef = { destroy: jasmine.createSpy('destroy') };
+    const fakeComponentRef = { destroy: vi.fn() };
     (component as any).componentRef = fakeComponentRef;
     component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
@@ -157,19 +171,19 @@ describe('ShippingFactoryComponent', () => {
     expect((component as any).componentRef).toBeUndefined();
   });
 
-  it('should call loadComponent after render (via afterRenderEffect)', (done) => {
+  it('should call loadComponent after render (via afterRenderEffect)', async () => {
     // Arrange
     setComponentRenderMap({
-      [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
+      [adaptersSpy.shipping!.Ingrid]: IngridComponent,
     });
-    spyOn<any>(component, 'loadComponent');
-    componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
+    const loadComponentSpy = vi.spyOn(component, 'loadComponent' as any);
+    componentRef.setInput('adapterId', adaptersSpy.shipping!.Ingrid);
 
-    setTimeout(() => {
-      expect((component as any).loadComponent).toHaveBeenCalledWith(
-        defaultTestAdapters.shipping.Ingrid,
-      );
-      done();
-    }, 0);
+    // Trigger change detection and wait for stability
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(loadComponentSpy).toHaveBeenCalledWith(adaptersSpy.shipping!.Ingrid);
   });
 });

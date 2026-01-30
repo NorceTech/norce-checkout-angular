@@ -20,15 +20,16 @@ describe('RunScriptsDirective', () => {
     directive = new RunScriptsDirective(new ElementRef(element));
   });
 
-  it('should call reinsertScripts on ngOnInit after a timeout', (done) => {
-    spyOn(directive, 'reinsertScripts');
+  it('should call reinsertScripts on ngOnInit after a timeout', async () => {
+    vi.useFakeTimers();
+    vi.spyOn(directive, 'reinsertScripts');
     directive.ngOnInit();
 
-    // Wait for the setTimeout callback to trigger reinsertScripts.
-    setTimeout(() => {
-      expect(directive.reinsertScripts).toHaveBeenCalled();
-      done();
-    }, 0);
+    // Run the pending timers
+    vi.runAllTimers();
+    vi.useRealTimers();
+
+    expect(directive.reinsertScripts).toHaveBeenCalled();
   });
 
   it('should reinsert script tags preserving attributes and content', () => {
@@ -64,7 +65,7 @@ describe('RunScriptsDirective', () => {
 
   it('should throw an error if a script tag is missing (null element)', () => {
     // Override getElementsByTagName to return an array containing null.
-    spyOn(element, 'getElementsByTagName').and.returnValue([null] as any);
+    vi.spyOn(element, 'getElementsByTagName').mockReturnValue([null] as any);
     expect(() => directive.reinsertScripts()).toThrowError(
       'Could not find script tag node',
     );
@@ -80,7 +81,7 @@ describe('RunScriptsDirective', () => {
       value: null,
       writable: true,
     });
-    spyOn(element, 'getElementsByTagName').and.returnValue([
+    vi.spyOn(element, 'getElementsByTagName').mockReturnValue([
       scriptWithoutParent,
     ] as any);
     expect(() => directive.reinsertScripts()).toThrowError(

@@ -4,17 +4,21 @@ import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { CartService } from '~/app/features/cart/cart.service';
 import { OrderService } from '~/app/core/order/order.service';
 import { PricePipe } from '~/app/shared/pipes/price.pipe';
+import { Subject } from 'rxjs';
+import { Item } from '~/openapi/order';
 
 describe('CartComponent', () => {
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
-  let cartService: jasmine.SpyObj<CartService>;
+  let cartService: Partial<CartService>;
 
   beforeEach(async () => {
-    cartService = jasmine.createSpyObj('CartService', [], {
+    const mockUpdateItem$ = new Subject<Item>();
+    cartService = {
       items: signal([]),
-      updateItem$: { next: jasmine.createSpy() },
-    });
+      updateItem$: mockUpdateItem$,
+      removeItem$: new Subject<Item>(),
+    };
 
     const mockOrderService = {
       order: signal({
@@ -25,8 +29,10 @@ describe('CartComponent', () => {
       }),
     };
 
-    const pricePipeSpy = jasmine.createSpyObj('PricePipe', ['transform']);
-    pricePipeSpy.transform.and.returnValue('0,00 kr');
+    const pricePipeSpy = {
+      transform: vi.fn().mockName('PricePipe.transform'),
+    };
+    pricePipeSpy.transform.mockReturnValue('0,00 kr');
 
     await TestBed.configureTestingModule({
       imports: [CartComponent],
