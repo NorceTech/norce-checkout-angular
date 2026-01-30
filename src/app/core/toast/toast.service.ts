@@ -1,8 +1,8 @@
-import { Injectable, inject } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { Injectable, inject } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ToastService {
   private messageService = inject(MessageService);
@@ -16,19 +16,19 @@ export class ToastService {
     });
   }
 
-  success(message: string, title: string = "Success") {
-    this.show(message, title, "success", "global");
+  success(message: string, title: string = 'Success') {
+    this.show(message, title, 'success', 'global');
   }
 
-  info(message: string, title: string = "Info") {
-    this.show(message, title, "info", "global");
+  info(message: string, title: string = 'Info') {
+    this.show(message, title, 'info', 'global');
   }
 
-  error(message: string, title: string = "Error") {
-    this.show(message, title, "error", "global");
+  error(message: string, title: string = 'Error') {
+    this.show(message, title, 'error', 'global');
   }
 
-  warn(message: string, title: string = "Warning") {
-    this.show(message, title, "warn", "global");
+  warn(message: string, title: string = 'Warning') {
+    this.show(message, title, 'warn', 'global');
   }
 }

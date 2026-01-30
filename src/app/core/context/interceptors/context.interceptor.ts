@@ -1,6 +1,6 @@
-import {HttpInterceptorFn} from '@angular/common/http';
-import {inject} from '@angular/core';
-import {ContextService} from '~/app/core/context/context.service';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { ContextService } from '~/app/core/context/context.service';
 
 export const contextInterceptor: HttpInterceptorFn = (req, next) => {
   const contextService = inject(ContextService);
@@ -14,7 +14,7 @@ export const contextInterceptor: HttpInterceptorFn = (req, next) => {
     setHeaders: {
       'x-merchant': context.merchant,
       'x-channel': context.channel,
-    }
+    },
   });
   return next(reqWithContext);
 };

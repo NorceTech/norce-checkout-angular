@@ -1,11 +1,11 @@
-import {TestBed} from '@angular/core/testing';
-import {BehaviorSubject} from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs';
 
-import {PricePipe} from './price.pipe';
-import {OrderService} from '~/app/core/order/order.service';
-import {environment} from '~/environments/environment';
-import {Price} from '~/openapi/order';
-import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+import { PricePipe } from './price.pipe';
+import { OrderService } from '~/app/core/order/order.service';
+import { environment } from '~/environments/environment';
+import { Price } from '~/openapi/order';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 describe('PricePipe', () => {
   let pipe: PricePipe;
@@ -25,7 +25,7 @@ describe('PricePipe', () => {
       providers: [
         provideExperimentalZonelessChangeDetection(),
         PricePipe,
-        {provide: OrderService, useValue: fakeOrderService},
+        { provide: OrderService, useValue: fakeOrderService },
       ],
     });
     pipe = TestBed.inject(PricePipe);
@@ -55,39 +55,36 @@ describe('PricePipe', () => {
     expect(result).toBe(expected);
   });
 
-  it('should format a Price object using includingVat when showPriceIncludingVat is true',
-    () => {
-      environment.showPriceIncludingVat = true;
-      const price: Price = {includingVat: 200, excludingVat: 150};
-      const result = pipe.transform(price);
-      const expected = `200,00${NBSP}kr`;
-      expect(result).toBe(expected);
-    });
+  it('should format a Price object using includingVat when showPriceIncludingVat is true', () => {
+    environment.showPriceIncludingVat = true;
+    const price: Price = { includingVat: 200, excludingVat: 150 };
+    const result = pipe.transform(price);
+    const expected = `200,00${NBSP}kr`;
+    expect(result).toBe(expected);
+  });
 
-  it('should format a Price object using excludingVat when showPriceIncludingVat is false',
-    () => {
-      environment.showPriceIncludingVat = false;
-      const price: Price = {includingVat: 200, excludingVat: 150};
-      const result = pipe.transform(price);
-      const expected = `150,00${NBSP}kr`;
-      expect(result).toBe(expected);
-    });
+  it('should format a Price object using excludingVat when showPriceIncludingVat is false', () => {
+    environment.showPriceIncludingVat = false;
+    const price: Price = { includingVat: 200, excludingVat: 150 };
+    const result = pipe.transform(price);
+    const expected = `150,00${NBSP}kr`;
+    expect(result).toBe(expected);
+  });
 
-  it('should update currency and culture when OrderService emits new values',
-    () => {
-      // Initially using the default "sv-SE" and "SEK"
-      let result = pipe.transform(100);
-      let expected = `100,00${NBSP}kr`;
-      expect(result).toBe(expected);
+  it('should update currency and culture when OrderService emits new values', () => {
+    // Initially using the default "sv-SE" and "SEK"
+    let result = pipe.transform(100);
+    let expected = `100,00${NBSP}kr`;
+    expect(result).toBe(expected);
 
-      // Update OrderService values to use a different locale and currency
-      fakeOrderService.currency$.next('USD');
-      fakeOrderService.culture$.next('en-US');
+    // Update OrderService values to use a different locale and currency
+    fakeOrderService.currency$.next('USD');
+    fakeOrderService.culture$.next('en-US');
 
-      // Since BehaviorSubjects emit synchronously, the next call to transform should
-      // reflect the updated values.
-      result = pipe.transform(100);
-      expected = "$100.00";
-      expect(result).toBe(expected);
-    });
+    // Since BehaviorSubjects emit synchronously, the next call to transform should
+    // reflect the updated values.
+    result = pipe.transform(100);
+    expected = '$100.00';
+    expect(result).toBe(expected);
+  });
 });

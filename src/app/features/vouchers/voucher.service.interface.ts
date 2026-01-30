@@ -1,5 +1,5 @@
-import {Observable} from 'rxjs';
-import {DynamicFormControl} from '~/app/shared/dynamic-form/dynamic-form.types';
+import { Observable } from 'rxjs';
+import { DynamicFormControl } from '~/app/shared/dynamic-form/dynamic-form.types';
 
 export interface IVoucherService {
   adapterId: string;

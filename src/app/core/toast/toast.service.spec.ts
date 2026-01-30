@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 import { ToastService } from './toast.service';
-import {provideExperimentalZonelessChangeDetection} from "@angular/core";
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 describe('ToastService', () => {
   let service: ToastService;
@@ -14,12 +14,14 @@ describe('ToastService', () => {
       providers: [
         provideExperimentalZonelessChangeDetection(),
         ToastService,
-        { provide: MessageService, useValue: spy }
-      ]
+        { provide: MessageService, useValue: spy },
+      ],
     });
 
     service = TestBed.inject(ToastService);
-    messageServiceSpy = TestBed.inject(MessageService) as jasmine.SpyObj<MessageService>;
+    messageServiceSpy = TestBed.inject(
+      MessageService,
+    ) as jasmine.SpyObj<MessageService>;
   });
 
   it('should be created', () => {
@@ -36,7 +38,7 @@ describe('ToastService', () => {
       key: 'global',
       detail: message,
       severity: 'success',
-      summary: title
+      summary: title,
     });
   });
 
@@ -50,7 +52,7 @@ describe('ToastService', () => {
       key: 'global',
       detail: message,
       severity: 'info',
-      summary: title
+      summary: title,
     });
   });
 
@@ -64,7 +66,7 @@ describe('ToastService', () => {
       key: 'global',
       detail: message,
       severity: 'error',
-      summary: title
+      summary: title,
     });
   });
 
@@ -78,7 +80,7 @@ describe('ToastService', () => {
       key: 'global',
       detail: message,
       severity: 'warn',
-      summary: title
+      summary: title,
     });
   });
 
@@ -94,7 +96,7 @@ describe('ToastService', () => {
       key: key,
       detail: message,
       severity: severity,
-      summary: title
+      summary: title,
     });
   });
 });

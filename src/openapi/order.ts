@@ -4,1194 +4,1220 @@
  */
 
 export type paths = {
-    "/api/v1/checkout/orders": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get orders
-         * @description Get all orders
-         */
-        get: operations["GetCheckoutOrders"];
-        put?: never;
-        /**
-         * Create a new Order
-         * @description Creates an order in checkout state
-         */
-        post: operations["CreateCheckoutOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/v1/checkout/orders': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get order by id
-         * @description Get order for merchant and channel
-         */
-        get: operations["GetCheckoutOrder"];
-        put?: never;
-        post?: never;
-        /**
-         * Delete existing order
-         * @description Delete order from a orders repository
-         */
-        delete: operations["DeleteCheckoutOrder"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get orders
+     * @description Get all orders
+     */
+    get: operations['GetCheckoutOrders'];
+    put?: never;
+    /**
+     * Create a new Order
+     * @description Creates an order in checkout state
+     */
+    post: operations['CreateCheckoutOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/attributes": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Patch attributes
-         * @description Patch attributes
-         */
-        patch: operations["PatchCheckoutOrderAttributes"];
-        trace?: never;
+    /**
+     * Get order by id
+     * @description Get order for merchant and channel
+     */
+    get: operations['GetCheckoutOrder'];
+    put?: never;
+    post?: never;
+    /**
+     * Delete existing order
+     * @description Delete order from a orders repository
+     */
+    delete: operations['DeleteCheckoutOrder'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/attributes': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/cart": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update order cart
-         * @description Update order cart
-         */
-        put: operations["UpdateCheckoutOrderCart"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Patch attributes
+     * @description Patch attributes
+     */
+    patch: operations['PatchCheckoutOrderAttributes'];
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/cart': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/consents": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create consent
-         * @description Create consent
-         */
-        post: operations["CreateCheckoutOrderConsent"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Patch consents, will only change value of Checked.
-         * @description Patch consents
-         */
-        patch: operations["PatchCheckoutOrderConsents"];
-        trace?: never;
+    get?: never;
+    /**
+     * Update order cart
+     * @description Update order cart
+     */
+    put: operations['UpdateCheckoutOrderCart'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/consents': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/consents/{consentId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Remove consent
-         * @description Remove consent
-         */
-        delete: operations["RemoveCheckoutOrderConsent"];
-        options?: never;
-        head?: never;
-        /**
-         * Patch consent, will only change value of Checked.
-         * @description Patch consent
-         */
-        patch: operations["PatchCheckoutOrderConsent"];
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create consent
+     * @description Create consent
+     */
+    post: operations['CreateCheckoutOrderConsent'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Patch consents, will only change value of Checked.
+     * @description Patch consents
+     */
+    patch: operations['PatchCheckoutOrderConsents'];
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/consents/{consentId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/customer/billing": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update Customer Billing Address
-         * @description Update customer billing address
-         */
-        put: operations["UpdateCheckoutOrderCustomerBilling"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Remove consent
+     * @description Remove consent
+     */
+    delete: operations['RemoveCheckoutOrderConsent'];
+    options?: never;
+    head?: never;
+    /**
+     * Patch consent, will only change value of Checked.
+     * @description Patch consent
+     */
+    patch: operations['PatchCheckoutOrderConsent'];
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/customer/billing': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/customer/shipping": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update Customer Shipping Address
-         * @description Update customer shipping address
-         */
-        put: operations["UpdateCheckoutOrderCustomerShipping"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    /**
+     * Update Customer Billing Address
+     * @description Update customer billing address
+     */
+    put: operations['UpdateCheckoutOrderCustomerBilling'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/customer/shipping': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/hooks": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create hook
-         * @description Create hook
-         */
-        post: operations["CreateCheckoutOrderHook"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    /**
+     * Update Customer Shipping Address
+     * @description Update customer shipping address
+     */
+    put: operations['UpdateCheckoutOrderCustomerShipping'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/hooks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/hooks/{hookId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Delete hook
-         * @description Delete hook
-         */
-        delete: operations["DeleteCheckoutOrderHook"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create hook
+     * @description Create hook
+     */
+    post: operations['CreateCheckoutOrderHook'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/hooks/{hookId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/notifications": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create notification
-         * @description Create notification
-         */
-        post: operations["CreateCheckoutOrderNotification"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete hook
+     * @description Delete hook
+     */
+    delete: operations['DeleteCheckoutOrderHook'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/notifications': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/notifications/{notificationId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Delete notification
-         * @description Delete notification
-         */
-        delete: operations["DeleteCheckoutOrderNotification"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create notification
+     * @description Create notification
+     */
+    post: operations['CreateCheckoutOrderNotification'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/notifications/{notificationId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/payments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Order Payments
-         * @description Get order payments
-         */
-        get: operations["GetOrderPayments"];
-        put?: never;
-        /**
-         * Create Order Payment
-         * @description Creates a order payment
-         */
-        post: operations["CreateOrderPayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete notification
+     * @description Delete notification
+     */
+    delete: operations['DeleteCheckoutOrderNotification'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/payments': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/payments/{paymentId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Order Payment
-         * @description Get order payment
-         */
-        get: operations["GetOrderPayment"];
-        /**
-         * Update Order Payment
-         * @description Update order payment
-         */
-        put: operations["UpdateOrderPayment"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Order Payments
+     * @description Get order payments
+     */
+    get: operations['GetOrderPayments'];
+    put?: never;
+    /**
+     * Create Order Payment
+     * @description Creates a order payment
+     */
+    post: operations['CreateOrderPayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/payments/{paymentId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/payments/{paymentId}/actions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a Payment PaymentAction
-         * @description Add paymentAction for an order payment
-         */
-        post: operations["AddPaymentAction"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Order Payment
+     * @description Get order payment
+     */
+    get: operations['GetOrderPayment'];
+    /**
+     * Update Order Payment
+     * @description Update order payment
+     */
+    put: operations['UpdateOrderPayment'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/payments/{paymentId}/actions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/payments/{paymentId}/actions/{actionId}/execute": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Execute a Payment PaymentAction
-         * @description Execute a paymentAction for an order payment
-         */
-        post: operations["ExecutePaymentAction"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create a Payment PaymentAction
+     * @description Add paymentAction for an order payment
+     */
+    post: operations['AddPaymentAction'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/payments/{paymentId}/actions/{actionId}/execute': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/payments/{paymentId}/transactions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get transactions for an order payment
-         * @description Get transactions for an order payment
-         */
-        get: operations["GetTransactionsForOrderPayment"];
-        put?: never;
-        /**
-         * Add transaction for an order payment
-         * @description Add transaction for an order payment
-         */
-        post: operations["AddTransactionForOrderPayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Execute a Payment PaymentAction
+     * @description Execute a paymentAction for an order payment
+     */
+    post: operations['ExecutePaymentAction'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/payments/{paymentId}/transactions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/reference": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update Order Reference
-         * @description Update order reference
-         */
-        put: operations["UpdateCheckoutOrderReference"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get transactions for an order payment
+     * @description Get transactions for an order payment
+     */
+    get: operations['GetTransactionsForOrderPayment'];
+    put?: never;
+    /**
+     * Add transaction for an order payment
+     * @description Add transaction for an order payment
+     */
+    post: operations['AddTransactionForOrderPayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/reference': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/shippings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Order Shippings
-         * @description Get order shippings
-         */
-        get: operations["GetOrderShippings"];
-        put?: never;
-        /**
-         * Create Order Shipping
-         * @description Creates a order shipping
-         */
-        post: operations["CreateOrderShipping"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    /**
+     * Update Order Reference
+     * @description Update order reference
+     */
+    put: operations['UpdateCheckoutOrderReference'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/shippings': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/shippings/{shippingId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Order Shipping
-         * @description Get order shipping
-         */
-        get: operations["GetOrderShipping"];
-        /**
-         * Update Order Shipping
-         * @description Update order shipping
-         */
-        put: operations["UpdateOrderShipping"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Order Shippings
+     * @description Get order shippings
+     */
+    get: operations['GetOrderShippings'];
+    put?: never;
+    /**
+     * Create Order Shipping
+     * @description Creates a order shipping
+     */
+    post: operations['CreateOrderShipping'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/shippings/{shippingId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/state": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update Order State
-         * @description Update order state
-         */
-        put: operations["UpdateCheckoutOrderState"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Order Shipping
+     * @description Get order shipping
+     */
+    get: operations['GetOrderShipping'];
+    /**
+     * Update Order Shipping
+     * @description Update order shipping
+     */
+    put: operations['UpdateOrderShipping'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/state': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/validate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Validate an order
-         * @description Validate order
-         */
-        post: operations["Validate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    /**
+     * Update Order State
+     * @description Update order state
+     */
+    put: operations['UpdateCheckoutOrderState'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/validate': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/validations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create validation
-         * @description Create validation
-         */
-        post: operations["CreateCheckoutOrderValidation"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Validate an order
+     * @description Validate order
+     */
+    post: operations['Validate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/validations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkout/orders/{orderId}/validations/{validationId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update validation
-         * @description Update validation
-         */
-        put: operations["UpdateCheckoutOrderValidation"];
-        post?: never;
-        /**
-         * Remove validation
-         * @description Remove validation
-         */
-        delete: operations["RemoveCheckoutOrderValidation"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create validation
+     * @description Create validation
+     */
+    post: operations['CreateCheckoutOrderValidation'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkout/orders/{orderId}/validations/{validationId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    get?: never;
+    /**
+     * Update validation
+     * @description Update validation
+     */
+    put: operations['UpdateCheckoutOrderValidation'];
+    post?: never;
+    /**
+     * Remove validation
+     * @description Remove validation
+     */
+    delete: operations['RemoveCheckoutOrderValidation'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-    schemas: {
-        Addon: {
-            /**
-             * Format: double
-             * @description Cost of addon. Amount in major unit currency.
-             */
-            price?: number;
-            /** @description Shipping addon reference. */
-            reference?: string;
-        };
-        Address: {
-            /** @description Allows you to store any custom attributes for the address. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /**
-             * @description Care of.
-             * @example Olleinho Jyckesson
-             */
-            careOf?: string;
-            /**
-             * @description City.
-             * @example Boden
-             */
-            city?: string;
-            /**
-             * @description Country. ISO 3166 alpha-2.
-             * @example SE
-             */
-            country?: string;
-            /**
-             * @description E-mail address.
-             * @example rosalinainho.undulatsson@example.com
-             */
-            email?: string;
-            /**
-             * @description Family name or last name.
-             * @example Undulatsson
-             */
-            familyName?: string;
-            /**
-             * @description Given name or first name.
-             * @example Rosalinainho
-             */
-            givenName?: string;
-            /**
-             * @description Number used to identify individuals. E.g. could be used for Personal identity number (personnummer) in Sweden.
-             * @example 890201-3286
-             */
-            nationalIdentificationNumber?: string;
-            /**
-             * @description Number used to identify organizations or legal persons. E.g. could be used for Corporate identity number.
-             *     (organisationsnummer in Sweden)
-             * @example 212000-1355
-             */
-            organizationIdentificationNumber?: string;
-            /**
-             * @description Name of the Organization
-             * @example Storm
-             */
-            organizationName?: string;
-            /**
-             * @description Phone number.
-             * @example 0753892233
-             */
-            phone?: string;
-            /**
-             * @description Postal code, zip or post code.
-             * @example 955 60
-             */
-            postalCode?: string;
-            /** @description Reference to the customer */
-            reference?: string;
-            /**
-             * @description State or region.
-             * @example Norrbotten
-             */
-            region?: string;
-            /**
-             * @description Address or street name, first line.
-             * @example Adaptivevägen 18
-             */
-            streetAddress?: string;
-            /**
-             * @description Address or street name, second line.
-             * @example Lgh 1203
-             */
-            streetAddress2?: string;
-            /**
-             * @description The type of customer
-             * @example Person
-             */
-            type?: components["schemas"]["CustomerType"];
-        };
-        Cart: {
-            /** @description Allows you to store any custom attributes for cart. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description List of Discounts */
-            discounts?: components["schemas"]["Discount"][];
-            /** @description List of Items */
-            items?: components["schemas"]["Item"][];
-            /** @description Cart Reference */
-            reference?: string;
-            /** @description Cart total excluding shipping fees */
-            total?: components["schemas"]["Price"];
-        };
-        Consent: {
-            /** @description Consent checked status. */
-            checked?: boolean;
-            /**
-             * @description Unique ID for the consent item.
-             * @example ci_newsleter
-             */
-            readonly id?: string;
-            /** @description Required for transitioning order state to 'Processing' */
-            required?: boolean;
-            /** @description Consent description. */
-            text?: string;
-        };
-        CreateResponse: {
-            id?: string;
-        };
-        Customer: {
-            /** @description Allows you to store any custom attributes for the customer. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Billing address to the customer */
-            billing?: components["schemas"]["Address"];
-            /** @description Shipping address to the customer */
-            shipping?: components["schemas"]["Address"];
-            /**
-             * @description The type of customer
-             * @example Person
-             */
-            type: components["schemas"]["CustomerType"];
-        };
-        /** @enum {string} */
-        CustomerType: "person" | "organization";
-        DeliveryDetails: {
-            /** @description Carrier name. */
-            carrier?: string;
-            /** @description Shipping class. */
-            class?: string;
-            /** @description Pickup location. */
-            pickupLocation?: components["schemas"]["PickupLocation"];
-            /** @description Shipping product. */
-            product?: components["schemas"]["Product"];
-        };
-        Discount: {
-            /** @description Allows you to store any custom attributes for the discount. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Discount code. */
-            code?: string;
-            /** @description Name of the discount. */
-            name?: string;
-            /** @description Indicates if the discount applies to items or shipping. */
-            type?: components["schemas"]["DiscountType"];
-            /** @description Total sum of discount. */
-            value?: components["schemas"]["Price"];
-        };
-        /** @enum {string} */
-        DiscountType: "item" | "shipping";
-        Hook: {
-            /**
-             * @description Callback Adapter ID.
-             * @example jetshop_adapter
-             */
-            adapterId?: string;
-            /** @description Description of the hook purpose. */
-            description?: string;
-            /**
-             * @description Unique ID for the callback.
-             * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
-             */
-            readonly id?: string;
-            /**
-             * @description Url to invoke on hook trigger. Can include references to adapter configuration and order inside curly
-             *     braces.
-             * @example {config.adapter.publicUrl}/api/v1/orders/{order.id}/some-hook
-             */
-            invoke?: string;
-            /** @description Reference for the hook. Should be the same across orders. Used to track hooks in event logs. */
-            reference?: string;
-            /** @description Valid json path inside the order. Does not support scope inside arrays. */
-            scope?: string;
-            /** @description The path to the property in the order that the hooks might respond with patches to.
-             *     Used to correctly determine the order to call each hook in. */
-            target?: string;
-            /** @description The version of the order body you expect to receive in the hook. */
-            version?: components["schemas"]["OrderVersion"];
-        };
-        Item: {
-            /** @description Allows you to store any custom attributes for the item. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Discounts applied to item. */
-            discounts?: components["schemas"]["Discount"][];
-            /**
-             * @description Unique identifier for the order
-             * @example ci_FpEzyBvBBUyKxkeNriFUxZOCje
-             */
-            readonly id?: string;
-            /**
-             * @description URL to an image showing the item.
-             * @example https://example.com/products/A000123/images/1
-             */
-            imageUrl?: string;
-            /** @description A List of items, useful for when this item is a bundle containing other items. */
-            items?: components["schemas"]["Item"][];
-            /**
-             * @description Descriptive name of the item.
-             * @example T-Shirt XL
-             */
-            name?: string;
-            /** @description Total sum for all quantities excluding discount. */
-            originalTotal?: components["schemas"]["Price"];
-            /** @description Unit price, excluding discount */
-            price?: components["schemas"]["Price"];
-            /** @description Product type, physical is the default. Other options include Digital, GiftCard and Bundle. */
-            productType?: components["schemas"]["ProductType"];
-            /**
-             * Format: int32
-             * @description Quantity of the item.
-             * @example 2
-             */
-            quantity?: number;
-            /** @description Optional. Platform cart item reference. */
-            reference?: string;
-            /**
-             * @description SKU or article number.
-             * @example A000123
-             */
-            sku?: string;
-            /** @description Total sum for all quantities including discount. */
-            total?: components["schemas"]["Price"];
-            /**
-             * @description Unit used to describe the quantity. Ex. st, kg
-             * @example st
-             */
-            unit?: string;
-            /**
-             * @description URL to the product page.
-             * @example https://example.com/products/A000123
-             */
-            url?: string;
-            /**
-             * Format: double
-             * @description Value-added tax. 25% would be input as 0.25.
-             * @example 0.25
-             */
-            vatRate?: number;
-        };
-        Notification: {
-            /**
-             * @description Identifier for the system responsible for this notification. If any reference to configuration is made inside curly
-             *     braces in Invoke the configuration is found using this identifier.
-             * @example jetshop_adapter
-             */
-            adapterId?: string;
-            /**
-             * @description Purpose or effect of the notification.
-             * @example Export payment information to Jetshop when order has been completed.
-             */
-            description?: string;
-            /**
-             * @description Unique ID for the Notification
-             * @example ocGooDddTOjKOuFmNnkEozEpfuTh
-             */
-            readonly id?: string;
-            /**
-             * @description Url to invoke on notification trigger. Can include references to adapter configuration and order inside curly
-             *     braces.
-             * @example {config.adapter.publicUrl}/api/v1/callbacks/orders/{order.id}/specific-callback
-             */
-            invoke?: string;
-            /**
-             * @description Reference for the Notification. Should be the same across orders. Used to track notifications in event logs.
-             * @example PuXCudQEiWTOHvquGGolFUVOuy
-             */
-            reference?: string;
-            /**
-             * @description Json schema (https://json-schema.org/draft/2020-12/schema) on the scope. Notification triggers when a change occurs
-             *     on the scope and the schema is valid for the scope.
-             * @example {
-             *       "const": "completed"
-             *     }
-             */
-            schema?: {
-                [key: string]: unknown;
-            };
-            /**
-             * @description Valid json path inside the order. Does not support scope inside arrays.
-             * @example /state/currentStatus
-             */
-            scope?: string;
-            /** @description The version of the order body you expect to receive in the notification. */
-            version?: components["schemas"]["OrderVersion"];
-        };
-        Order: {
-            /** @description Allows you to store any custom attributes for the order. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Order cart */
-            cart?: components["schemas"]["Cart"];
-            /** @description Merchant channel */
-            readonly channel: string;
-            /** @description Order consents */
-            consents?: components["schemas"]["Consent"][];
-            /** @description Order Country. ISO 3166 alpha-2. */
-            country?: string;
-            /**
-             * Format: date-time
-             * @description Order creation date time
-             */
-            readonly created?: string;
-            /** @description Order Culture, RFC-1766 */
-            culture?: string;
-            /** @description Order Currency, ISO 4217 alpha-3. */
-            currency?: string;
-            /** @description Customer information */
-            customer?: components["schemas"]["Customer"];
-            /** @description Hooks, added by a separate endpoint. */
-            hooks?: components["schemas"]["Hook"][];
-            /**
-             * @description Unique identifier for the order
-             * @example o_yClTSySjyAuuBjmiBlHCjuEcTf
-             */
-            readonly id?: string;
-            /**
-             * Format: date-time
-             * @description Order last modified date time
-             */
-            readonly lastModified?: string;
-            /** @description Merchant identifier */
-            readonly merchant: string;
-            /** @description Order notifications are called after an event has occurred, such as order reaching 'Completed' state. */
-            notifications?: components["schemas"]["Notification"][];
-            /** @description Payments related to the order */
-            readonly payments?: components["schemas"]["Payment"][];
-            /** @description External order reference */
-            reference?: string;
-            /** @description Shippings related to the order */
-            readonly shippings?: components["schemas"]["Shipping"][];
-            /** @description Order state */
-            state?: components["schemas"]["State"];
-            /** @description Order total including shipping fees */
-            total?: components["schemas"]["Price"];
-            /** @description Order actions are called in order to complete an action, such as 'Validate'. If provided the action is not
-             *     completed if the response is not successful (e.g. http status code 400), note however that in case of a time
-             *     constraint the action might be completed without a successful response. */
-            validations?: components["schemas"]["Validation"][];
-        };
-        /** @enum {string} */
-        OrderListOrderBy: "created" | "billingEmail" | "billingName" | "cartTotal";
-        /** @enum {string} */
-        OrderListOrderByDirection: "asc" | "desc";
-        OrderPaginationSet: {
-            /** @description Data set of requested orders */
-            readonly data?: components["schemas"]["Order"][];
-            /** @description Pagination meta data */
-            readonly pagination?: components["schemas"]["Pagination"];
-        };
-        /** @enum {string} */
-        OrderStatus: "checkout" | "processing" | "accepted" | "completed" | "declined" | "removed";
-        /** @enum {string} */
-        OrderVersion: "v0" | "v1";
-        Pagination: {
-            /**
-             * Format: int32
-             * @description Query limit
-             */
-            readonly limit?: number;
-            /**
-             * Format: int32
-             * @description Query offset
-             */
-            readonly offset?: number;
-            /**
-             * Format: int32
-             * @description Size of returned set
-             */
-            readonly size?: number;
-            /**
-             * Format: int32
-             * @description Total size of available set
-             */
-            readonly totalSize?: number;
-        };
-        Payment: {
-            /** @description After payment actions */
-            actions?: components["schemas"]["PaymentAction"][];
-            /**
-             * @description Adapter ID
-             * @example klarna-checkout
-             */
-            adapterId?: string;
-            /**
-             * Format: double
-             * @description The amount to be covered by the payment. Amount in major unit currency.
-             * @example 10
-             */
-            amount?: number;
-            /** @description Allows you to store any custom attributes for the payment. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /**
-             * @description Currency of the purchase. ISO 4217 alpha-3.
-             * @example SEK
-             */
-            currency?: string;
-            /**
-             * @description Unique ID of the payment.
-             * @example p_KBiXuYjvYxsezKCQAMuuSKGDaT
-             */
-            readonly id?: string;
-            /** @description Payment service provider name */
-            name?: string;
-            /**
-             * @description ID of the order.
-             * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
-             */
-            orderId?: string;
-            /** @description Information about a recurring payment used for processing repeated purchases. */
-            recurring?: components["schemas"]["Recurring"];
-            /**
-             * @description External reference to payment service provider.
-             * @example 7d31e2cf-2d46-4db0-b87d-d65dfaae298f
-             */
-            reference?: string;
-            /**
-             * @description The state of the payment.
-             * @example Intent
-             */
-            state?: components["schemas"]["PaymentState"];
-            /**
-             * @description Type of payment.
-             * @example default
-             */
-            type?: components["schemas"]["PaymentType"];
-            /**
-             * Format: double
-             * @description The upper limit to be used by this payment. For example the amount available on a voucher. Amount in major unit currency.
-             * @example 100
-             */
-            upperLimitAmount?: number;
-        };
-        PaymentAction: {
-            adapterId: string;
-            readonly id?: string;
-            type: string;
-            url: string;
-        };
-        /** @enum {string} */
-        PaymentEvent: "open" | "process" | "confirm" | "reopen" | "cancel" | "paymentAction" | "capture" | "refund";
-        /** @enum {string} */
-        PaymentState: "intent" | "removed" | "processing" | "failed" | "confirmed" | "pending" | "declined" | "reserved" | "credited" | "captured" | "cancelled" | "refunded";
-        PaymentTransaction: {
-            /**
-             * Format: double
-             * @description Amount after transaction. Amount in major unit currency.
-             */
-            amount?: number;
-            /**
-             * Format: date-time
-             * @description DateTime when transaction was posted.
-             */
-            readonly created?: string;
-            /** @description Message detailing the error. */
-            errorDetail?: string;
-            /** @description Event that triggered the transaction. */
-            event?: components["schemas"]["PaymentEvent"];
-            /** @description Indicated whether the transaction was successful. */
-            isSuccess?: boolean;
-            /** @description Payment Action */
-            paymentAction?: components["schemas"]["PaymentAction"];
-            /** @description Payment service provider event. */
-            pspEvent?: string;
-            /** @description Payment service provider status. */
-            pspStatus?: string;
-            /** @description Transaction request. Must be a valid json. */
-            requestJson?: string;
-            /** @description Transaction response. Must be a valid json. */
-            responseJson?: string;
-        };
-        /** @enum {string} */
-        PaymentType: "default" | "prepaid" | "voucher";
-        PickupLocation: {
-            /** @description Pickup location address. */
-            address?: components["schemas"]["PickupLocationAddress"];
-            /** @description Name of pickup location. */
-            name?: string;
-            /** @description Pickup location reference. */
-            reference?: string;
-        };
-        PickupLocationAddress: {
-            /**
-             * @description City.
-             * @example Boden
-             */
-            city?: string;
-            /**
-             * @description Country. ISO 3166 alpha-2.
-             * @example SE
-             */
-            country?: string;
-            /**
-             * @description Postal code, zip or post code.
-             * @example 955 60
-             */
-            postalCode?: string;
-            /**
-             * @description Address or street name, first line.
-             * @example Adaptivevägen 18
-             */
-            streetAddress?: string;
-        };
-        Price: {
-            /**
-             * Format: double
-             * @description Total price excluding vat in the checkout specified currency. Amount in major unit currency.
-             * @example 987.2
-             */
-            excludingVat?: number;
-            /**
-             * Format: double
-             * @description Total price including vat in the checkout specified currency. Amount in major unit currency.
-             * @example 1234
-             */
-            includingVat?: number;
-        };
-        ProblemDetails: {
-            detail?: string;
-            instance?: string;
-            /** Format: int32 */
-            status?: number;
-            title?: string;
-            type?: string;
-        } & {
-            [key: string]: unknown;
-        };
-        Product: {
-            /** @description Carrier product name. */
-            name?: string;
-            /** @description Product reference. */
-            reference?: string;
-        };
-        /** @enum {string} */
-        ProductType: "physical" | "digital" | "giftCard" | "bundle";
-        Recurring: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            description?: string;
-            token: string;
-        };
-        Shipping: {
-            /**
-             * @description Adapter ID
-             * @example ingrid-shipping-adapter
-             */
-            adapterId?: string;
-            /** @description Shipping addons. */
-            addons?: components["schemas"]["Addon"][];
-            /** @description Allows you to store any custom attributes for the shipping. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Delivery details. */
-            deliveryDetails?: components["schemas"]["DeliveryDetails"];
-            /**
-             * @description Unique identifier for the shipping.
-             * @example s_pmHreuEBboeezpixrHMDPQlazU
-             */
-            readonly id?: string;
-            /**
-             * @description Descriptive name of the shipping.
-             * @example PostNord MyPack Home
-             */
-            name?: string;
-            /**
-             * @description ID of the order.
-             * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
-             */
-            orderId?: string;
-            /**
-             * @description External reference to shipping.
-             * @example e8ed2091-c34c-4837-a3a8-bc827b0dc183
-             */
-            reference?: string;
-            /** @description Current state of the shipping. */
-            state?: components["schemas"]["ShippingState"];
-            /**
-             * @description TMS Reference.
-             * @example a935a628-f70c-47a4-a9f6-98c6d08c2ba3
-             */
-            tmsReference?: string;
-            /** @description Total price of the shipping. */
-            total: components["schemas"]["Price"];
-            /**
-             * Format: double
-             * @description Value-added tax. 25% would be input as 0.25.
-             * @example 0.25
-             */
-            vatRate: number;
-        };
-        /** @enum {string} */
-        ShippingState: "intent" | "removed" | "processing" | "failed" | "confirmed";
-        State: {
-            /** @description State of the order. */
-            currentStatus?: components["schemas"]["OrderStatus"];
-            /** @description State transitions. */
-            readonly transitions?: components["schemas"]["Transition"][];
-        };
-        Transition: {
-            /** @description State of the order. */
-            readonly status?: components["schemas"]["OrderStatus"];
-            /**
-             * Format: date-time
-             * @description UTC Time when state was set.
-             */
-            readonly timeStamp?: string;
-        };
-        Validation: {
-            /**
-             * @description Callback Adapter ID.
-             * @example jetshop_adapter
-             */
-            adapterId?: string;
-            /**
-             * @description Description of the callback purpose.
-             * @example Validates that all items are currently in stock.
-             */
-            description?: string;
-            /**
-             * @description Unique ID for the callback.
-             * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
-             */
-            readonly id?: string;
-            /**
-             * @description Url to invoke on callback trigger. Can include references to adapter configuration and order inside curly
-             *     braces.
-             * @example {config.adapter.publicUrl}/api/v1/orders/{order.id}/some-validation
-             */
-            invoke?: string;
-            /** @description Reference for the callback. Should be the same across orders. Used to track callbacks in event logs. */
-            reference?: string;
-        };
-        ValidationError: {
-            adapterId?: string;
-            code?: string;
-        };
+  schemas: {
+    Addon: {
+      /**
+       * Format: double
+       * @description Cost of addon. Amount in major unit currency.
+       */
+      price?: number;
+      /** @description Shipping addon reference. */
+      reference?: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    Address: {
+      /** @description Allows you to store any custom attributes for the address. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /**
+       * @description Care of.
+       * @example Olleinho Jyckesson
+       */
+      careOf?: string;
+      /**
+       * @description City.
+       * @example Boden
+       */
+      city?: string;
+      /**
+       * @description Country. ISO 3166 alpha-2.
+       * @example SE
+       */
+      country?: string;
+      /**
+       * @description E-mail address.
+       * @example rosalinainho.undulatsson@example.com
+       */
+      email?: string;
+      /**
+       * @description Family name or last name.
+       * @example Undulatsson
+       */
+      familyName?: string;
+      /**
+       * @description Given name or first name.
+       * @example Rosalinainho
+       */
+      givenName?: string;
+      /**
+       * @description Number used to identify individuals. E.g. could be used for Personal identity number (personnummer) in Sweden.
+       * @example 890201-3286
+       */
+      nationalIdentificationNumber?: string;
+      /**
+       * @description Number used to identify organizations or legal persons. E.g. could be used for Corporate identity number.
+       *     (organisationsnummer in Sweden)
+       * @example 212000-1355
+       */
+      organizationIdentificationNumber?: string;
+      /**
+       * @description Name of the Organization
+       * @example Storm
+       */
+      organizationName?: string;
+      /**
+       * @description Phone number.
+       * @example 0753892233
+       */
+      phone?: string;
+      /**
+       * @description Postal code, zip or post code.
+       * @example 955 60
+       */
+      postalCode?: string;
+      /** @description Reference to the customer */
+      reference?: string;
+      /**
+       * @description State or region.
+       * @example Norrbotten
+       */
+      region?: string;
+      /**
+       * @description Address or street name, first line.
+       * @example Adaptivevägen 18
+       */
+      streetAddress?: string;
+      /**
+       * @description Address or street name, second line.
+       * @example Lgh 1203
+       */
+      streetAddress2?: string;
+      /**
+       * @description The type of customer
+       * @example Person
+       */
+      type?: components['schemas']['CustomerType'];
+    };
+    Cart: {
+      /** @description Allows you to store any custom attributes for cart. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description List of Discounts */
+      discounts?: components['schemas']['Discount'][];
+      /** @description List of Items */
+      items?: components['schemas']['Item'][];
+      /** @description Cart Reference */
+      reference?: string;
+      /** @description Cart total excluding shipping fees */
+      total?: components['schemas']['Price'];
+    };
+    Consent: {
+      /** @description Consent checked status. */
+      checked?: boolean;
+      /**
+       * @description Unique ID for the consent item.
+       * @example ci_newsleter
+       */
+      readonly id?: string;
+      /** @description Required for transitioning order state to 'Processing' */
+      required?: boolean;
+      /** @description Consent description. */
+      text?: string;
+    };
+    CreateResponse: {
+      id?: string;
+    };
+    Customer: {
+      /** @description Allows you to store any custom attributes for the customer. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Billing address to the customer */
+      billing?: components['schemas']['Address'];
+      /** @description Shipping address to the customer */
+      shipping?: components['schemas']['Address'];
+      /**
+       * @description The type of customer
+       * @example Person
+       */
+      type: components['schemas']['CustomerType'];
+    };
+    /** @enum {string} */
+    CustomerType: 'person' | 'organization';
+    DeliveryDetails: {
+      /** @description Carrier name. */
+      carrier?: string;
+      /** @description Shipping class. */
+      class?: string;
+      /** @description Pickup location. */
+      pickupLocation?: components['schemas']['PickupLocation'];
+      /** @description Shipping product. */
+      product?: components['schemas']['Product'];
+    };
+    Discount: {
+      /** @description Allows you to store any custom attributes for the discount. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Discount code. */
+      code?: string;
+      /** @description Name of the discount. */
+      name?: string;
+      /** @description Indicates if the discount applies to items or shipping. */
+      type?: components['schemas']['DiscountType'];
+      /** @description Total sum of discount. */
+      value?: components['schemas']['Price'];
+    };
+    /** @enum {string} */
+    DiscountType: 'item' | 'shipping';
+    Hook: {
+      /**
+       * @description Callback Adapter ID.
+       * @example jetshop_adapter
+       */
+      adapterId?: string;
+      /** @description Description of the hook purpose. */
+      description?: string;
+      /**
+       * @description Unique ID for the callback.
+       * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
+       */
+      readonly id?: string;
+      /**
+       * @description Url to invoke on hook trigger. Can include references to adapter configuration and order inside curly
+       *     braces.
+       * @example {config.adapter.publicUrl}/api/v1/orders/{order.id}/some-hook
+       */
+      invoke?: string;
+      /** @description Reference for the hook. Should be the same across orders. Used to track hooks in event logs. */
+      reference?: string;
+      /** @description Valid json path inside the order. Does not support scope inside arrays. */
+      scope?: string;
+      /** @description The path to the property in the order that the hooks might respond with patches to.
+       *     Used to correctly determine the order to call each hook in. */
+      target?: string;
+      /** @description The version of the order body you expect to receive in the hook. */
+      version?: components['schemas']['OrderVersion'];
+    };
+    Item: {
+      /** @description Allows you to store any custom attributes for the item. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Discounts applied to item. */
+      discounts?: components['schemas']['Discount'][];
+      /**
+       * @description Unique identifier for the order
+       * @example ci_FpEzyBvBBUyKxkeNriFUxZOCje
+       */
+      readonly id?: string;
+      /**
+       * @description URL to an image showing the item.
+       * @example https://example.com/products/A000123/images/1
+       */
+      imageUrl?: string;
+      /** @description A List of items, useful for when this item is a bundle containing other items. */
+      items?: components['schemas']['Item'][];
+      /**
+       * @description Descriptive name of the item.
+       * @example T-Shirt XL
+       */
+      name?: string;
+      /** @description Total sum for all quantities excluding discount. */
+      originalTotal?: components['schemas']['Price'];
+      /** @description Unit price, excluding discount */
+      price?: components['schemas']['Price'];
+      /** @description Product type, physical is the default. Other options include Digital, GiftCard and Bundle. */
+      productType?: components['schemas']['ProductType'];
+      /**
+       * Format: int32
+       * @description Quantity of the item.
+       * @example 2
+       */
+      quantity?: number;
+      /** @description Optional. Platform cart item reference. */
+      reference?: string;
+      /**
+       * @description SKU or article number.
+       * @example A000123
+       */
+      sku?: string;
+      /** @description Total sum for all quantities including discount. */
+      total?: components['schemas']['Price'];
+      /**
+       * @description Unit used to describe the quantity. Ex. st, kg
+       * @example st
+       */
+      unit?: string;
+      /**
+       * @description URL to the product page.
+       * @example https://example.com/products/A000123
+       */
+      url?: string;
+      /**
+       * Format: double
+       * @description Value-added tax. 25% would be input as 0.25.
+       * @example 0.25
+       */
+      vatRate?: number;
+    };
+    Notification: {
+      /**
+       * @description Identifier for the system responsible for this notification. If any reference to configuration is made inside curly
+       *     braces in Invoke the configuration is found using this identifier.
+       * @example jetshop_adapter
+       */
+      adapterId?: string;
+      /**
+       * @description Purpose or effect of the notification.
+       * @example Export payment information to Jetshop when order has been completed.
+       */
+      description?: string;
+      /**
+       * @description Unique ID for the Notification
+       * @example ocGooDddTOjKOuFmNnkEozEpfuTh
+       */
+      readonly id?: string;
+      /**
+       * @description Url to invoke on notification trigger. Can include references to adapter configuration and order inside curly
+       *     braces.
+       * @example {config.adapter.publicUrl}/api/v1/callbacks/orders/{order.id}/specific-callback
+       */
+      invoke?: string;
+      /**
+       * @description Reference for the Notification. Should be the same across orders. Used to track notifications in event logs.
+       * @example PuXCudQEiWTOHvquGGolFUVOuy
+       */
+      reference?: string;
+      /**
+       * @description Json schema (https://json-schema.org/draft/2020-12/schema) on the scope. Notification triggers when a change occurs
+       *     on the scope and the schema is valid for the scope.
+       * @example {
+       *       "const": "completed"
+       *     }
+       */
+      schema?: {
+        [key: string]: unknown;
+      };
+      /**
+       * @description Valid json path inside the order. Does not support scope inside arrays.
+       * @example /state/currentStatus
+       */
+      scope?: string;
+      /** @description The version of the order body you expect to receive in the notification. */
+      version?: components['schemas']['OrderVersion'];
+    };
+    Order: {
+      /** @description Allows you to store any custom attributes for the order. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Order cart */
+      cart?: components['schemas']['Cart'];
+      /** @description Merchant channel */
+      readonly channel: string;
+      /** @description Order consents */
+      consents?: components['schemas']['Consent'][];
+      /** @description Order Country. ISO 3166 alpha-2. */
+      country?: string;
+      /**
+       * Format: date-time
+       * @description Order creation date time
+       */
+      readonly created?: string;
+      /** @description Order Culture, RFC-1766 */
+      culture?: string;
+      /** @description Order Currency, ISO 4217 alpha-3. */
+      currency?: string;
+      /** @description Customer information */
+      customer?: components['schemas']['Customer'];
+      /** @description Hooks, added by a separate endpoint. */
+      hooks?: components['schemas']['Hook'][];
+      /**
+       * @description Unique identifier for the order
+       * @example o_yClTSySjyAuuBjmiBlHCjuEcTf
+       */
+      readonly id?: string;
+      /**
+       * Format: date-time
+       * @description Order last modified date time
+       */
+      readonly lastModified?: string;
+      /** @description Merchant identifier */
+      readonly merchant: string;
+      /** @description Order notifications are called after an event has occurred, such as order reaching 'Completed' state. */
+      notifications?: components['schemas']['Notification'][];
+      /** @description Payments related to the order */
+      readonly payments?: components['schemas']['Payment'][];
+      /** @description External order reference */
+      reference?: string;
+      /** @description Shippings related to the order */
+      readonly shippings?: components['schemas']['Shipping'][];
+      /** @description Order state */
+      state?: components['schemas']['State'];
+      /** @description Order total including shipping fees */
+      total?: components['schemas']['Price'];
+      /** @description Order actions are called in order to complete an action, such as 'Validate'. If provided the action is not
+       *     completed if the response is not successful (e.g. http status code 400), note however that in case of a time
+       *     constraint the action might be completed without a successful response. */
+      validations?: components['schemas']['Validation'][];
+    };
+    /** @enum {string} */
+    OrderListOrderBy: 'created' | 'billingEmail' | 'billingName' | 'cartTotal';
+    /** @enum {string} */
+    OrderListOrderByDirection: 'asc' | 'desc';
+    OrderPaginationSet: {
+      /** @description Data set of requested orders */
+      readonly data?: components['schemas']['Order'][];
+      /** @description Pagination meta data */
+      readonly pagination?: components['schemas']['Pagination'];
+    };
+    /** @enum {string} */
+    OrderStatus:
+      | 'checkout'
+      | 'processing'
+      | 'accepted'
+      | 'completed'
+      | 'declined'
+      | 'removed';
+    /** @enum {string} */
+    OrderVersion: 'v0' | 'v1';
+    Pagination: {
+      /**
+       * Format: int32
+       * @description Query limit
+       */
+      readonly limit?: number;
+      /**
+       * Format: int32
+       * @description Query offset
+       */
+      readonly offset?: number;
+      /**
+       * Format: int32
+       * @description Size of returned set
+       */
+      readonly size?: number;
+      /**
+       * Format: int32
+       * @description Total size of available set
+       */
+      readonly totalSize?: number;
+    };
+    Payment: {
+      /** @description After payment actions */
+      actions?: components['schemas']['PaymentAction'][];
+      /**
+       * @description Adapter ID
+       * @example klarna-checkout
+       */
+      adapterId?: string;
+      /**
+       * Format: double
+       * @description The amount to be covered by the payment. Amount in major unit currency.
+       * @example 10
+       */
+      amount?: number;
+      /** @description Allows you to store any custom attributes for the payment. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /**
+       * @description Currency of the purchase. ISO 4217 alpha-3.
+       * @example SEK
+       */
+      currency?: string;
+      /**
+       * @description Unique ID of the payment.
+       * @example p_KBiXuYjvYxsezKCQAMuuSKGDaT
+       */
+      readonly id?: string;
+      /** @description Payment service provider name */
+      name?: string;
+      /**
+       * @description ID of the order.
+       * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
+       */
+      orderId?: string;
+      /** @description Information about a recurring payment used for processing repeated purchases. */
+      recurring?: components['schemas']['Recurring'];
+      /**
+       * @description External reference to payment service provider.
+       * @example 7d31e2cf-2d46-4db0-b87d-d65dfaae298f
+       */
+      reference?: string;
+      /**
+       * @description The state of the payment.
+       * @example Intent
+       */
+      state?: components['schemas']['PaymentState'];
+      /**
+       * @description Type of payment.
+       * @example default
+       */
+      type?: components['schemas']['PaymentType'];
+      /**
+       * Format: double
+       * @description The upper limit to be used by this payment. For example the amount available on a voucher. Amount in major unit currency.
+       * @example 100
+       */
+      upperLimitAmount?: number;
+    };
+    PaymentAction: {
+      adapterId: string;
+      readonly id?: string;
+      type: string;
+      url: string;
+    };
+    /** @enum {string} */
+    PaymentEvent:
+      | 'open'
+      | 'process'
+      | 'confirm'
+      | 'reopen'
+      | 'cancel'
+      | 'paymentAction'
+      | 'capture'
+      | 'refund';
+    /** @enum {string} */
+    PaymentState:
+      | 'intent'
+      | 'removed'
+      | 'processing'
+      | 'failed'
+      | 'confirmed'
+      | 'pending'
+      | 'declined'
+      | 'reserved'
+      | 'credited'
+      | 'captured'
+      | 'cancelled'
+      | 'refunded';
+    PaymentTransaction: {
+      /**
+       * Format: double
+       * @description Amount after transaction. Amount in major unit currency.
+       */
+      amount?: number;
+      /**
+       * Format: date-time
+       * @description DateTime when transaction was posted.
+       */
+      readonly created?: string;
+      /** @description Message detailing the error. */
+      errorDetail?: string;
+      /** @description Event that triggered the transaction. */
+      event?: components['schemas']['PaymentEvent'];
+      /** @description Indicated whether the transaction was successful. */
+      isSuccess?: boolean;
+      /** @description Payment Action */
+      paymentAction?: components['schemas']['PaymentAction'];
+      /** @description Payment service provider event. */
+      pspEvent?: string;
+      /** @description Payment service provider status. */
+      pspStatus?: string;
+      /** @description Transaction request. Must be a valid json. */
+      requestJson?: string;
+      /** @description Transaction response. Must be a valid json. */
+      responseJson?: string;
+    };
+    /** @enum {string} */
+    PaymentType: 'default' | 'prepaid' | 'voucher';
+    PickupLocation: {
+      /** @description Pickup location address. */
+      address?: components['schemas']['PickupLocationAddress'];
+      /** @description Name of pickup location. */
+      name?: string;
+      /** @description Pickup location reference. */
+      reference?: string;
+    };
+    PickupLocationAddress: {
+      /**
+       * @description City.
+       * @example Boden
+       */
+      city?: string;
+      /**
+       * @description Country. ISO 3166 alpha-2.
+       * @example SE
+       */
+      country?: string;
+      /**
+       * @description Postal code, zip or post code.
+       * @example 955 60
+       */
+      postalCode?: string;
+      /**
+       * @description Address or street name, first line.
+       * @example Adaptivevägen 18
+       */
+      streetAddress?: string;
+    };
+    Price: {
+      /**
+       * Format: double
+       * @description Total price excluding vat in the checkout specified currency. Amount in major unit currency.
+       * @example 987.2
+       */
+      excludingVat?: number;
+      /**
+       * Format: double
+       * @description Total price including vat in the checkout specified currency. Amount in major unit currency.
+       * @example 1234
+       */
+      includingVat?: number;
+    };
+    ProblemDetails: {
+      detail?: string;
+      instance?: string;
+      /** Format: int32 */
+      status?: number;
+      title?: string;
+      type?: string;
+    } & {
+      [key: string]: unknown;
+    };
+    Product: {
+      /** @description Carrier product name. */
+      name?: string;
+      /** @description Product reference. */
+      reference?: string;
+    };
+    /** @enum {string} */
+    ProductType: 'physical' | 'digital' | 'giftCard' | 'bundle';
+    Recurring: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      description?: string;
+      token: string;
+    };
+    Shipping: {
+      /**
+       * @description Adapter ID
+       * @example ingrid-shipping-adapter
+       */
+      adapterId?: string;
+      /** @description Shipping addons. */
+      addons?: components['schemas']['Addon'][];
+      /** @description Allows you to store any custom attributes for the shipping. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Delivery details. */
+      deliveryDetails?: components['schemas']['DeliveryDetails'];
+      /**
+       * @description Unique identifier for the shipping.
+       * @example s_pmHreuEBboeezpixrHMDPQlazU
+       */
+      readonly id?: string;
+      /**
+       * @description Descriptive name of the shipping.
+       * @example PostNord MyPack Home
+       */
+      name?: string;
+      /**
+       * @description ID of the order.
+       * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
+       */
+      orderId?: string;
+      /**
+       * @description External reference to shipping.
+       * @example e8ed2091-c34c-4837-a3a8-bc827b0dc183
+       */
+      reference?: string;
+      /** @description Current state of the shipping. */
+      state?: components['schemas']['ShippingState'];
+      /**
+       * @description TMS Reference.
+       * @example a935a628-f70c-47a4-a9f6-98c6d08c2ba3
+       */
+      tmsReference?: string;
+      /** @description Total price of the shipping. */
+      total: components['schemas']['Price'];
+      /**
+       * Format: double
+       * @description Value-added tax. 25% would be input as 0.25.
+       * @example 0.25
+       */
+      vatRate: number;
+    };
+    /** @enum {string} */
+    ShippingState: 'intent' | 'removed' | 'processing' | 'failed' | 'confirmed';
+    State: {
+      /** @description State of the order. */
+      currentStatus?: components['schemas']['OrderStatus'];
+      /** @description State transitions. */
+      readonly transitions?: components['schemas']['Transition'][];
+    };
+    Transition: {
+      /** @description State of the order. */
+      readonly status?: components['schemas']['OrderStatus'];
+      /**
+       * Format: date-time
+       * @description UTC Time when state was set.
+       */
+      readonly timeStamp?: string;
+    };
+    Validation: {
+      /**
+       * @description Callback Adapter ID.
+       * @example jetshop_adapter
+       */
+      adapterId?: string;
+      /**
+       * @description Description of the callback purpose.
+       * @example Validates that all items are currently in stock.
+       */
+      description?: string;
+      /**
+       * @description Unique ID for the callback.
+       * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
+       */
+      readonly id?: string;
+      /**
+       * @description Url to invoke on callback trigger. Can include references to adapter configuration and order inside curly
+       *     braces.
+       * @example {config.adapter.publicUrl}/api/v1/orders/{order.id}/some-validation
+       */
+      invoke?: string;
+      /** @description Reference for the callback. Should be the same across orders. Used to track callbacks in event logs. */
+      reference?: string;
+    };
+    ValidationError: {
+      adapterId?: string;
+      code?: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 };
 export type Addon = components['schemas']['Addon'];
 export type Address = components['schemas']['Address'];
@@ -1208,7 +1234,8 @@ export type Item = components['schemas']['Item'];
 export type Notification = components['schemas']['Notification'];
 export type Order = components['schemas']['Order'];
 export type OrderListOrderBy = components['schemas']['OrderListOrderBy'];
-export type OrderListOrderByDirection = components['schemas']['OrderListOrderByDirection'];
+export type OrderListOrderByDirection =
+  components['schemas']['OrderListOrderByDirection'];
 export type OrderPaginationSet = components['schemas']['OrderPaginationSet'];
 export type OrderStatus = components['schemas']['OrderStatus'];
 export type OrderVersion = components['schemas']['OrderVersion'];
@@ -1220,7 +1247,8 @@ export type PaymentState = components['schemas']['PaymentState'];
 export type PaymentTransaction = components['schemas']['PaymentTransaction'];
 export type PaymentType = components['schemas']['PaymentType'];
 export type PickupLocation = components['schemas']['PickupLocation'];
-export type PickupLocationAddress = components['schemas']['PickupLocationAddress'];
+export type PickupLocationAddress =
+  components['schemas']['PickupLocationAddress'];
 export type Price = components['schemas']['Price'];
 export type ProblemDetails = components['schemas']['ProblemDetails'];
 export type Product = components['schemas']['Product'];
@@ -1234,1951 +1262,1951 @@ export type Validation = components['schemas']['Validation'];
 export type ValidationError = components['schemas']['ValidationError'];
 export type $defs = Record<string, never>;
 export interface operations {
-    GetCheckoutOrders: {
-        parameters: {
-            query?: {
-                billing_countries?: string[];
-                billing_emails?: string[];
-                billing_names?: string[];
-                billing_phones?: string[];
-                cart_reference?: string;
-                countries?: string[];
-                date_from?: string;
-                date_to?: string;
-                limit?: number;
-                offset?: number;
-                order_by?: components["schemas"]["OrderListOrderBy"];
-                order_by_direction?: components["schemas"]["OrderListOrderByDirection"];
-                payment_id?: string;
-                reference?: string;
-                shipping_countries?: string[];
-                shipping_emails?: string[];
-                shipping_names?: string[];
-                shipping_phones?: string[];
-                status?: components["schemas"]["OrderStatus"][];
-            };
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrderPaginationSet"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  GetCheckoutOrders: {
+    parameters: {
+      query?: {
+        billing_countries?: string[];
+        billing_emails?: string[];
+        billing_names?: string[];
+        billing_phones?: string[];
+        cart_reference?: string;
+        countries?: string[];
+        date_from?: string;
+        date_to?: string;
+        limit?: number;
+        offset?: number;
+        order_by?: components['schemas']['OrderListOrderBy'];
+        order_by_direction?: components['schemas']['OrderListOrderByDirection'];
+        payment_id?: string;
+        reference?: string;
+        shipping_countries?: string[];
+        shipping_emails?: string[];
+        shipping_names?: string[];
+        shipping_phones?: string[];
+        status?: components['schemas']['OrderStatus'][];
+      };
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path?: never;
+      cookie?: never;
     };
-    CreateCheckoutOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
+        content: {
+          'application/json': components['schemas']['OrderPaginationSet'];
         };
-        responses: {
-            /** @description Created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": string;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    GetCheckoutOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Order"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  CreateCheckoutOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path?: never;
+      cookie?: never;
     };
-    DeleteCheckoutOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No Content */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    PatchCheckoutOrderAttributes: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description Created */
+      201: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Attribute */
-        requestBody: {
-            content: {
-                "application/json": {
-                    [key: string]: unknown;
-                };
-            };
+        content: {
+          'application/json': string;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    UpdateCheckoutOrderCart: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Cart"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  GetCheckoutOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    CreateCheckoutOrderConsent: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Consent */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Consent"];
-            };
+        content: {
+          'application/json': components['schemas']['Order'];
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    PatchCheckoutOrderConsents: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Consents */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Consent"][];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  DeleteCheckoutOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    RemoveCheckoutOrderConsent: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Consent identifier */
-                consentId: string;
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description No Content */
+      204: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    PatchCheckoutOrderConsent: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Consent identifier */
-                consentId: string;
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Consent */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Consent"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  PatchCheckoutOrderAttributes: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    UpdateCheckoutOrderCustomerBilling: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    /** @description Attribute */
+    requestBody: {
+      content: {
+        'application/json': {
+          [key: string]: unknown;
         };
-        /** @description Billing address */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Address"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+      };
     };
-    UpdateCheckoutOrderCustomerShipping: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Shipping address */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Address"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    CreateCheckoutOrderHook: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Hook */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Hook"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  UpdateCheckoutOrderCart: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    DeleteCheckoutOrderHook: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Hook identifier */
-                hookId: string;
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Cart'];
+      };
     };
-    CreateCheckoutOrderNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Notification */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Notification"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    DeleteCheckoutOrderNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Notification identifier */
-                notificationId: string;
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  CreateCheckoutOrderConsent: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    GetOrderPayments: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Payment"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Consent */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Consent'];
+      };
     };
-    CreateOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Payment */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Payment"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description Created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CreateResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    GetOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Payment identifier */
-                paymentId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Payment"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  PatchCheckoutOrderConsents: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    UpdateOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Payment identifier */
-                paymentId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Payment"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Payment"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Consents */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Consent'][];
+      };
     };
-    AddPaymentAction: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Payment identifier */
-                paymentId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Payment Actions */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["PaymentAction"][];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    ExecutePaymentAction: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description PaymentAction identifier */
-                actionId: string;
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Payment identifier */
-                paymentId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  RemoveCheckoutOrderConsent: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Consent identifier */
+        consentId: string;
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    GetTransactionsForOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Payment identifier */
-                paymentId: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PaymentTransaction"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    AddTransactionForOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Payment identifier */
-                paymentId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PaymentTransaction"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PaymentTransaction"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  PatchCheckoutOrderConsent: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Consent identifier */
+        consentId: string;
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    UpdateCheckoutOrderReference: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": string;
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Consent */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Consent'];
+      };
     };
-    GetOrderShippings: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Shipping"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    CreateOrderShipping: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Shipping */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Shipping"];
-            };
-        };
-        responses: {
-            /** @description Created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CreateResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  UpdateCheckoutOrderCustomerBilling: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    GetOrderShipping: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Shipping identifier */
-                shippingId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Shipping"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Billing address */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Address'];
+      };
     };
-    UpdateOrderShipping: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Shipping identifier */
-                shippingId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Shipping"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Shipping"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    UpdateCheckoutOrderState: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["State"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The status code indicates that the request has been accepted for processing, but the processing has not yet been completed or may have been canceled due to a more recent request being processed instead. */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  UpdateCheckoutOrderCustomerShipping: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    Validate: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ValidationError"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ValidationError"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Shipping address */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Address'];
+      };
     };
-    CreateCheckoutOrderValidation: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Validation callback */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Validation"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    UpdateCheckoutOrderValidation: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Validation identifier */
-                validationId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Validation callback */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Validation"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  CreateCheckoutOrderHook: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
     };
-    RemoveCheckoutOrderValidation: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                orderId: string;
-                /** @description Validation identifier */
-                validationId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Hook */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Hook'];
+      };
     };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  DeleteCheckoutOrderHook: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Hook identifier */
+        hookId: string;
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CreateCheckoutOrderNotification: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Notification */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Notification'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  DeleteCheckoutOrderNotification: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Notification identifier */
+        notificationId: string;
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  GetOrderPayments: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Payment'][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CreateOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Payment */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Payment'];
+      };
+    };
+    responses: {
+      /** @description Created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  GetOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Payment identifier */
+        paymentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Payment'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Payment identifier */
+        paymentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Payment'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Payment'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  AddPaymentAction: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Payment identifier */
+        paymentId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Payment Actions */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PaymentAction'][];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  ExecutePaymentAction: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description PaymentAction identifier */
+        actionId: string;
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Payment identifier */
+        paymentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  GetTransactionsForOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Payment identifier */
+        paymentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaymentTransaction'][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  AddTransactionForOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Payment identifier */
+        paymentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PaymentTransaction'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaymentTransaction'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateCheckoutOrderReference: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  GetOrderShippings: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Shipping'][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CreateOrderShipping: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Shipping */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Shipping'];
+      };
+    };
+    responses: {
+      /** @description Created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  GetOrderShipping: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Shipping identifier */
+        shippingId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Shipping'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateOrderShipping: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Shipping identifier */
+        shippingId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Shipping'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Shipping'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateCheckoutOrderState: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['State'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description The status code indicates that the request has been accepted for processing, but the processing has not yet been completed or may have been canceled due to a more recent request being processed instead. */
+      202: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  Validate: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ValidationError'][];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ValidationError'][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CreateCheckoutOrderValidation: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Validation callback */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Validation'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateCheckoutOrderValidation: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Validation identifier */
+        validationId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Validation callback */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Validation'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  RemoveCheckoutOrderValidation: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        orderId: string;
+        /** @description Validation identifier */
+        validationId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
 }

@@ -31,7 +31,9 @@
           <p-input-number
             [ngModel]="product.quantity"
             (ngModelChange)="onChange(product, $event)"
-            [showButtons]="true" buttonLayout="horizontal" inputId="quantity"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            inputId="quantity"
             [inputStyle]="{ width: '3rem', textAlign: 'center' }"
           >
             <ng-template #incrementbuttonicon>

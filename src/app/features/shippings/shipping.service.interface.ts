@@ -1,8 +1,7 @@
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface IShippingService {
   adapterId: string;
-
 
   createShipping(): Observable<any>;
 

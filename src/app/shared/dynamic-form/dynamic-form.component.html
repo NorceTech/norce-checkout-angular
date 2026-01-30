@@ -5,7 +5,9 @@
         <p>Form does not contain field: {{ field.id }}</p>
       } @else {
         <div class="flex flex-col gap-2">
-          <label for="{{ field.id }}" class="font-semibold w-24">{{ field.label }}</label>
+          <label for="{{ field.id }}" class="font-semibold w-24">{{
+            field.label
+          }}</label>
 
           @switch (field.controlType) {
             @case (ControlType.Number) {
@@ -32,12 +34,7 @@
       }
     }
     <div class="flex justify-end py-4">
-      <p-button
-        type="submit"
-        [disabled]="disabled()"
-      >
-        Submit
-      </p-button>
+      <p-button type="submit" [disabled]="disabled()"> Submit </p-button>
     </div>
   </form>
 }

@@ -1,16 +1,23 @@
-import {ComponentRef, provideExperimentalZonelessChangeDetection, signal, ViewContainerRef} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ShippingFactoryComponent} from './shipping-factory.component';
-import {ToastService} from '~/app/core/toast/toast.service';
-import {IngridComponent} from '~/app/features/shippings/ingrid/ingrid.component';
-import {ADAPTERS, IAdapters} from '~/app/core/adapter';
+import {
+  ComponentRef,
+  provideExperimentalZonelessChangeDetection,
+  signal,
+  ViewContainerRef,
+} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ShippingFactoryComponent } from './shipping-factory.component';
+import { ToastService } from '~/app/core/toast/toast.service';
+import { IngridComponent } from '~/app/features/shippings/ingrid/ingrid.component';
+import { ADAPTERS, IAdapters } from '~/app/core/adapter';
 
 // --- Fake ViewContainerRef ---
 class FakeViewContainerRef implements Partial<ViewContainerRef> {
   clear = jasmine.createSpy('clear');
-  createComponent = jasmine.createSpy('createComponent').and.callFake((component: any) => {
-    return {instance: {}} as ComponentRef<any>;
-  });
+  createComponent = jasmine
+    .createSpy('createComponent')
+    .and.callFake((component: any) => {
+      return { instance: {} } as ComponentRef<any>;
+    });
 }
 
 describe('ShippingFactoryComponent', () => {
@@ -22,12 +29,12 @@ describe('ShippingFactoryComponent', () => {
   let adaptersSpy: jasmine.SpyObj<IAdapters>;
 
   const defaultTestAdapters = {
-    shipping: {Ingrid: 'spy_ingrid_adapter'},
-    voucher: {Awardit: 'spy_awardit_adapter'},
+    shipping: { Ingrid: 'spy_ingrid_adapter' },
+    voucher: { Awardit: 'spy_awardit_adapter' },
     payment: {
       Walley: 'spy_walley_adapter',
-      Adyen: 'spy_adyen_adapter'
-    }
+      Adyen: 'spy_adyen_adapter',
+    },
   };
 
   beforeEach(async () => {
@@ -35,13 +42,11 @@ describe('ShippingFactoryComponent', () => {
     adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
 
     await TestBed.configureTestingModule({
-      imports: [
-        ShippingFactoryComponent,
-      ],
+      imports: [ShippingFactoryComponent],
       providers: [
         provideExperimentalZonelessChangeDetection(),
-        {provide: ToastService, useValue: toastServiceSpy},
-        {provide: ADAPTERS, useValue: adaptersSpy},
+        { provide: ToastService, useValue: toastServiceSpy },
+        { provide: ADAPTERS, useValue: adaptersSpy },
       ],
     }).compileComponents();
 
@@ -59,13 +64,13 @@ describe('ShippingFactoryComponent', () => {
 
   const setComponentRenderMap = (renderMap: Record<string, any>) => {
     component['SHIPPING_COMPONENTS'] = renderMap as any;
-  }
+  };
 
   it('should load the correct shipping component for a valid adapter (Ingrid)', () => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
-    })
+    });
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
 
     // Act
@@ -112,7 +117,7 @@ describe('ShippingFactoryComponent', () => {
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
-      'No shipping component registered for adapter Invalid'
+      'No shipping component registered for adapter Invalid',
     );
     expect(fakeContainer.createComponent).not.toHaveBeenCalled();
   });
@@ -121,7 +126,7 @@ describe('ShippingFactoryComponent', () => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
-    })
+    });
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
     component.container = signal(undefined);
 
@@ -130,13 +135,13 @@ describe('ShippingFactoryComponent', () => {
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
-      'No container to load shipping component into'
+      'No container to load shipping component into',
     );
   });
 
   it('should clear the container and destroy previous component if one exists', () => {
     // Arrange
-    const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
+    const fakeComponentRef = { destroy: jasmine.createSpy('destroy') };
     (component as any).componentRef = fakeComponentRef;
     component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
@@ -153,13 +158,13 @@ describe('ShippingFactoryComponent', () => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.shipping.Ingrid]: IngridComponent,
-    })
+    });
     spyOn<any>(component, 'loadComponent');
     componentRef.setInput('adapterId', defaultTestAdapters.shipping.Ingrid);
 
     setTimeout(() => {
       expect((component as any).loadComponent).toHaveBeenCalledWith(
-        defaultTestAdapters.shipping.Ingrid
+        defaultTestAdapters.shipping.Ingrid,
       );
       done();
     }, 0);

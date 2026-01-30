@@ -1,4 +1,9 @@
-import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 export enum ControlType {
   Text = 'text',
@@ -30,7 +35,7 @@ abstract class ControlBase<Value = any> {
   toFormControl(): AbstractControl {
     const options = {
       validators: [] as ValidatorFn[],
-    }
+    };
     if (this.required) {
       options.validators.push(Validators.required);
     }

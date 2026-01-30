@@ -1,6 +1,6 @@
 export type WindowIngrid = {
   _sw?: ((callback: (api: IngridApi) => any) => void) | undefined;
-}
+};
 
 export interface IngridApi {
   suspend: () => void;

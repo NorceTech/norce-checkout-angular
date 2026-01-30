@@ -1,11 +1,11 @@
-import {TestBed} from '@angular/core/testing';
-import {provideExperimentalZonelessChangeDetection} from '@angular/core';
-import {CartService} from './cart.service';
-import {OrderService} from '~/app/core/order/order.service';
-import {PlatformService} from '~/app/core/platform/platform.service';
-import {SyncService} from '~/app/core/sync/sync.service';
-import {BehaviorSubject, of} from 'rxjs';
-import {Item} from '~/openapi/order';
+import { TestBed } from '@angular/core/testing';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { CartService } from './cart.service';
+import { OrderService } from '~/app/core/order/order.service';
+import { PlatformService } from '~/app/core/platform/platform.service';
+import { SyncService } from '~/app/core/sync/sync.service';
+import { BehaviorSubject, of } from 'rxjs';
+import { Item } from '~/openapi/order';
 
 describe('CartService', () => {
   let service: CartService;
@@ -14,14 +14,14 @@ describe('CartService', () => {
   let syncService: jasmine.SpyObj<SyncService>;
 
   const mockItems: Item[] = [
-    {id: '1', name: 'Item 1', quantity: 1},
-    {id: '2', name: 'Item 2', quantity: 2},
+    { id: '1', name: 'Item 1', quantity: 1 },
+    { id: '2', name: 'Item 2', quantity: 2 },
   ];
 
-  const mockOrder$ = new BehaviorSubject({cart: {items: mockItems}});
+  const mockOrder$ = new BehaviorSubject({ cart: { items: mockItems } });
 
   beforeEach(() => {
-    mockOrder$.next({cart: {items: mockItems}});
+    mockOrder$.next({ cart: { items: mockItems } });
     orderService = jasmine.createSpyObj('OrderService', [], {
       order$: mockOrder$,
     });
@@ -38,9 +38,9 @@ describe('CartService', () => {
       providers: [
         provideExperimentalZonelessChangeDetection(),
         CartService,
-        {provide: OrderService, useValue: orderService},
-        {provide: PlatformService, useValue: platformAdapterService},
-        {provide: SyncService, useValue: syncService},
+        { provide: OrderService, useValue: orderService },
+        { provide: PlatformService, useValue: platformAdapterService },
+        { provide: SyncService, useValue: syncService },
       ],
     });
 
@@ -62,12 +62,14 @@ describe('CartService', () => {
       service.removeItem$.next(itemToRemove);
 
       expect(service.items()).toEqual([mockItems[1]]);
-      expect(platformAdapterService.removeItem).toHaveBeenCalledWith(itemToRemove);
+      expect(platformAdapterService.removeItem).toHaveBeenCalledWith(
+        itemToRemove,
+      );
       expect(syncService.triggerRefresh).toHaveBeenCalled();
     });
 
     it('should not explode for non existent item', () => {
-      const nonExistentItem = {id: '999', name: 'Non-existent', quantity: 3};
+      const nonExistentItem = { id: '999', name: 'Non-existent', quantity: 3 };
 
       service.removeItem$.next(nonExistentItem);
 
@@ -79,17 +81,19 @@ describe('CartService', () => {
 
   describe('updateItem$', () => {
     it('should update existing item in items array', () => {
-      const updatedItem = {...mockItems[0], quantity: 3};
+      const updatedItem = { ...mockItems[0], quantity: 3 };
 
       service.updateItem$.next(updatedItem);
 
       expect(service.items()).toEqual([updatedItem, mockItems[1]]);
-      expect(platformAdapterService.updateItem).toHaveBeenCalledWith(updatedItem);
+      expect(platformAdapterService.updateItem).toHaveBeenCalledWith(
+        updatedItem,
+      );
       expect(syncService.triggerRefresh).toHaveBeenCalled();
     });
 
     it('should not explode for non existent item', () => {
-      const nonExistentItem = {id: '999', name: 'Non-existent', quantity: 3};
+      const nonExistentItem = { id: '999', name: 'Non-existent', quantity: 3 };
 
       service.updateItem$.next(nonExistentItem);
 
@@ -101,13 +105,13 @@ describe('CartService', () => {
 
   describe('order$ updates', () => {
     it('should update items when order$ emits new values', () => {
-      const newItems: Item[] = [{id: '3', name: 'Item 3', quantity: 1}];
-      mockOrder$.next({cart: {items: newItems}});
+      const newItems: Item[] = [{ id: '3', name: 'Item 3', quantity: 1 }];
+      mockOrder$.next({ cart: { items: newItems } });
       expect(service.items()).toEqual(newItems);
     });
 
     it('should handle empty cart in order', () => {
-      mockOrder$.next({cart: {items: []}});
+      mockOrder$.next({ cart: { items: [] } });
       expect(service.items()).toEqual([]);
     });
   });

@@ -4,1407 +4,1453 @@
  */
 
 export type paths = {
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/address-update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Address update
-         * @description Updates customer information on Norce order with latest customer information from Klarna Checkout. Frontend implementation should subscribe to Klarna frontend event and call this endpoint.
-         */
-        post: operations["AddressUpdate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/address-update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/cart-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle Cart changed
-         * @deprecated
-         * @description Cart changed.
-         */
-        post: operations["CartChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Address update
+     * @description Updates customer information on Norce order with latest customer information from Klarna Checkout. Frontend implementation should subscribe to Klarna frontend event and call this endpoint.
+     */
+    post: operations['AddressUpdate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/cart-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/confirm": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Confirm
-         * @description Acknowledges Klarna Order and redirects user to confirmation page.
-         */
-        get: operations["Confirm"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle Cart changed
+     * @deprecated
+     * @description Cart changed.
+     */
+    post: operations['CartChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/confirm': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/push": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Push
-         * @description Consumes push notification when a Klarna Checkout Order is completed.
-         */
-        post: operations["Push"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Confirm
+     * @description Acknowledges Klarna Order and redirects user to confirmation page.
+     */
+    get: operations['Confirm'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/push': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/reference-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle reference changed
-         * @description Reference changed.
-         */
-        post: operations["ReferenceChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Push
+     * @description Consumes push notification when a Klarna Checkout Order is completed.
+     */
+    post: operations['Push'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/reference-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/shipping-option-update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Shipping option update
-         * @description Shipping option updated notifications. Will update the Norce order with latest shipping selection from klarna. Frontend implementation should subscribe to Klarna frontend event and call this endpoint.
-         */
-        post: operations["ShippingOptionUpdate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle reference changed
+     * @description Reference changed.
+     */
+    post: operations['ReferenceChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/shipping-option-update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/state-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle State changed
-         * @description State changed.
-         */
-        post: operations["StateChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Shipping option update
+     * @description Shipping option updated notifications. Will update the Norce order with latest shipping selection from klarna. Frontend implementation should subscribe to Klarna frontend event and call this endpoint.
+     */
+    post: operations['ShippingOptionUpdate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/state-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/update-payment": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle update payment
-         * @description Hook to update payment on changes.
-         */
-        post: operations["UpdatePayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle State changed
+     * @description State changed.
+     */
+    post: operations['StateChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/update-payment': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/validation": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Validation */
-        post: operations["Validation"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle update payment
+     * @description Hook to update payment on changes.
+     */
+    post: operations['UpdatePayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/validation': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a new Klarna Checkout Order
-         * @description Requires an existing Norce order.
-         */
-        post: operations["CreateKlarnaCheckoutOrderPayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Validation */
+    post: operations['Validation'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments/{payment_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Klarna Checkout Order
-         * @description Used to get the html snippet, for example after the Klarna Checkout Order has been confirmed.
-         */
-        get: operations["GetKlarnaCheckoutOrderPayment"];
-        /**
-         * Update Klarna Checkout Order
-         * @description Used to remap and update the Klarna Checkout Order from the Norce order, requires existing payment with Klarna Checkout Order.
-         */
-        put: operations["UpdateKlarnaCheckoutOrderPayment"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create a new Klarna Checkout Order
+     * @description Requires an existing Norce order.
+     */
+    post: operations['CreateKlarnaCheckoutOrderPayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments/{payment_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments/{payment_id}/remove": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Remove a Klarna Checkout Order
-         * @description Requires an existing Norce order. Will do soft delete on any payments or shippings by setting state to removed. Will delete any hooks added when creating a klarna checkout order.
-         */
-        post: operations["RemoveKlarnaCheckoutOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Klarna Checkout Order
+     * @description Used to get the html snippet, for example after the Klarna Checkout Order has been confirmed.
+     */
+    get: operations['GetKlarnaCheckoutOrderPayment'];
+    /**
+     * Update Klarna Checkout Order
+     * @description Used to remap and update the Klarna Checkout Order from the Norce order, requires existing payment with Klarna Checkout Order.
+     */
+    put: operations['UpdateKlarnaCheckoutOrderPayment'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments/{payment_id}/remove': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments/recurring": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a new Klarna Checkout order using a recurring token from a previous Klarna Checkout purchase.
-         * @description Requires an existing Norce order and Klarna Checkout recurring token
-         */
-        post: operations["CreateKlarnaCheckoutRecurringOrderPayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Remove a Klarna Checkout Order
+     * @description Requires an existing Norce order. Will do soft delete on any payments or shippings by setting state to removed. Will delete any hooks added when creating a klarna checkout order.
+     */
+    post: operations['RemoveKlarnaCheckoutOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments/recurring': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/cancel": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Cancel Klarna order
-         * @description Used to cancel a Klarna order
-         */
-        post: operations["CancelKlarnaOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create a new Klarna Checkout order using a recurring token from a previous Klarna Checkout purchase.
+     * @description Requires an existing Norce order and Klarna Checkout recurring token
+     */
+    post: operations['CreateKlarnaCheckoutRecurringOrderPayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/cancel': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/capture": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Capture Klarna order
-         * @description Used to capture a Klarna order
-         */
-        post: operations["CaptureKlarnaOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Cancel Klarna order
+     * @description Used to cancel a Klarna order
+     */
+    post: operations['CancelKlarnaOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/capture': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/refresh-kco": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Refresh the list of available PaymentActions for a Klarna Checkout Order Payment
-         * @description Refreshes the list of available payment actions on the Klarna Checkout payment to reflect the current payment state
-         */
-        post: operations["Refresh-kco"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Capture Klarna order
+     * @description Used to capture a Klarna order
+     */
+    post: operations['CaptureKlarnaOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/refresh-kco': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/refresh-kp": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Refresh the list of available PaymentActions for a Klarna Payment Order Payment
-         * @description Refreshes the list of available payment actions on the Klarna Payment payment to reflect the current payment state
-         */
-        post: operations["Refresh-kp"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Refresh the list of available PaymentActions for a Klarna Checkout Order Payment
+     * @description Refreshes the list of available payment actions on the Klarna Checkout payment to reflect the current payment state
+     */
+    post: operations['Refresh-kco'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/refresh-kp': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/refund": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Refund Klarna order
-         * @description Used to refund a Klarna order
-         */
-        post: operations["RefundKlarnaOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Refresh the list of available PaymentActions for a Klarna Payment Order Payment
+     * @description Refreshes the list of available payment actions on the Klarna Payment payment to reflect the current payment state
+     */
+    post: operations['Refresh-kp'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/refund': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/payments/v1/orders/{order_id}/payments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a new Klarna Payments Session
-         * @description Requires an existing Norce order.
-         */
-        post: operations["CreateKlarnaPaymentsSessionPayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Refund Klarna order
+     * @description Used to refund a Klarna order
+     */
+    post: operations['RefundKlarnaOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/payments/v1/orders/{order_id}/payments': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/payments/v1/orders/{order_id}/payments/{payment_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Klarna Payments Session
-         * @description Used to get current payments session.
-         */
-        get: operations["GetKlarnaPaymentsSessionPayment"];
-        /**
-         * Update Klarna Payments Session
-         * @description Used to remap and update the Klarna Payments Session from the Norce order, requires existing payment with Klarna Payments Session.
-         */
-        put: operations["UpdateKlarnaPaymentsSessionPayment"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create a new Klarna Payments Session
+     * @description Requires an existing Norce order.
+     */
+    post: operations['CreateKlarnaPaymentsSessionPayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/payments/v1/orders/{order_id}/payments/{payment_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/payments/v1/orders/{order_id}/payments/{payment_id}/cart-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle Cart changed
-         * @description Cart changed.
-         */
-        post: operations["CartChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Klarna Payments Session
+     * @description Used to get current payments session.
+     */
+    get: operations['GetKlarnaPaymentsSessionPayment'];
+    /**
+     * Update Klarna Payments Session
+     * @description Used to remap and update the Klarna Payments Session from the Norce order, requires existing payment with Klarna Payments Session.
+     */
+    put: operations['UpdateKlarnaPaymentsSessionPayment'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/payments/v1/orders/{order_id}/payments/{payment_id}/cart-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/payments/v1/orders/{order_id}/payments/{payment_id}/confirm": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Confirm payment and create Klarna Order
-         * @description Requires an existing Norce order.
-         */
-        post: operations["KlarnaPaymentsConfirm"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle Cart changed
+     * @description Cart changed.
+     */
+    post: operations['CartChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/payments/v1/orders/{order_id}/payments/{payment_id}/confirm': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/payments/v1/orders/{order_id}/payments/{payment_id}/shippings-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle Shippings changed
-         * @description Shippings changed.
-         */
-        post: operations["ShippingsChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Confirm payment and create Klarna Order
+     * @description Requires an existing Norce order.
+     */
+    post: operations['KlarnaPaymentsConfirm'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/payments/v1/orders/{order_id}/payments/{payment_id}/shippings-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/payments/v1/orders/{order_id}/payments/{payment_id}/validation": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Validate Klarna Payments Session
-         * @description Validate current payments session.
-         */
-        get: operations["ValidateKlarnaPaymentsSessionPayment"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle Shippings changed
+     * @description Shippings changed.
+     */
+    post: operations['ShippingsChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/payments/v1/orders/{order_id}/payments/{payment_id}/validation': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /**
+     * Validate Klarna Payments Session
+     * @description Validate current payments session.
+     */
+    get: operations['ValidateKlarnaPaymentsSessionPayment'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-    schemas: {
-        Addon: {
-            /**
-             * Format: double
-             * @description Cost of addon.
-             */
-            price?: number;
-            /** @description Shipping addon reference. */
-            reference?: string;
-        };
-        Address: {
-            /** @description Allows you to store any custom attributes for the address. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /**
-             * @description Care of.
-             * @example Olleinho Jyckesson
-             */
-            careOf?: string;
-            /**
-             * @description City.
-             * @example Boden
-             */
-            city?: string;
-            /**
-             * @description Country. ISO 3166 alpha-2.
-             * @example SE
-             */
-            country?: string;
-            /**
-             * @description E-mail address.
-             * @example rosalinainho.undulatsson@example.com
-             */
-            email?: string;
-            /**
-             * @description Family name or last name.
-             * @example Undulatsson
-             */
-            familyName?: string;
-            /**
-             * @description Given name or first name.
-             * @example Rosalinainho
-             */
-            givenName?: string;
-            /**
-             * @description Name of the Organization
-             * @example Storm
-             */
-            organizationName?: string;
-            /**
-             * @description Phone number.
-             * @example 0753892233
-             */
-            phone?: string;
-            /**
-             * @description Postal code, zip or post code.
-             * @example 955 60
-             */
-            postalCode?: string;
-            /** @description Reference to the customer */
-            reference?: string;
-            /**
-             * @description State or region.
-             * @example Norrbotten
-             */
-            region?: string;
-            /**
-             * @description Address or street name, first line.
-             * @example Adaptivevägen 18
-             */
-            streetAddress?: string;
-            /**
-             * @description Address or street name, second line.
-             * @example Lgh 1203
-             */
-            streetAddress2?: string;
-        };
-        AuthorizedPaymentMethod: {
-            number_of_days?: string;
-            number_of_installments?: string;
-            type?: string;
-        };
-        Callback: {
-            /**
-             * @description Callback Adapter ID.
-             * @example jetshop_adapter
-             */
-            adapterId?: string;
-            /** @description Callback event. */
-            event?: components["schemas"]["CallbackEvent"];
-            /**
-             * @description Unique ID for the callback.
-             * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
-             */
-            readonly id?: string;
-            /**
-             * @description Full valid url to be called by POST. If the url contains the substring '{order_id}' it will be replaced with the
-             *     orders id
-             *     before call is performed.
-             * @example http://specific-feature-adapter.norce.io/api/v1/callbacks/orders/{order_id}/specific-callback
-             */
-            url?: string;
-        };
-        /** @enum {string} */
-        CallbackEvent: "validate" | "accept" | "complete";
-        Cart: {
-            /** @description List of Discounts */
-            discounts?: components["schemas"]["Discount"][];
-            /** @description List of Items */
-            items?: components["schemas"]["Item"][];
-            /** @description Cart Reference */
-            reference?: string;
-            /** @description Cart total excluding shipping fees */
-            total?: components["schemas"]["Price"];
-        };
-        ConfirmContext: {
-            authorizationToken: string;
-        };
-        Consent: {
-            /** @description Consent checked status. */
-            checked?: boolean;
-            /**
-             * @description Unique ID for the consent item.
-             * @example ci_newsleter
-             */
-            id?: string;
-            /** @description Required for transition order state to processing */
-            required?: boolean;
-            /** @description Consent description. */
-            text?: string;
-        };
-        Customer: {
-            /** @description Allows you to store any custom attributes for the customer. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Billing address to the customer */
-            billing?: components["schemas"]["Address"];
-            /** @description Shipping address to the customer */
-            shipping?: components["schemas"]["Address"];
-            /**
-             * @description The type of customer
-             * @example Person
-             */
-            type: components["schemas"]["CustomerType"];
-        };
-        /** @enum {string} */
-        CustomerType: "person" | "organization";
-        DeliveryDetails: {
-            /** @description Carrier name. */
-            carrier?: string;
-            /** @description Shipping class. */
-            class?: string;
-            /** @description Pickup location. */
-            pickupLocation?: components["schemas"]["PickupLocation"];
-            /** @description Shipping product. */
-            product?: components["schemas"]["Product"];
-        };
-        Dimensions: {
-            /** Format: int32 */
-            height?: number;
-            /** Format: int32 */
-            length?: number;
-            /** Format: int32 */
-            width?: number;
-        };
-        Discount: {
-            /** @description Allows you to store any custom attributes for the discount. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Discount code. */
-            code?: string;
-            /** @description Name of the discount. */
-            name?: string;
-            /** @description Indicates if the discount applies to items or shipping. */
-            type?: components["schemas"]["DiscountType"];
-            /** @description Total sum of discount. */
-            value?: components["schemas"]["Price"];
-        };
-        /** @enum {string} */
-        DiscountType: "item" | "shipping";
-        Error: {
-            /**
-             * @description Error code
-             * @example cart-not-found
-             * @enum {string}
-             */
-            code?: "internal-server-error" | "unauthorized" | "configuration-error" | "configuration-not-found" | "order-not-found" | "order-error" | "order-bad-request" | "order-conflict" | "shipping-not-found" | "shipping-error" | "payment-not-found" | "payment-error" | "klarna-error" | "klarna-bad-request" | "klarna-validation" | "klarna-order-not-found" | "translation-not-found";
-            /** @description Error if originating from Klarna */
-            klarnaError?: components["schemas"]["KlarnaError"];
-            /**
-             * @description Detailed error information
-             * @example Cart with id:{id} now found.
-             */
-            message?: string;
-        };
-        Hook: {
-            /**
-             * @description Callback Adapter ID.
-             * @example jetshop_adapter
-             */
-            adapterId?: string;
-            /**
-             * @description Unique ID for the callback.
-             * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
-             */
-            readonly id?: string;
-            /**
-             * @description Full valid url to be called by POST. If the url contains the substring '{order_id}' it will be replaced with the
-             *     orders id
-             *     before call is performed.
-             * @example http://specific-feature-adapter.norce.io/api/v1/callbacks/orders/{order_id}/specific-callback
-             */
-            invoke?: string;
-            /** @description Callback event. */
-            subscribeTo?: string;
-            /** @description Callback event. */
-            target?: string;
-        };
-        Item: {
-            /** @description Allows you to store any custom attributes for the item. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Discounts applied to item. */
-            discounts?: components["schemas"]["Discount"][];
-            /**
-             * @description Unique identifier for the order
-             * @example ci_FpEzyBvBBUyKxkeNriFUxZOCje
-             */
-            id?: string;
-            /**
-             * @description URL to an image showing the item.
-             * @example https://example.com/products/A000123/images/1
-             */
-            imageUrl?: string;
-            /** @description Child Items of the item. */
-            items?: components["schemas"]["Item"][];
-            /** @description Item Logistics. */
-            logistics?: components["schemas"]["Logistics"];
-            /**
-             * @description Descriptive name of the item.
-             * @example T-Shirt XL
-             */
-            name?: string;
-            /** @description Total sum for all quantities excluding discount. */
-            originalTotal?: components["schemas"]["Price"];
-            /** @description Unit price, excluding discount */
-            price?: components["schemas"]["Price"];
-            /** @description Type of product. */
-            productType?: components["schemas"]["ProductType"];
-            /**
-             * Format: int32
-             * @description Quantity of the item.
-             * @example 2
-             */
-            quantity?: number;
-            /** @description Optional. Platform cart item reference. */
-            reference?: string;
-            /**
-             * @description SKU or article number.
-             * @example A000123
-             */
-            sku?: string;
-            /** @description Total sum for all quantities including discount. */
-            total?: components["schemas"]["Price"];
-            /**
-             * @description Unit used to describe the quantity. Ex. st, kg
-             * @example st
-             */
-            unit?: string;
-            /**
-             * @description URL to the product page.
-             * @example https://example.com/products/A000123
-             */
-            url?: string;
-            /**
-             * Format: double
-             * @description Value-added tax. 25% would be input as 0.25.
-             * @example 0.25
-             */
-            vatRate?: number;
-        };
-        KlarnaCheckoutAddress: {
-            /** @description Also used for reference field */
-            attention?: string;
-            care_of?: string;
-            city?: string;
-            country?: string;
-            email?: string;
-            family_name?: string;
-            given_name?: string;
-            house_extension?: string;
-            organization_name?: string;
-            phone?: string;
-            postal_code?: string;
-            reference?: string;
-            region?: string;
-            street_address?: string;
-            /** @description Also used for c/o address field */
-            street_address2?: string;
-            street_name?: string;
-            street_number?: string;
-            title?: string;
-        };
-        KlarnaCheckoutOrder: {
-            /**
-             * @description Klarna checkout order html snippet.
-             * @example
-             *                     <div id='klarna-checkout-container'><script>alert('Initializing Klarna Checkout');</script>
-             *                     </div>
-             *
-             */
-            htmlSnippet?: string;
-            /** @description Norce Payment Id */
-            id?: string;
-            /**
-             * @description Klarna checkout order status.
-             * @example CHECKOUT_INCOMPLETE
-             */
-            status?: string;
-        };
-        KlarnaCheckoutRecurringOrder: {
-            /** @description Norce Payment Id */
-            id?: string;
-        };
-        KlarnaError: {
-            correlationId?: string;
-            errorCode?: string;
-            errorMessages?: string[];
-        };
-        KlarnaPaymentsAddress: {
-            attention?: string;
-            city?: string;
-            country?: string;
-            email?: string;
-            family_name?: string;
-            given_name?: string;
-            organization_name?: string;
-            phone?: string;
-            postal_code?: string;
-            region?: string;
-            street_address?: string;
-            street_address2?: string;
-            title?: string;
-        };
-        KlarnaPaymentsAssetUrls: {
-            descriptive?: string;
-            standard?: string;
-        };
-        KlarnaPaymentsAttachment: {
-            /** @description The content of the extra merchant data should be presented as a string inside this property. The body should be an
-             *     object containing any of the keys and sub-objects described below serialized to JSON. More information on that
-             *     object can be found [here](https://developers.klarna.com/api/#attachment-schema). */
-            body?: string;
-            /** @description The content type of the body. It is usually represented as \"application/vnd.klarna.internal.emd-v2+json\" */
-            content_type?: string;
-        };
-        KlarnaPaymentsCustomer: {
-            /** @description Customer’s date of birth. The format is ‘yyyy-mm-dd’ */
-            date_of_birth?: string;
-            /** @description Customer’s gender - ‘male’ or ‘female’ */
-            gender?: string;
-            /** @description Last four digits of the customer's social security number. This value is available for US customers. */
-            last_four_ssn?: string;
-            /** @description The customer's national identification number. This value is available for EU customers utilizing national
-             *     identification numbers. */
-            national_identification_number?: string;
-            /**
-             * @description Organization entity type. Only applicable for B2B customers.
-             * @enum {string}
-             */
-            organization_entity_type?: "LIMITED_COMPANY" | "PUBLIC_LIMITED_COMPANY" | "ENTREPRENEURIAL_COMPANY" | "LIMITED_PARTNERSHIP_LIMITED_COMPANY" | "LIMITED_PARTNERSHIP" | "GENERAL_PARTNERSHIP" | "REGISTERED_SOLE_TRADER" | "SOLE_TRADER" | "CIVIL_LAW_PARTNERSHIP" | "PUBLIC_INSTITUTION" | "OTHER";
-            /** @description Organization registration id. Only applicable for B2B customers. */
-            organization_registration_id?: string;
-            /** @description Customer’s Title. Allowed values per country:\nUK - \"Mr\", \"Ms\"\nDE - \"Herr\", \"Frau\"\nAT: \"Herr,
-             *     \"Frau\"\nCH: de-CH: \"Herr, \"Frau\" it-CH: \"Sig.\", \"Sig.ra\" fr-CH: \"M\", \"Mme\" \nBE: \"Dhr.\",
-             *     \"Mevr.\"\nNL: \"Dhr.\", \"Mevr.\" */
-            title?: string;
-            /** @description Type of customer in the session. If nothing is added, a B2C session will be the default. If it is a b2b-session,
-             *     you should enter organization to trigger a B2B session. */
-            type?: string;
-            /** @description VAT ID. Only applicable for B2B customers. */
-            vat_id?: string;
-        };
-        KlarnaPaymentsMerchantUrls: {
-            /** Format: uri */
-            authorization?: string;
-            /** Format: uri */
-            confirmation?: string;
-            /** Format: uri */
-            notification?: string;
-            /** Format: uri */
-            push?: string;
-        };
-        KlarnaPaymentsOptions: {
-            color_border?: string;
-            color_border_selected?: string;
-            color_details?: string;
-            color_text?: string;
-            radius_border?: string;
-        };
-        KlarnaPaymentsOrder: {
-            authorized_payment_method?: components["schemas"]["AuthorizedPaymentMethod"];
-            fraud_status?: string;
-            order_id?: string;
-            redirect_url?: string;
-        };
-        KlarnaPaymentsOrderLine: {
-            image_url?: string;
-            merchant_data?: string;
-            name?: string;
-            product_identifiers?: components["schemas"]["KlarnaPaymentsProductIdentifiers"];
-            product_url?: string;
-            /** Format: int64 */
-            quantity?: number;
-            quantity_unit?: string;
-            reference?: string;
-            subscription?: components["schemas"]["KlarnaPaymentsSubscription"];
-            /** Format: int64 */
-            tax_rate?: number;
-            /** Format: int64 */
-            total_amount?: number;
-            /** Format: int64 */
-            total_discount_amount?: number;
-            /** Format: int64 */
-            total_tax_amount?: number;
-            type?: string;
-            /** Format: int64 */
-            unit_price?: number;
-        };
-        KlarnaPaymentsPaymentMethodCategory: {
-            asset_urls?: components["schemas"]["KlarnaPaymentsAssetUrls"];
-            identifier?: string;
-            name?: string;
-        };
-        KlarnaPaymentsProductIdentifiers: {
-            brand?: string;
-            category_path?: string;
-            color?: string;
-            global_trade_item_number?: string;
-            manufacturer_part_number?: string;
-            size?: string;
-        };
-        KlarnaPaymentsSession: {
-            /**
-             * @description The acquiring channel in which the session takes place. Ecommerce is default unless specified. Any other values
-             *     should be defined in the agreement.
-             * @enum {string}
-             */
-            acquiring_channel?: "ECOMMERCE" | "IN_STORE" | "MONTH" | "TELESALES";
-            attachment?: components["schemas"]["KlarnaPaymentsAttachment"];
-            /** @description Authorization token. */
-            readonly authorization_token?: string;
-            billing_address?: components["schemas"]["KlarnaPaymentsAddress"];
-            readonly client_token?: string;
-            /** @description Promo codes - The array could be used to define which of the configured payment options within a payment category
-             *     (pay_later, pay_over_time, etc.) should be shown for this purchase. Discuss with the delivery manager to know about
-             *     the promo codes that will be configured for your account. The feature could also be used to provide promotional
-             *     offers to specific customers (eg: 0% financing). Please be informed that the usage of this feature can have
-             *     commercial implications. */
-            custom_payment_method_ids?: string[];
-            customer?: components["schemas"]["KlarnaPaymentsCustomer"];
-            design?: string;
-            /** Format: date-time */
-            readonly expires_at?: string;
-            /** @enum {string} */
-            intent?: "buy" | "tokenize" | "buy_and_tokenize";
-            locale?: string;
-            merchant_data?: string;
-            merchant_reference1?: string;
-            merchant_reference2?: string;
-            merchant_urls?: components["schemas"]["KlarnaPaymentsMerchantUrls"];
-            options?: components["schemas"]["KlarnaPaymentsOptions"];
-            order?: components["schemas"]["KlarnaPaymentsOrder"];
-            /** Format: int64 */
-            order_amount?: number;
-            order_lines?: components["schemas"]["KlarnaPaymentsOrderLine"][];
-            /** Format: int64 */
-            order_tax_amount?: number;
-            readonly payment_method_categories?: components["schemas"]["KlarnaPaymentsPaymentMethodCategory"][];
-            purchase_country?: string;
-            purchase_currency?: string;
-            session_id?: string;
-            shipping_address?: components["schemas"]["KlarnaPaymentsAddress"];
-            /** @enum {string} */
-            readonly status?: "complete" | "incomplete";
-        };
-        KlarnaPaymentsSubscription: {
-            /**
-             * @description Enum: DAY, WEEK, MONTH, YEAR
-             * @enum {string}
-             */
-            interval?: "DAY" | "WEEK" | "MONTH" | "YEAR";
-            /** Format: int32 */
-            interval_count?: number;
-            name?: string;
-        };
-        KlarnaValidationErrorResponse: {
-            error_text?: string;
-            error_type?: string;
-        };
-        Logistics: {
-            /** Format: int32 */
-            height?: number;
-            /** Format: int32 */
-            length?: number;
-            tags?: string[];
-            /** Format: int32 */
-            weight?: number;
-            /** Format: int32 */
-            width?: number;
-        };
-        Order: {
-            /** @description Order actions are called in order to complete an action, such as 'Validate'. If provided the action is not
-             *     completed if the response is not successful (eg. http status code 400), note however that in case of a time
-             *     constraint the action might be completed without a successful response. */
-            actions?: components["schemas"]["Callback"][];
-            /** @description Allows you to store any custom attributes for the order. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Order cart */
-            cart?: components["schemas"]["Cart"];
-            /** @description Merchant channel */
-            channel?: string;
-            /** @description Order consents */
-            consents?: components["schemas"]["Consent"][];
-            /** @description Order Country */
-            country?: string;
-            /**
-             * Format: date-time
-             * @description Order creation date time
-             */
-            created?: string;
-            /** @description Order Culture */
-            culture?: string;
-            /** @description Order Currency */
-            currency?: string;
-            /** @description Customer information */
-            customer?: components["schemas"]["Customer"];
-            /** @description Hooks, added by a separate endpoint. */
-            hooks?: components["schemas"]["Hook"][];
-            /**
-             * @description Unique identifier for the order
-             * @example o_yClTSySjyAuuBjmiBlHCjuEcTf
-             */
-            id?: string;
-            /**
-             * Format: date-time
-             * @description Order last modified date time
-             */
-            lastModified?: string;
-            /** @description Merchant identifier */
-            merchant?: string;
-            /** @description Payments related to the order */
-            payments?: components["schemas"]["Payment"][];
-            /** @description External order reference */
-            reference?: string;
-            /** @description Shippings related to the order */
-            shippings?: components["schemas"]["Shipping"][];
-            /** @description Order state */
-            state?: components["schemas"]["State"];
-            /** @description Order total including shipping fees */
-            total?: components["schemas"]["Price"];
-            /** @description Validations, added by a separate endpoint. */
-            validations?: components["schemas"]["Validation"][];
-        };
-        OrderConfirmation: {
-            order?: components["schemas"]["KlarnaPaymentsOrder"];
-            redirectUrl?: string;
-        };
-        OrderLine: {
-            /** Format: uri */
-            image_url?: string;
-            merchant_data?: string;
-            name?: string;
-            product_identifiers?: components["schemas"]["ProductIdentifiers"];
-            /** Format: uri */
-            product_url?: string;
-            /** Format: int32 */
-            quantity?: number;
-            quantity_unit?: string;
-            reference?: string;
-            shipping_attributes?: components["schemas"]["ShippingAttributes"];
-            /** Format: int32 */
-            tax_rate?: number;
-            /** Format: int32 */
-            total_amount?: number;
-            /** Format: int32 */
-            total_discount_amount?: number;
-            /** Format: int32 */
-            total_tax_amount?: number;
-            type?: string;
-            /** Format: int32 */
-            unit_price?: number;
-        };
-        /** @enum {string} */
-        OrderStatus: "checkout" | "processing" | "accepted" | "completed" | "declined";
-        PatchOperation: {
-            op?: string;
-            path?: string;
-            value?: unknown;
-        };
-        Payment: {
-            /**
-             * @description Adapter ID
-             * @example klarna-checkout
-             */
-            adapterId?: string;
-            /**
-             * Format: double
-             * @description The amount to be covered by the payment.
-             * @example 10
-             */
-            amount?: number;
-            /** @description Allows you to store any custom attributes for the payment. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /** @description Merchant channel. */
-            channel?: string;
-            /**
-             * @description Currency of the purchase. ISO 4217.
-             * @example SEK
-             */
-            currency?: string;
-            /**
-             * @description Unique ID of the payment.
-             * @example p_KBiXuYjvYxsezKCQAMuuSKGDaT
-             */
-            id?: string;
-            /**
-             * @description Merchant identifier.
-             * @example norce
-             */
-            merchant?: string;
-            /** @description Payment service provider name */
-            name?: string;
-            /**
-             * @description ID of the order.
-             * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
-             */
-            orderId?: string;
-            /**
-             * @description External reference to payment service provider.
-             * @example 7d31e2cf-2d46-4db0-b87d-d65dfaae298f
-             */
-            reference?: string;
-            /**
-             * @description The state of the payment.
-             * @example Intent
-             */
-            state?: components["schemas"]["PaymentState"];
-            /**
-             * @description Type of payment.
-             * @example default
-             */
-            type?: components["schemas"]["PaymentType"];
-            /**
-             * Format: double
-             * @description The upper limit to be used by this payment. For example the amount available on a voucher.
-             * @example 100
-             */
-            upperLimitAmount?: number;
-        };
-        PaymentSession: {
-            /** @description Norce Payment Id */
-            id?: string;
-            /** @description Klarna Payments Session */
-            session?: components["schemas"]["Session"];
-        };
-        /** @enum {string} */
-        PaymentState: "intent" | "removed" | "processing" | "failed" | "confirmed" | "pending" | "declined" | "reserved" | "credited" | "captured" | "cancelled" | "refunded";
-        /** @enum {string} */
-        PaymentType: "default" | "prepaid" | "voucher";
-        PickupLocation: {
-            /** @description Pickup location address. */
-            address?: components["schemas"]["PickupLocationAddress"];
-            /** @description Name of pickup location. */
-            name?: string;
-            /** @description Pickup location reference. */
-            reference?: string;
-        };
-        PickupLocationAddress: {
-            /**
-             * @description City.
-             * @example Boden
-             */
-            city?: string;
-            /**
-             * @description Country. ISO 3166 alpha-2.
-             * @example SE
-             */
-            country?: string;
-            /**
-             * @description Postal code, zip or post code.
-             * @example 955 60
-             */
-            postalCode?: string;
-            /**
-             * @description Address or street name, first line.
-             * @example Adaptivevägen 18
-             */
-            streetAddress?: string;
-        };
-        Price: {
-            /**
-             * Format: double
-             * @description Total price excluding vat in the checkout specified currency. Requires two decimal points or multiples of 0.01.
-             * @example 987.2
-             */
-            excludingVat?: number;
-            /**
-             * Format: double
-             * @description Total price including vat in the checkout specified currency. Requires two decimal points or multiples of 0.01.
-             * @example 1234
-             */
-            includingVat?: number;
-        };
-        ProblemDetails: {
-            detail?: string;
-            instance?: string;
-            /** Format: int32 */
-            status?: number;
-            title?: string;
-            type?: string;
-        } & {
-            [key: string]: unknown;
-        };
-        Product: {
-            /** @description Carrier product name. */
-            name?: string;
-            /** @description Product reference. */
-            reference?: string;
-        };
-        ProductIdentifiers: {
-            brand?: string;
-            category_path?: string;
-            global_trade_item_number?: string;
-            manufacturer_part_number?: string;
-        };
-        /** @enum {string} */
-        ProductType: "physical" | "digital" | "giftCard" | "bundle";
-        RecurringTokenModel: {
-            autoCapture?: boolean;
-            token?: string;
-        };
-        Session: {
-            /** @description Client Token */
-            client_token?: string;
-            /** @description Available payment method categories */
-            payment_method_categories?: components["schemas"]["KlarnaPaymentsPaymentMethodCategory"][];
-            /** @description ID of the created session. Please use this ID to share with Klarna for identifying any issues during integration. */
-            session_id?: string;
-        };
-        Shipping: {
-            /**
-             * @description Adapter ID
-             * @example ingrid-shipping-adapter
-             */
-            adapterId?: string;
-            /** @description Shipping addons. */
-            addons?: components["schemas"]["Addon"][];
-            /** @description Allows you to store any custom attributes for the shipping. */
-            attributes?: {
-                [key: string]: unknown;
-            };
-            /**
-             * @description Channel identifier
-             * @example 1
-             */
-            channel?: string;
-            /** @description Delivery details. */
-            deliveryDetails?: components["schemas"]["DeliveryDetails"];
-            /**
-             * @description Unique identifier for the shipping.
-             * @example s_pmHreuEBboeezpixrHMDPQlazU
-             */
-            id?: string;
-            /**
-             * @description Merchant identifier.
-             * @example norce
-             */
-            merchant?: string;
-            /**
-             * @description Descriptive name of the shipping.
-             * @example PostNord MyPack Home
-             */
-            name?: string;
-            /**
-             * @description ID of the order.
-             * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
-             */
-            orderId?: string;
-            /**
-             * @description External reference to shipping.
-             * @example e8ed2091-c34c-4837-a3a8-bc827b0dc183
-             */
-            reference?: string;
-            /** @description Current state of the shipping. */
-            state?: components["schemas"]["ShippingState"];
-            /**
-             * @description TMS Reference.
-             * @example a935a628-f70c-47a4-a9f6-98c6d08c2ba3
-             */
-            tmsReference?: string;
-            /** @description Total price of the shipping. */
-            total: components["schemas"]["Price"];
-            /**
-             * Format: double
-             * @description Value-added tax. 25% would be input as 0.25.
-             * @example 0.25
-             */
-            vatRate: number;
-        };
-        ShippingAttributes: {
-            dimensions?: components["schemas"]["Dimensions"];
-            tags?: string[];
-            /** Format: int32 */
-            weight?: number;
-        };
-        ShippingOption: {
-            delivery_details?: components["schemas"]["DeliveryDetails"];
-            description?: string;
-            id?: string;
-            name?: string;
-            preselected?: boolean;
-            /** Format: int32 */
-            price?: number;
-            promo?: string;
-            selected_addons?: components["schemas"]["Addon"][];
-            shipping_method?: string;
-            /** Format: int32 */
-            tax_amount?: number;
-            /** Format: int32 */
-            tax_rate?: number;
-            tms_reference?: string;
-        };
-        ShippingOptionUpdateOrder: {
-            /** Format: int32 */
-            order_amount?: number;
-            order_lines?: components["schemas"]["OrderLine"][];
-            /** Format: int32 */
-            order_tax_amount?: number;
-            purchase_currency?: string;
-        };
-        ShippingServiceRequest: {
-            billing_address?: components["schemas"]["KlarnaCheckoutAddress"];
-            customer?: components["schemas"]["Customer"];
-            locale?: string;
-            merchant_data?: string;
-            merchant_reference1?: string;
-            merchant_reference2?: string;
-            /** Format: int32 */
-            order_amount?: number;
-            order_lines?: components["schemas"]["OrderLine"][];
-            /** Format: int32 */
-            order_tax_amount?: number;
-            purchase_currency?: string;
-            selected_shipping_option?: components["schemas"]["ShippingOption"];
-            shipping_address?: components["schemas"]["KlarnaCheckoutAddress"];
-            tags?: string[];
-        };
-        /** @enum {string} */
-        ShippingState: "intent" | "removed" | "processing" | "failed" | "confirmed";
-        State: {
-            /** @description State of the order. */
-            currentStatus?: components["schemas"]["OrderStatus"];
-            /** @description State transitions. */
-            readonly transitions?: components["schemas"]["Transition"][];
-        };
-        Transition: {
-            /** @description State of the order. */
-            readonly status?: components["schemas"]["OrderStatus"];
-            /**
-             * Format: date-time
-             * @description UTC Time when state was set.
-             */
-            readonly timeStamp?: string;
-        };
-        Validation: {
-            /**
-             * @description Callback Adapter ID.
-             * @example jetshop_adapter
-             */
-            adapterId?: string;
-            /**
-             * @description Unique ID for the callback.
-             * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
-             */
-            readonly id?: string;
-            /**
-             * @description Full valid url to be called by GET. If the url contains the substring '{order_id}' it will be replaced with the
-             *     orders id
-             *     before call is performed.
-             * @example http://specific-feature-adapter.norce.io/api/v1/callbacks/orders/{order_id}/specific-callback
-             */
-            url?: string;
-        };
+  schemas: {
+    Addon: {
+      /**
+       * Format: double
+       * @description Cost of addon.
+       */
+      price?: number;
+      /** @description Shipping addon reference. */
+      reference?: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    Address: {
+      /** @description Allows you to store any custom attributes for the address. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /**
+       * @description Care of.
+       * @example Olleinho Jyckesson
+       */
+      careOf?: string;
+      /**
+       * @description City.
+       * @example Boden
+       */
+      city?: string;
+      /**
+       * @description Country. ISO 3166 alpha-2.
+       * @example SE
+       */
+      country?: string;
+      /**
+       * @description E-mail address.
+       * @example rosalinainho.undulatsson@example.com
+       */
+      email?: string;
+      /**
+       * @description Family name or last name.
+       * @example Undulatsson
+       */
+      familyName?: string;
+      /**
+       * @description Given name or first name.
+       * @example Rosalinainho
+       */
+      givenName?: string;
+      /**
+       * @description Name of the Organization
+       * @example Storm
+       */
+      organizationName?: string;
+      /**
+       * @description Phone number.
+       * @example 0753892233
+       */
+      phone?: string;
+      /**
+       * @description Postal code, zip or post code.
+       * @example 955 60
+       */
+      postalCode?: string;
+      /** @description Reference to the customer */
+      reference?: string;
+      /**
+       * @description State or region.
+       * @example Norrbotten
+       */
+      region?: string;
+      /**
+       * @description Address or street name, first line.
+       * @example Adaptivevägen 18
+       */
+      streetAddress?: string;
+      /**
+       * @description Address or street name, second line.
+       * @example Lgh 1203
+       */
+      streetAddress2?: string;
+    };
+    AuthorizedPaymentMethod: {
+      number_of_days?: string;
+      number_of_installments?: string;
+      type?: string;
+    };
+    Callback: {
+      /**
+       * @description Callback Adapter ID.
+       * @example jetshop_adapter
+       */
+      adapterId?: string;
+      /** @description Callback event. */
+      event?: components['schemas']['CallbackEvent'];
+      /**
+       * @description Unique ID for the callback.
+       * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
+       */
+      readonly id?: string;
+      /**
+       * @description Full valid url to be called by POST. If the url contains the substring '{order_id}' it will be replaced with the
+       *     orders id
+       *     before call is performed.
+       * @example http://specific-feature-adapter.norce.io/api/v1/callbacks/orders/{order_id}/specific-callback
+       */
+      url?: string;
+    };
+    /** @enum {string} */
+    CallbackEvent: 'validate' | 'accept' | 'complete';
+    Cart: {
+      /** @description List of Discounts */
+      discounts?: components['schemas']['Discount'][];
+      /** @description List of Items */
+      items?: components['schemas']['Item'][];
+      /** @description Cart Reference */
+      reference?: string;
+      /** @description Cart total excluding shipping fees */
+      total?: components['schemas']['Price'];
+    };
+    ConfirmContext: {
+      authorizationToken: string;
+    };
+    Consent: {
+      /** @description Consent checked status. */
+      checked?: boolean;
+      /**
+       * @description Unique ID for the consent item.
+       * @example ci_newsleter
+       */
+      id?: string;
+      /** @description Required for transition order state to processing */
+      required?: boolean;
+      /** @description Consent description. */
+      text?: string;
+    };
+    Customer: {
+      /** @description Allows you to store any custom attributes for the customer. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Billing address to the customer */
+      billing?: components['schemas']['Address'];
+      /** @description Shipping address to the customer */
+      shipping?: components['schemas']['Address'];
+      /**
+       * @description The type of customer
+       * @example Person
+       */
+      type: components['schemas']['CustomerType'];
+    };
+    /** @enum {string} */
+    CustomerType: 'person' | 'organization';
+    DeliveryDetails: {
+      /** @description Carrier name. */
+      carrier?: string;
+      /** @description Shipping class. */
+      class?: string;
+      /** @description Pickup location. */
+      pickupLocation?: components['schemas']['PickupLocation'];
+      /** @description Shipping product. */
+      product?: components['schemas']['Product'];
+    };
+    Dimensions: {
+      /** Format: int32 */
+      height?: number;
+      /** Format: int32 */
+      length?: number;
+      /** Format: int32 */
+      width?: number;
+    };
+    Discount: {
+      /** @description Allows you to store any custom attributes for the discount. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Discount code. */
+      code?: string;
+      /** @description Name of the discount. */
+      name?: string;
+      /** @description Indicates if the discount applies to items or shipping. */
+      type?: components['schemas']['DiscountType'];
+      /** @description Total sum of discount. */
+      value?: components['schemas']['Price'];
+    };
+    /** @enum {string} */
+    DiscountType: 'item' | 'shipping';
+    Error: {
+      /**
+       * @description Error code
+       * @example cart-not-found
+       * @enum {string}
+       */
+      code?:
+        | 'internal-server-error'
+        | 'unauthorized'
+        | 'configuration-error'
+        | 'configuration-not-found'
+        | 'order-not-found'
+        | 'order-error'
+        | 'order-bad-request'
+        | 'order-conflict'
+        | 'shipping-not-found'
+        | 'shipping-error'
+        | 'payment-not-found'
+        | 'payment-error'
+        | 'klarna-error'
+        | 'klarna-bad-request'
+        | 'klarna-validation'
+        | 'klarna-order-not-found'
+        | 'translation-not-found';
+      /** @description Error if originating from Klarna */
+      klarnaError?: components['schemas']['KlarnaError'];
+      /**
+       * @description Detailed error information
+       * @example Cart with id:{id} now found.
+       */
+      message?: string;
+    };
+    Hook: {
+      /**
+       * @description Callback Adapter ID.
+       * @example jetshop_adapter
+       */
+      adapterId?: string;
+      /**
+       * @description Unique ID for the callback.
+       * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
+       */
+      readonly id?: string;
+      /**
+       * @description Full valid url to be called by POST. If the url contains the substring '{order_id}' it will be replaced with the
+       *     orders id
+       *     before call is performed.
+       * @example http://specific-feature-adapter.norce.io/api/v1/callbacks/orders/{order_id}/specific-callback
+       */
+      invoke?: string;
+      /** @description Callback event. */
+      subscribeTo?: string;
+      /** @description Callback event. */
+      target?: string;
+    };
+    Item: {
+      /** @description Allows you to store any custom attributes for the item. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Discounts applied to item. */
+      discounts?: components['schemas']['Discount'][];
+      /**
+       * @description Unique identifier for the order
+       * @example ci_FpEzyBvBBUyKxkeNriFUxZOCje
+       */
+      id?: string;
+      /**
+       * @description URL to an image showing the item.
+       * @example https://example.com/products/A000123/images/1
+       */
+      imageUrl?: string;
+      /** @description Child Items of the item. */
+      items?: components['schemas']['Item'][];
+      /** @description Item Logistics. */
+      logistics?: components['schemas']['Logistics'];
+      /**
+       * @description Descriptive name of the item.
+       * @example T-Shirt XL
+       */
+      name?: string;
+      /** @description Total sum for all quantities excluding discount. */
+      originalTotal?: components['schemas']['Price'];
+      /** @description Unit price, excluding discount */
+      price?: components['schemas']['Price'];
+      /** @description Type of product. */
+      productType?: components['schemas']['ProductType'];
+      /**
+       * Format: int32
+       * @description Quantity of the item.
+       * @example 2
+       */
+      quantity?: number;
+      /** @description Optional. Platform cart item reference. */
+      reference?: string;
+      /**
+       * @description SKU or article number.
+       * @example A000123
+       */
+      sku?: string;
+      /** @description Total sum for all quantities including discount. */
+      total?: components['schemas']['Price'];
+      /**
+       * @description Unit used to describe the quantity. Ex. st, kg
+       * @example st
+       */
+      unit?: string;
+      /**
+       * @description URL to the product page.
+       * @example https://example.com/products/A000123
+       */
+      url?: string;
+      /**
+       * Format: double
+       * @description Value-added tax. 25% would be input as 0.25.
+       * @example 0.25
+       */
+      vatRate?: number;
+    };
+    KlarnaCheckoutAddress: {
+      /** @description Also used for reference field */
+      attention?: string;
+      care_of?: string;
+      city?: string;
+      country?: string;
+      email?: string;
+      family_name?: string;
+      given_name?: string;
+      house_extension?: string;
+      organization_name?: string;
+      phone?: string;
+      postal_code?: string;
+      reference?: string;
+      region?: string;
+      street_address?: string;
+      /** @description Also used for c/o address field */
+      street_address2?: string;
+      street_name?: string;
+      street_number?: string;
+      title?: string;
+    };
+    KlarnaCheckoutOrder: {
+      /**
+       * @description Klarna checkout order html snippet.
+       * @example
+       *                     <div id='klarna-checkout-container'><script>alert('Initializing Klarna Checkout');</script>
+       *                     </div>
+       *
+       */
+      htmlSnippet?: string;
+      /** @description Norce Payment Id */
+      id?: string;
+      /**
+       * @description Klarna checkout order status.
+       * @example CHECKOUT_INCOMPLETE
+       */
+      status?: string;
+    };
+    KlarnaCheckoutRecurringOrder: {
+      /** @description Norce Payment Id */
+      id?: string;
+    };
+    KlarnaError: {
+      correlationId?: string;
+      errorCode?: string;
+      errorMessages?: string[];
+    };
+    KlarnaPaymentsAddress: {
+      attention?: string;
+      city?: string;
+      country?: string;
+      email?: string;
+      family_name?: string;
+      given_name?: string;
+      organization_name?: string;
+      phone?: string;
+      postal_code?: string;
+      region?: string;
+      street_address?: string;
+      street_address2?: string;
+      title?: string;
+    };
+    KlarnaPaymentsAssetUrls: {
+      descriptive?: string;
+      standard?: string;
+    };
+    KlarnaPaymentsAttachment: {
+      /** @description The content of the extra merchant data should be presented as a string inside this property. The body should be an
+       *     object containing any of the keys and sub-objects described below serialized to JSON. More information on that
+       *     object can be found [here](https://developers.klarna.com/api/#attachment-schema). */
+      body?: string;
+      /** @description The content type of the body. It is usually represented as \"application/vnd.klarna.internal.emd-v2+json\" */
+      content_type?: string;
+    };
+    KlarnaPaymentsCustomer: {
+      /** @description Customer’s date of birth. The format is ‘yyyy-mm-dd’ */
+      date_of_birth?: string;
+      /** @description Customer’s gender - ‘male’ or ‘female’ */
+      gender?: string;
+      /** @description Last four digits of the customer's social security number. This value is available for US customers. */
+      last_four_ssn?: string;
+      /** @description The customer's national identification number. This value is available for EU customers utilizing national
+       *     identification numbers. */
+      national_identification_number?: string;
+      /**
+       * @description Organization entity type. Only applicable for B2B customers.
+       * @enum {string}
+       */
+      organization_entity_type?:
+        | 'LIMITED_COMPANY'
+        | 'PUBLIC_LIMITED_COMPANY'
+        | 'ENTREPRENEURIAL_COMPANY'
+        | 'LIMITED_PARTNERSHIP_LIMITED_COMPANY'
+        | 'LIMITED_PARTNERSHIP'
+        | 'GENERAL_PARTNERSHIP'
+        | 'REGISTERED_SOLE_TRADER'
+        | 'SOLE_TRADER'
+        | 'CIVIL_LAW_PARTNERSHIP'
+        | 'PUBLIC_INSTITUTION'
+        | 'OTHER';
+      /** @description Organization registration id. Only applicable for B2B customers. */
+      organization_registration_id?: string;
+      /** @description Customer’s Title. Allowed values per country:\nUK - \"Mr\", \"Ms\"\nDE - \"Herr\", \"Frau\"\nAT: \"Herr,
+       *     \"Frau\"\nCH: de-CH: \"Herr, \"Frau\" it-CH: \"Sig.\", \"Sig.ra\" fr-CH: \"M\", \"Mme\" \nBE: \"Dhr.\",
+       *     \"Mevr.\"\nNL: \"Dhr.\", \"Mevr.\" */
+      title?: string;
+      /** @description Type of customer in the session. If nothing is added, a B2C session will be the default. If it is a b2b-session,
+       *     you should enter organization to trigger a B2B session. */
+      type?: string;
+      /** @description VAT ID. Only applicable for B2B customers. */
+      vat_id?: string;
+    };
+    KlarnaPaymentsMerchantUrls: {
+      /** Format: uri */
+      authorization?: string;
+      /** Format: uri */
+      confirmation?: string;
+      /** Format: uri */
+      notification?: string;
+      /** Format: uri */
+      push?: string;
+    };
+    KlarnaPaymentsOptions: {
+      color_border?: string;
+      color_border_selected?: string;
+      color_details?: string;
+      color_text?: string;
+      radius_border?: string;
+    };
+    KlarnaPaymentsOrder: {
+      authorized_payment_method?: components['schemas']['AuthorizedPaymentMethod'];
+      fraud_status?: string;
+      order_id?: string;
+      redirect_url?: string;
+    };
+    KlarnaPaymentsOrderLine: {
+      image_url?: string;
+      merchant_data?: string;
+      name?: string;
+      product_identifiers?: components['schemas']['KlarnaPaymentsProductIdentifiers'];
+      product_url?: string;
+      /** Format: int64 */
+      quantity?: number;
+      quantity_unit?: string;
+      reference?: string;
+      subscription?: components['schemas']['KlarnaPaymentsSubscription'];
+      /** Format: int64 */
+      tax_rate?: number;
+      /** Format: int64 */
+      total_amount?: number;
+      /** Format: int64 */
+      total_discount_amount?: number;
+      /** Format: int64 */
+      total_tax_amount?: number;
+      type?: string;
+      /** Format: int64 */
+      unit_price?: number;
+    };
+    KlarnaPaymentsPaymentMethodCategory: {
+      asset_urls?: components['schemas']['KlarnaPaymentsAssetUrls'];
+      identifier?: string;
+      name?: string;
+    };
+    KlarnaPaymentsProductIdentifiers: {
+      brand?: string;
+      category_path?: string;
+      color?: string;
+      global_trade_item_number?: string;
+      manufacturer_part_number?: string;
+      size?: string;
+    };
+    KlarnaPaymentsSession: {
+      /**
+       * @description The acquiring channel in which the session takes place. Ecommerce is default unless specified. Any other values
+       *     should be defined in the agreement.
+       * @enum {string}
+       */
+      acquiring_channel?: 'ECOMMERCE' | 'IN_STORE' | 'MONTH' | 'TELESALES';
+      attachment?: components['schemas']['KlarnaPaymentsAttachment'];
+      /** @description Authorization token. */
+      readonly authorization_token?: string;
+      billing_address?: components['schemas']['KlarnaPaymentsAddress'];
+      readonly client_token?: string;
+      /** @description Promo codes - The array could be used to define which of the configured payment options within a payment category
+       *     (pay_later, pay_over_time, etc.) should be shown for this purchase. Discuss with the delivery manager to know about
+       *     the promo codes that will be configured for your account. The feature could also be used to provide promotional
+       *     offers to specific customers (eg: 0% financing). Please be informed that the usage of this feature can have
+       *     commercial implications. */
+      custom_payment_method_ids?: string[];
+      customer?: components['schemas']['KlarnaPaymentsCustomer'];
+      design?: string;
+      /** Format: date-time */
+      readonly expires_at?: string;
+      /** @enum {string} */
+      intent?: 'buy' | 'tokenize' | 'buy_and_tokenize';
+      locale?: string;
+      merchant_data?: string;
+      merchant_reference1?: string;
+      merchant_reference2?: string;
+      merchant_urls?: components['schemas']['KlarnaPaymentsMerchantUrls'];
+      options?: components['schemas']['KlarnaPaymentsOptions'];
+      order?: components['schemas']['KlarnaPaymentsOrder'];
+      /** Format: int64 */
+      order_amount?: number;
+      order_lines?: components['schemas']['KlarnaPaymentsOrderLine'][];
+      /** Format: int64 */
+      order_tax_amount?: number;
+      readonly payment_method_categories?: components['schemas']['KlarnaPaymentsPaymentMethodCategory'][];
+      purchase_country?: string;
+      purchase_currency?: string;
+      session_id?: string;
+      shipping_address?: components['schemas']['KlarnaPaymentsAddress'];
+      /** @enum {string} */
+      readonly status?: 'complete' | 'incomplete';
+    };
+    KlarnaPaymentsSubscription: {
+      /**
+       * @description Enum: DAY, WEEK, MONTH, YEAR
+       * @enum {string}
+       */
+      interval?: 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
+      /** Format: int32 */
+      interval_count?: number;
+      name?: string;
+    };
+    KlarnaValidationErrorResponse: {
+      error_text?: string;
+      error_type?: string;
+    };
+    Logistics: {
+      /** Format: int32 */
+      height?: number;
+      /** Format: int32 */
+      length?: number;
+      tags?: string[];
+      /** Format: int32 */
+      weight?: number;
+      /** Format: int32 */
+      width?: number;
+    };
+    Order: {
+      /** @description Order actions are called in order to complete an action, such as 'Validate'. If provided the action is not
+       *     completed if the response is not successful (eg. http status code 400), note however that in case of a time
+       *     constraint the action might be completed without a successful response. */
+      actions?: components['schemas']['Callback'][];
+      /** @description Allows you to store any custom attributes for the order. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Order cart */
+      cart?: components['schemas']['Cart'];
+      /** @description Merchant channel */
+      channel?: string;
+      /** @description Order consents */
+      consents?: components['schemas']['Consent'][];
+      /** @description Order Country */
+      country?: string;
+      /**
+       * Format: date-time
+       * @description Order creation date time
+       */
+      created?: string;
+      /** @description Order Culture */
+      culture?: string;
+      /** @description Order Currency */
+      currency?: string;
+      /** @description Customer information */
+      customer?: components['schemas']['Customer'];
+      /** @description Hooks, added by a separate endpoint. */
+      hooks?: components['schemas']['Hook'][];
+      /**
+       * @description Unique identifier for the order
+       * @example o_yClTSySjyAuuBjmiBlHCjuEcTf
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description Order last modified date time
+       */
+      lastModified?: string;
+      /** @description Merchant identifier */
+      merchant?: string;
+      /** @description Payments related to the order */
+      payments?: components['schemas']['Payment'][];
+      /** @description External order reference */
+      reference?: string;
+      /** @description Shippings related to the order */
+      shippings?: components['schemas']['Shipping'][];
+      /** @description Order state */
+      state?: components['schemas']['State'];
+      /** @description Order total including shipping fees */
+      total?: components['schemas']['Price'];
+      /** @description Validations, added by a separate endpoint. */
+      validations?: components['schemas']['Validation'][];
+    };
+    OrderConfirmation: {
+      order?: components['schemas']['KlarnaPaymentsOrder'];
+      redirectUrl?: string;
+    };
+    OrderLine: {
+      /** Format: uri */
+      image_url?: string;
+      merchant_data?: string;
+      name?: string;
+      product_identifiers?: components['schemas']['ProductIdentifiers'];
+      /** Format: uri */
+      product_url?: string;
+      /** Format: int32 */
+      quantity?: number;
+      quantity_unit?: string;
+      reference?: string;
+      shipping_attributes?: components['schemas']['ShippingAttributes'];
+      /** Format: int32 */
+      tax_rate?: number;
+      /** Format: int32 */
+      total_amount?: number;
+      /** Format: int32 */
+      total_discount_amount?: number;
+      /** Format: int32 */
+      total_tax_amount?: number;
+      type?: string;
+      /** Format: int32 */
+      unit_price?: number;
+    };
+    /** @enum {string} */
+    OrderStatus:
+      | 'checkout'
+      | 'processing'
+      | 'accepted'
+      | 'completed'
+      | 'declined';
+    PatchOperation: {
+      op?: string;
+      path?: string;
+      value?: unknown;
+    };
+    Payment: {
+      /**
+       * @description Adapter ID
+       * @example klarna-checkout
+       */
+      adapterId?: string;
+      /**
+       * Format: double
+       * @description The amount to be covered by the payment.
+       * @example 10
+       */
+      amount?: number;
+      /** @description Allows you to store any custom attributes for the payment. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /** @description Merchant channel. */
+      channel?: string;
+      /**
+       * @description Currency of the purchase. ISO 4217.
+       * @example SEK
+       */
+      currency?: string;
+      /**
+       * @description Unique ID of the payment.
+       * @example p_KBiXuYjvYxsezKCQAMuuSKGDaT
+       */
+      id?: string;
+      /**
+       * @description Merchant identifier.
+       * @example norce
+       */
+      merchant?: string;
+      /** @description Payment service provider name */
+      name?: string;
+      /**
+       * @description ID of the order.
+       * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
+       */
+      orderId?: string;
+      /**
+       * @description External reference to payment service provider.
+       * @example 7d31e2cf-2d46-4db0-b87d-d65dfaae298f
+       */
+      reference?: string;
+      /**
+       * @description The state of the payment.
+       * @example Intent
+       */
+      state?: components['schemas']['PaymentState'];
+      /**
+       * @description Type of payment.
+       * @example default
+       */
+      type?: components['schemas']['PaymentType'];
+      /**
+       * Format: double
+       * @description The upper limit to be used by this payment. For example the amount available on a voucher.
+       * @example 100
+       */
+      upperLimitAmount?: number;
+    };
+    PaymentSession: {
+      /** @description Norce Payment Id */
+      id?: string;
+      /** @description Klarna Payments Session */
+      session?: components['schemas']['Session'];
+    };
+    /** @enum {string} */
+    PaymentState:
+      | 'intent'
+      | 'removed'
+      | 'processing'
+      | 'failed'
+      | 'confirmed'
+      | 'pending'
+      | 'declined'
+      | 'reserved'
+      | 'credited'
+      | 'captured'
+      | 'cancelled'
+      | 'refunded';
+    /** @enum {string} */
+    PaymentType: 'default' | 'prepaid' | 'voucher';
+    PickupLocation: {
+      /** @description Pickup location address. */
+      address?: components['schemas']['PickupLocationAddress'];
+      /** @description Name of pickup location. */
+      name?: string;
+      /** @description Pickup location reference. */
+      reference?: string;
+    };
+    PickupLocationAddress: {
+      /**
+       * @description City.
+       * @example Boden
+       */
+      city?: string;
+      /**
+       * @description Country. ISO 3166 alpha-2.
+       * @example SE
+       */
+      country?: string;
+      /**
+       * @description Postal code, zip or post code.
+       * @example 955 60
+       */
+      postalCode?: string;
+      /**
+       * @description Address or street name, first line.
+       * @example Adaptivevägen 18
+       */
+      streetAddress?: string;
+    };
+    Price: {
+      /**
+       * Format: double
+       * @description Total price excluding vat in the checkout specified currency. Requires two decimal points or multiples of 0.01.
+       * @example 987.2
+       */
+      excludingVat?: number;
+      /**
+       * Format: double
+       * @description Total price including vat in the checkout specified currency. Requires two decimal points or multiples of 0.01.
+       * @example 1234
+       */
+      includingVat?: number;
+    };
+    ProblemDetails: {
+      detail?: string;
+      instance?: string;
+      /** Format: int32 */
+      status?: number;
+      title?: string;
+      type?: string;
+    } & {
+      [key: string]: unknown;
+    };
+    Product: {
+      /** @description Carrier product name. */
+      name?: string;
+      /** @description Product reference. */
+      reference?: string;
+    };
+    ProductIdentifiers: {
+      brand?: string;
+      category_path?: string;
+      global_trade_item_number?: string;
+      manufacturer_part_number?: string;
+    };
+    /** @enum {string} */
+    ProductType: 'physical' | 'digital' | 'giftCard' | 'bundle';
+    RecurringTokenModel: {
+      autoCapture?: boolean;
+      token?: string;
+    };
+    Session: {
+      /** @description Client Token */
+      client_token?: string;
+      /** @description Available payment method categories */
+      payment_method_categories?: components['schemas']['KlarnaPaymentsPaymentMethodCategory'][];
+      /** @description ID of the created session. Please use this ID to share with Klarna for identifying any issues during integration. */
+      session_id?: string;
+    };
+    Shipping: {
+      /**
+       * @description Adapter ID
+       * @example ingrid-shipping-adapter
+       */
+      adapterId?: string;
+      /** @description Shipping addons. */
+      addons?: components['schemas']['Addon'][];
+      /** @description Allows you to store any custom attributes for the shipping. */
+      attributes?: {
+        [key: string]: unknown;
+      };
+      /**
+       * @description Channel identifier
+       * @example 1
+       */
+      channel?: string;
+      /** @description Delivery details. */
+      deliveryDetails?: components['schemas']['DeliveryDetails'];
+      /**
+       * @description Unique identifier for the shipping.
+       * @example s_pmHreuEBboeezpixrHMDPQlazU
+       */
+      id?: string;
+      /**
+       * @description Merchant identifier.
+       * @example norce
+       */
+      merchant?: string;
+      /**
+       * @description Descriptive name of the shipping.
+       * @example PostNord MyPack Home
+       */
+      name?: string;
+      /**
+       * @description ID of the order.
+       * @example o_DhZSbDfVzNzuxOzHyCFskzGzaJ
+       */
+      orderId?: string;
+      /**
+       * @description External reference to shipping.
+       * @example e8ed2091-c34c-4837-a3a8-bc827b0dc183
+       */
+      reference?: string;
+      /** @description Current state of the shipping. */
+      state?: components['schemas']['ShippingState'];
+      /**
+       * @description TMS Reference.
+       * @example a935a628-f70c-47a4-a9f6-98c6d08c2ba3
+       */
+      tmsReference?: string;
+      /** @description Total price of the shipping. */
+      total: components['schemas']['Price'];
+      /**
+       * Format: double
+       * @description Value-added tax. 25% would be input as 0.25.
+       * @example 0.25
+       */
+      vatRate: number;
+    };
+    ShippingAttributes: {
+      dimensions?: components['schemas']['Dimensions'];
+      tags?: string[];
+      /** Format: int32 */
+      weight?: number;
+    };
+    ShippingOption: {
+      delivery_details?: components['schemas']['DeliveryDetails'];
+      description?: string;
+      id?: string;
+      name?: string;
+      preselected?: boolean;
+      /** Format: int32 */
+      price?: number;
+      promo?: string;
+      selected_addons?: components['schemas']['Addon'][];
+      shipping_method?: string;
+      /** Format: int32 */
+      tax_amount?: number;
+      /** Format: int32 */
+      tax_rate?: number;
+      tms_reference?: string;
+    };
+    ShippingOptionUpdateOrder: {
+      /** Format: int32 */
+      order_amount?: number;
+      order_lines?: components['schemas']['OrderLine'][];
+      /** Format: int32 */
+      order_tax_amount?: number;
+      purchase_currency?: string;
+    };
+    ShippingServiceRequest: {
+      billing_address?: components['schemas']['KlarnaCheckoutAddress'];
+      customer?: components['schemas']['Customer'];
+      locale?: string;
+      merchant_data?: string;
+      merchant_reference1?: string;
+      merchant_reference2?: string;
+      /** Format: int32 */
+      order_amount?: number;
+      order_lines?: components['schemas']['OrderLine'][];
+      /** Format: int32 */
+      order_tax_amount?: number;
+      purchase_currency?: string;
+      selected_shipping_option?: components['schemas']['ShippingOption'];
+      shipping_address?: components['schemas']['KlarnaCheckoutAddress'];
+      tags?: string[];
+    };
+    /** @enum {string} */
+    ShippingState: 'intent' | 'removed' | 'processing' | 'failed' | 'confirmed';
+    State: {
+      /** @description State of the order. */
+      currentStatus?: components['schemas']['OrderStatus'];
+      /** @description State transitions. */
+      readonly transitions?: components['schemas']['Transition'][];
+    };
+    Transition: {
+      /** @description State of the order. */
+      readonly status?: components['schemas']['OrderStatus'];
+      /**
+       * Format: date-time
+       * @description UTC Time when state was set.
+       */
+      readonly timeStamp?: string;
+    };
+    Validation: {
+      /**
+       * @description Callback Adapter ID.
+       * @example jetshop_adapter
+       */
+      adapterId?: string;
+      /**
+       * @description Unique ID for the callback.
+       * @example oc_BaDIudFOjBEuFmLlmDExePUFTh
+       */
+      readonly id?: string;
+      /**
+       * @description Full valid url to be called by GET. If the url contains the substring '{order_id}' it will be replaced with the
+       *     orders id
+       *     before call is performed.
+       * @example http://specific-feature-adapter.norce.io/api/v1/callbacks/orders/{order_id}/specific-callback
+       */
+      url?: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 };
 export type Addon = components['schemas']['Addon'];
 export type Address = components['schemas']['Address'];
-export type AuthorizedPaymentMethod = components['schemas']['AuthorizedPaymentMethod'];
+export type AuthorizedPaymentMethod =
+  components['schemas']['AuthorizedPaymentMethod'];
 export type Callback = components['schemas']['Callback'];
 export type CallbackEvent = components['schemas']['CallbackEvent'];
 export type Cart = components['schemas']['Cart'];
@@ -1419,23 +1465,37 @@ export type DiscountType = components['schemas']['DiscountType'];
 export type Error = components['schemas']['Error'];
 export type Hook = components['schemas']['Hook'];
 export type Item = components['schemas']['Item'];
-export type KlarnaCheckoutAddress = components['schemas']['KlarnaCheckoutAddress'];
+export type KlarnaCheckoutAddress =
+  components['schemas']['KlarnaCheckoutAddress'];
 export type KlarnaCheckoutOrder = components['schemas']['KlarnaCheckoutOrder'];
-export type KlarnaCheckoutRecurringOrder = components['schemas']['KlarnaCheckoutRecurringOrder'];
+export type KlarnaCheckoutRecurringOrder =
+  components['schemas']['KlarnaCheckoutRecurringOrder'];
 export type KlarnaError = components['schemas']['KlarnaError'];
-export type KlarnaPaymentsAddress = components['schemas']['KlarnaPaymentsAddress'];
-export type KlarnaPaymentsAssetUrls = components['schemas']['KlarnaPaymentsAssetUrls'];
-export type KlarnaPaymentsAttachment = components['schemas']['KlarnaPaymentsAttachment'];
-export type KlarnaPaymentsCustomer = components['schemas']['KlarnaPaymentsCustomer'];
-export type KlarnaPaymentsMerchantUrls = components['schemas']['KlarnaPaymentsMerchantUrls'];
-export type KlarnaPaymentsOptions = components['schemas']['KlarnaPaymentsOptions'];
+export type KlarnaPaymentsAddress =
+  components['schemas']['KlarnaPaymentsAddress'];
+export type KlarnaPaymentsAssetUrls =
+  components['schemas']['KlarnaPaymentsAssetUrls'];
+export type KlarnaPaymentsAttachment =
+  components['schemas']['KlarnaPaymentsAttachment'];
+export type KlarnaPaymentsCustomer =
+  components['schemas']['KlarnaPaymentsCustomer'];
+export type KlarnaPaymentsMerchantUrls =
+  components['schemas']['KlarnaPaymentsMerchantUrls'];
+export type KlarnaPaymentsOptions =
+  components['schemas']['KlarnaPaymentsOptions'];
 export type KlarnaPaymentsOrder = components['schemas']['KlarnaPaymentsOrder'];
-export type KlarnaPaymentsOrderLine = components['schemas']['KlarnaPaymentsOrderLine'];
-export type KlarnaPaymentsPaymentMethodCategory = components['schemas']['KlarnaPaymentsPaymentMethodCategory'];
-export type KlarnaPaymentsProductIdentifiers = components['schemas']['KlarnaPaymentsProductIdentifiers'];
-export type KlarnaPaymentsSession = components['schemas']['KlarnaPaymentsSession'];
-export type KlarnaPaymentsSubscription = components['schemas']['KlarnaPaymentsSubscription'];
-export type KlarnaValidationErrorResponse = components['schemas']['KlarnaValidationErrorResponse'];
+export type KlarnaPaymentsOrderLine =
+  components['schemas']['KlarnaPaymentsOrderLine'];
+export type KlarnaPaymentsPaymentMethodCategory =
+  components['schemas']['KlarnaPaymentsPaymentMethodCategory'];
+export type KlarnaPaymentsProductIdentifiers =
+  components['schemas']['KlarnaPaymentsProductIdentifiers'];
+export type KlarnaPaymentsSession =
+  components['schemas']['KlarnaPaymentsSession'];
+export type KlarnaPaymentsSubscription =
+  components['schemas']['KlarnaPaymentsSubscription'];
+export type KlarnaValidationErrorResponse =
+  components['schemas']['KlarnaValidationErrorResponse'];
 export type Logistics = components['schemas']['Logistics'];
 export type Order = components['schemas']['Order'];
 export type OrderConfirmation = components['schemas']['OrderConfirmation'];
@@ -1447,7 +1507,8 @@ export type PaymentSession = components['schemas']['PaymentSession'];
 export type PaymentState = components['schemas']['PaymentState'];
 export type PaymentType = components['schemas']['PaymentType'];
 export type PickupLocation = components['schemas']['PickupLocation'];
-export type PickupLocationAddress = components['schemas']['PickupLocationAddress'];
+export type PickupLocationAddress =
+  components['schemas']['PickupLocationAddress'];
 export type Price = components['schemas']['Price'];
 export type ProblemDetails = components['schemas']['ProblemDetails'];
 export type Product = components['schemas']['Product'];
@@ -1458,1415 +1519,1417 @@ export type Session = components['schemas']['Session'];
 export type Shipping = components['schemas']['Shipping'];
 export type ShippingAttributes = components['schemas']['ShippingAttributes'];
 export type ShippingOption = components['schemas']['ShippingOption'];
-export type ShippingOptionUpdateOrder = components['schemas']['ShippingOptionUpdateOrder'];
-export type ShippingServiceRequest = components['schemas']['ShippingServiceRequest'];
+export type ShippingOptionUpdateOrder =
+  components['schemas']['ShippingOptionUpdateOrder'];
+export type ShippingServiceRequest =
+  components['schemas']['ShippingServiceRequest'];
 export type ShippingState = components['schemas']['ShippingState'];
 export type State = components['schemas']['State'];
 export type Transition = components['schemas']['Transition'];
 export type Validation = components['schemas']['Validation'];
 export type $defs = Record<string, never>;
 export interface operations {
-    AddressUpdate: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["ShippingServiceRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ShippingOptionUpdateOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  AddressUpdate: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    CartChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['ShippingServiceRequest'];
+      };
     };
-    Confirm: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Found */
-            302: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
+        content: {
+          'application/json': components['schemas']['ShippingOptionUpdateOrder'];
         };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    Push: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  CartChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    ReferenceChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    ShippingOptionUpdate: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["ShippingServiceRequest"];
-            };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ShippingOptionUpdateOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    StateChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  Confirm: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    UpdatePayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Found */
+      302: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    Validation: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaValidationErrorResponse"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  Push: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    CreateKlarnaCheckoutOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Conflict */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    GetKlarnaCheckoutOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  ReferenceChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    UpdateKlarnaCheckoutOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    RemoveKlarnaCheckoutOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
         };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    CreateKlarnaCheckoutRecurringOrderPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Recurring token that should be used for completing the order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["RecurringTokenModel"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutRecurringOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Conflict */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+  };
+  ShippingOptionUpdate: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    CancelKlarnaOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutOrder"];
-                };
-            };
-        };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['ShippingServiceRequest'];
+      };
     };
-    CaptureKlarnaOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutOrder"];
-                };
-            };
+        content: {
+          'application/json': components['schemas']['ShippingOptionUpdateOrder'];
         };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    "Refresh-kco": {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  StateChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    "Refresh-kp": {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    RefundKlarnaOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaCheckoutOrder"];
-                };
-            };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
         };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    CreateKlarnaPaymentsSessionPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PaymentSession"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Conflict */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+  };
+  UpdatePayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    GetKlarnaPaymentsSessionPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaPaymentsSession"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    UpdateKlarnaPaymentsSessionPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KlarnaPaymentsSession"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
         };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    CartChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  Validation: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    KlarnaPaymentsConfirm: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["ConfirmContext"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrderConfirmation"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': components['schemas']['KlarnaValidationErrorResponse'];
         };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    ShippingsChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  CreateKlarnaCheckoutOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+      };
+      cookie?: never;
     };
-    ValidateKlarnaPaymentsSessionPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"][];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutOrder'];
         };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
     };
+  };
+  GetKlarnaCheckoutOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutOrder'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateKlarnaCheckoutOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutOrder'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  RemoveKlarnaCheckoutOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CreateKlarnaCheckoutRecurringOrderPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+      };
+      cookie?: never;
+    };
+    /** @description Recurring token that should be used for completing the order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['RecurringTokenModel'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutRecurringOrder'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  CancelKlarnaOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutOrder'];
+        };
+      };
+    };
+  };
+  CaptureKlarnaOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutOrder'];
+        };
+      };
+    };
+  };
+  'Refresh-kco': {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  'Refresh-kp': {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  RefundKlarnaOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaCheckoutOrder'];
+        };
+      };
+    };
+  };
+  CreateKlarnaPaymentsSessionPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaymentSession'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  GetKlarnaPaymentsSessionPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaPaymentsSession'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  UpdateKlarnaPaymentsSessionPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['KlarnaPaymentsSession'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CartChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  KlarnaPaymentsConfirm: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['ConfirmContext'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['OrderConfirmation'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  ShippingsChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  ValidateKlarnaPaymentsSessionPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'][];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
 }

@@ -5,6 +5,6 @@ export const environment = {
   showPriceIncludingVat: true,
   context: {
     merchant: 'norcecheckouttest',
-    channel: undefined
-  }
+    channel: undefined,
+  },
 };

@@ -4,329 +4,329 @@
  */
 
 export type paths = {
-    "/api/v1/configuration/merchants/{merchant}/channels": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get channels */
-        get: operations["GetChannels"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/v1/configuration/merchants/{merchant}/channels': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/configuration/merchants/{merchant}/channels/{channel}/configurations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get configurations */
-        get: operations["GetConfigurations"];
-        /** Set configurations. Unlike a proper restful PUT of a list, this will only set/replace the configurations provided
-         *     in the list and leave any other configurations for this merchant and channel unmodified. */
-        put: operations["SetConfigurations"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get channels */
+    get: operations['GetChannels'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/configuration/merchants/{merchant}/channels/{channel}/configurations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/configuration/merchants/{merchant}/channels/{channel}/configurations/{configuration_name}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get configuration */
-        get: operations["GetConfiguration"];
-        /** Set configuration */
-        put: operations["SetConfiguration"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get configurations */
+    get: operations['GetConfigurations'];
+    /** Set configurations. Unlike a proper restful PUT of a list, this will only set/replace the configurations provided
+     *     in the list and leave any other configurations for this merchant and channel unmodified. */
+    put: operations['SetConfigurations'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/configuration/merchants/{merchant}/channels/{channel}/configurations/{configuration_name}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /** Get configuration */
+    get: operations['GetConfiguration'];
+    /** Set configuration */
+    put: operations['SetConfiguration'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-    schemas: {
-        Configuration: {
-            /**
-             * @description The URL of the validating schema
-             * @example https://checkout-name-adapter.norce.tech/schemas/v1/configuration.json
-             */
-            $schema: string;
-            /**
-             * @description The Id of the adapter the configuration is for
-             * @example checkout-name-adapter
-             */
-            id: string;
-        } & {
-            [key: string]: unknown;
-        };
-        Error: {
-            code?: string | null;
-            details?: {
-                [key: string]: string | null;
-            } | null;
-            message?: string | null;
-        };
+  schemas: {
+    Configuration: {
+      /**
+       * @description The URL of the validating schema
+       * @example https://checkout-name-adapter.norce.tech/schemas/v1/configuration.json
+       */
+      $schema: string;
+      /**
+       * @description The Id of the adapter the configuration is for
+       * @example checkout-name-adapter
+       */
+      id: string;
+    } & {
+      [key: string]: unknown;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    Error: {
+      code?: string | null;
+      details?: {
+        [key: string]: string | null;
+      } | null;
+      message?: string | null;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 };
 export type Configuration = components['schemas']['Configuration'];
 export type Error = components['schemas']['Error'];
 export type $defs = Record<string, never>;
 export interface operations {
-    GetChannels: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Merchant */
-                merchant: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": string[];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+  GetChannels: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Merchant */
+        merchant: string;
+      };
+      cookie?: never;
     };
-    GetConfigurations: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Channel */
-                channel: string;
-                /** @description Merchant */
-                merchant: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Configuration"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
+        content: {
+          'application/json': string[];
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
     };
-    SetConfigurations: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Channel */
-                channel: string;
-                /** @description Merchant */
-                merchant: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Configuration"][];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Configuration"][];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+  };
+  GetConfigurations: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Channel */
+        channel: string;
+        /** @description Merchant */
+        merchant: string;
+      };
+      cookie?: never;
     };
-    GetConfiguration: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Channel */
-                channel: string;
-                /** @description Name of service or adapter */
-                configuration_name: string;
-                /** @description Merchant */
-                merchant: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Configuration"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
+        content: {
+          'application/json': components['schemas']['Configuration'][];
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
     };
-    SetConfiguration: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Channel */
-                channel: string;
-                /** @description Name of service or adapter */
-                configuration_name: string;
-                /** @description Merchant */
-                merchant: string;
-            };
-            cookie?: never;
-        };
-        /** @description Configuration */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Configuration"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Configuration"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+  };
+  SetConfigurations: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Channel */
+        channel: string;
+        /** @description Merchant */
+        merchant: string;
+      };
+      cookie?: never;
     };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Configuration'][];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Configuration'][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  GetConfiguration: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Channel */
+        channel: string;
+        /** @description Name of service or adapter */
+        configuration_name: string;
+        /** @description Merchant */
+        merchant: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Configuration'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  SetConfiguration: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Channel */
+        channel: string;
+        /** @description Name of service or adapter */
+        configuration_name: string;
+        /** @description Merchant */
+        merchant: string;
+      };
+      cookie?: never;
+    };
+    /** @description Configuration */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Configuration'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Configuration'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
 }

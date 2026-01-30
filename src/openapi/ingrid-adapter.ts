@@ -4,401 +4,437 @@
  */
 
 export type paths = {
-    "/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/customer-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Customer changed
-         * @description Customer changed inside ingrid shipping form.
-         */
-        post: operations["CustomerChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/customer-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/shipping-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Shipping changed
-         * @description Shipping changed.
-         */
-        post: operations["ShippingChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Customer changed
+     * @description Customer changed inside ingrid shipping form.
+     */
+    post: operations['CustomerChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/shipping-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/state-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle State changed in Norce order.
-         * @description State changed.
-         */
-        post: operations["StateChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Shipping changed
+     * @description Shipping changed.
+     */
+    post: operations['ShippingChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/state-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/update-ingrid-session": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle Cart changed in Norce order.
-         * @description Cart changed.
-         */
-        post: operations["CartChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle State changed in Norce order.
+     * @description State changed.
+     */
+    post: operations['StateChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/shippings/{shipping_id}/update-ingrid-session': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/shippings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a new Ingrid session
-         * @description Requires an existing order.
-         */
-        post: operations["CreateIngridSession"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle Cart changed in Norce order.
+     * @description Cart changed.
+     */
+    post: operations['CartChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/shippings': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/shippings/{shipping_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Ingrid session
-         * @description Used to get the html snippet
-         */
-        get: operations["GetIngridSession"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Create a new Ingrid session
+     * @description Requires an existing order.
+     */
+    post: operations['CreateIngridSession'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/shippings/{shipping_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /**
+     * Get Ingrid session
+     * @description Used to get the html snippet
+     */
+    get: operations['GetIngridSession'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-    schemas: {
-        Addon: {
-            /** Format: double */
-            price?: number;
-            reference?: string;
-        };
-        Address: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            careOf?: string;
-            city?: string;
-            country?: string;
-            email?: string;
-            familyName?: string;
-            givenName?: string;
-            nationalIdentificationNumber?: string;
-            organizationIdentificationNumber?: string;
-            organizationName?: string;
-            phone?: string;
-            postalCode?: string;
-            reference?: string;
-            region?: string;
-            streetAddress?: string;
-            streetAddress2?: string;
-            type?: components["schemas"]["CustomerType"];
-        };
-        Callback: {
-            adapterId?: string;
-            event?: components["schemas"]["CallbackEvent"];
-            id?: string;
-            url?: string;
-        };
-        /** @enum {string} */
-        CallbackEvent: "validate" | "accept" | "complete";
-        Cart: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            discounts?: components["schemas"]["Discount"][];
-            items?: components["schemas"]["Item"][];
-            reference?: string;
-            total?: components["schemas"]["Price"];
-        };
-        Consent: {
-            checked?: boolean;
-            id?: string;
-            required?: boolean;
-            text?: string;
-        };
-        Customer: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            billing?: components["schemas"]["Address"];
-            shipping?: components["schemas"]["Address"];
-            type?: components["schemas"]["CustomerType"];
-        };
-        /** @enum {string} */
-        CustomerType: "person" | "organization";
-        DeliveryDetails: {
-            carrier?: string;
-            class?: string;
-            pickupLocation?: components["schemas"]["PickupLocation"];
-            product?: components["schemas"]["Product"];
-        };
-        Discount: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            code?: string;
-            name?: string;
-            type?: components["schemas"]["DiscountType"];
-            value?: components["schemas"]["Price"];
-        };
-        /** @enum {string} */
-        DiscountType: "item" | "shipping";
-        Error: {
-            /**
-             * @description Error code
-             * @example ingrid-error
-             * @enum {string}
-             */
-            code?: "internal-server-error" | "unauthorized" | "configuration-error" | "configuration-not-found" | "order-not-found" | "order-error" | "order-bad-request" | "order-conflict" | "order-validation" | "shipping-not-found" | "shipping-error" | "payment-not-found" | "payment-error" | "payment-conflict" | "ingrid-error" | "ingrid-validation" | "ingrid-bad-request" | "translation-not-found";
-            /** @description Error if originating from Ingrid */
-            ingridError?: components["schemas"]["IngridError"];
-            /**
-             * @description Detailed error information
-             * @example No warehouse configured for this region
-             */
-            message?: string;
-        };
-        Hook: {
-            adapterId?: string;
-            id?: string;
-            invoke?: string;
-            subscribeTo?: string;
-            target?: string;
-        };
-        IngridError: {
-            correlationId?: string;
-            errorCode?: string;
-            errorMessages?: string[];
-        };
-        IngridSession: {
-            /** @description Ingrid html snippet */
-            htmlSnippet?: string;
-            /** @description Session id */
-            sessionId?: string;
-            /** @description Shipping identifier */
-            shippingId?: string;
-            /** @description Use address form */
-            useAddressForm?: boolean;
-        };
-        Item: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            discounts?: components["schemas"]["Discount"][];
-            id?: string;
-            imageUrl?: string;
-            name?: string;
-            originalTotal?: components["schemas"]["Price"];
-            price?: components["schemas"]["Price"];
-            /** Format: int32 */
-            quantity?: number;
-            reference?: string;
-            sku?: string;
-            total?: components["schemas"]["Price"];
-            unit?: string;
-            url?: string;
-            /** Format: double */
-            vatRate?: number;
-        };
-        NorceOrder: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            cart?: components["schemas"]["Cart"];
-            channel?: string;
-            consents?: components["schemas"]["Consent"][];
-            country?: string;
-            /** Format: date-time */
-            created?: string;
-            culture?: string;
-            currency?: string;
-            customer?: components["schemas"]["Customer"];
-            hooks?: components["schemas"]["Hook"][];
-            id?: string;
-            /** Format: date-time */
-            lastModified?: string;
-            merchant?: string;
-            notifications?: components["schemas"]["Callback"][];
-            payments?: components["schemas"]["Payment"][];
-            reference?: string;
-            shippings?: components["schemas"]["Shipping"][];
-            state?: components["schemas"]["State"];
-            total?: components["schemas"]["Price"];
-            validations?: components["schemas"]["Callback"][];
-        };
-        /** @enum {string} */
-        OrderStatus: "checkout" | "processing" | "accepted" | "completed" | "declined" | "removed";
-        PatchOperation: {
-            op?: string;
-            path?: string;
-            value?: unknown;
-        };
-        Payment: {
-            actions?: components["schemas"]["PaymentAction"][];
-            adapterId?: string;
-            /** Format: double */
-            amount?: number;
-            attributes?: {
-                [key: string]: unknown;
-            };
-            channel?: string;
-            currency?: string;
-            id?: string;
-            merchant?: string;
-            name?: string;
-            orderId?: string;
-            recurring?: components["schemas"]["Recurring"];
-            reference?: string;
-            state?: components["schemas"]["PaymentState"];
-            type?: components["schemas"]["PaymentType"];
-            /** Format: double */
-            upperLimitAmount?: number;
-        };
-        PaymentAction: {
-            adapterId?: string;
-            id?: string;
-            type?: string;
-            url?: string;
-        };
-        /** @enum {string} */
-        PaymentState: "intent" | "removed" | "processing" | "failed" | "confirmed" | "pending" | "declined" | "reserved" | "credited" | "captured" | "cancelled" | "refunded";
-        /** @enum {string} */
-        PaymentType: "default" | "prepaid" | "voucher";
-        PickupLocation: {
-            address?: components["schemas"]["PickupLocationAddress"];
-            name?: string;
-            reference?: string;
-        };
-        PickupLocationAddress: {
-            city?: string;
-            country?: string;
-            postalCode?: string;
-            streetAddress?: string;
-        };
-        Price: {
-            /** Format: double */
-            excludingVat?: number;
-            /** Format: double */
-            includingVat?: number;
-        };
-        ProblemDetails: {
-            detail?: string;
-            instance?: string;
-            /** Format: int32 */
-            status?: number;
-            title?: string;
-            type?: string;
-        } & {
-            [key: string]: unknown;
-        };
-        Product: {
-            name?: string;
-            reference?: string;
-        };
-        Recurring: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            description?: string;
-            token?: string;
-        };
-        Shipping: {
-            adapterId?: string;
-            addons?: components["schemas"]["Addon"][];
-            attributes?: {
-                [key: string]: unknown;
-            };
-            channel?: string;
-            deliveryDetails?: components["schemas"]["DeliveryDetails"];
-            id?: string;
-            merchant?: string;
-            name?: string;
-            orderId?: string;
-            reference?: string;
-            state?: components["schemas"]["ShippingState"];
-            tmsReference?: string;
-            total?: components["schemas"]["Price"];
-            /** Format: double */
-            vatRate?: number;
-        };
-        /** @enum {string} */
-        ShippingState: "intent" | "removed" | "processing" | "failed" | "confirmed";
-        State: {
-            currentStatus?: components["schemas"]["OrderStatus"];
-            transitions?: components["schemas"]["Transition"][];
-        };
-        Transition: {
-            status?: components["schemas"]["OrderStatus"];
-            /** Format: date-time */
-            timeStamp?: string;
-        };
+  schemas: {
+    Addon: {
+      /** Format: double */
+      price?: number;
+      reference?: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    Address: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      careOf?: string;
+      city?: string;
+      country?: string;
+      email?: string;
+      familyName?: string;
+      givenName?: string;
+      nationalIdentificationNumber?: string;
+      organizationIdentificationNumber?: string;
+      organizationName?: string;
+      phone?: string;
+      postalCode?: string;
+      reference?: string;
+      region?: string;
+      streetAddress?: string;
+      streetAddress2?: string;
+      type?: components['schemas']['CustomerType'];
+    };
+    Callback: {
+      adapterId?: string;
+      event?: components['schemas']['CallbackEvent'];
+      id?: string;
+      url?: string;
+    };
+    /** @enum {string} */
+    CallbackEvent: 'validate' | 'accept' | 'complete';
+    Cart: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      discounts?: components['schemas']['Discount'][];
+      items?: components['schemas']['Item'][];
+      reference?: string;
+      total?: components['schemas']['Price'];
+    };
+    Consent: {
+      checked?: boolean;
+      id?: string;
+      required?: boolean;
+      text?: string;
+    };
+    Customer: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      billing?: components['schemas']['Address'];
+      shipping?: components['schemas']['Address'];
+      type?: components['schemas']['CustomerType'];
+    };
+    /** @enum {string} */
+    CustomerType: 'person' | 'organization';
+    DeliveryDetails: {
+      carrier?: string;
+      class?: string;
+      pickupLocation?: components['schemas']['PickupLocation'];
+      product?: components['schemas']['Product'];
+    };
+    Discount: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      code?: string;
+      name?: string;
+      type?: components['schemas']['DiscountType'];
+      value?: components['schemas']['Price'];
+    };
+    /** @enum {string} */
+    DiscountType: 'item' | 'shipping';
+    Error: {
+      /**
+       * @description Error code
+       * @example ingrid-error
+       * @enum {string}
+       */
+      code?:
+        | 'internal-server-error'
+        | 'unauthorized'
+        | 'configuration-error'
+        | 'configuration-not-found'
+        | 'order-not-found'
+        | 'order-error'
+        | 'order-bad-request'
+        | 'order-conflict'
+        | 'order-validation'
+        | 'shipping-not-found'
+        | 'shipping-error'
+        | 'payment-not-found'
+        | 'payment-error'
+        | 'payment-conflict'
+        | 'ingrid-error'
+        | 'ingrid-validation'
+        | 'ingrid-bad-request'
+        | 'translation-not-found';
+      /** @description Error if originating from Ingrid */
+      ingridError?: components['schemas']['IngridError'];
+      /**
+       * @description Detailed error information
+       * @example No warehouse configured for this region
+       */
+      message?: string;
+    };
+    Hook: {
+      adapterId?: string;
+      id?: string;
+      invoke?: string;
+      subscribeTo?: string;
+      target?: string;
+    };
+    IngridError: {
+      correlationId?: string;
+      errorCode?: string;
+      errorMessages?: string[];
+    };
+    IngridSession: {
+      /** @description Ingrid html snippet */
+      htmlSnippet?: string;
+      /** @description Session id */
+      sessionId?: string;
+      /** @description Shipping identifier */
+      shippingId?: string;
+      /** @description Use address form */
+      useAddressForm?: boolean;
+    };
+    Item: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      discounts?: components['schemas']['Discount'][];
+      id?: string;
+      imageUrl?: string;
+      name?: string;
+      originalTotal?: components['schemas']['Price'];
+      price?: components['schemas']['Price'];
+      /** Format: int32 */
+      quantity?: number;
+      reference?: string;
+      sku?: string;
+      total?: components['schemas']['Price'];
+      unit?: string;
+      url?: string;
+      /** Format: double */
+      vatRate?: number;
+    };
+    NorceOrder: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      cart?: components['schemas']['Cart'];
+      channel?: string;
+      consents?: components['schemas']['Consent'][];
+      country?: string;
+      /** Format: date-time */
+      created?: string;
+      culture?: string;
+      currency?: string;
+      customer?: components['schemas']['Customer'];
+      hooks?: components['schemas']['Hook'][];
+      id?: string;
+      /** Format: date-time */
+      lastModified?: string;
+      merchant?: string;
+      notifications?: components['schemas']['Callback'][];
+      payments?: components['schemas']['Payment'][];
+      reference?: string;
+      shippings?: components['schemas']['Shipping'][];
+      state?: components['schemas']['State'];
+      total?: components['schemas']['Price'];
+      validations?: components['schemas']['Callback'][];
+    };
+    /** @enum {string} */
+    OrderStatus:
+      | 'checkout'
+      | 'processing'
+      | 'accepted'
+      | 'completed'
+      | 'declined'
+      | 'removed';
+    PatchOperation: {
+      op?: string;
+      path?: string;
+      value?: unknown;
+    };
+    Payment: {
+      actions?: components['schemas']['PaymentAction'][];
+      adapterId?: string;
+      /** Format: double */
+      amount?: number;
+      attributes?: {
+        [key: string]: unknown;
+      };
+      channel?: string;
+      currency?: string;
+      id?: string;
+      merchant?: string;
+      name?: string;
+      orderId?: string;
+      recurring?: components['schemas']['Recurring'];
+      reference?: string;
+      state?: components['schemas']['PaymentState'];
+      type?: components['schemas']['PaymentType'];
+      /** Format: double */
+      upperLimitAmount?: number;
+    };
+    PaymentAction: {
+      adapterId?: string;
+      id?: string;
+      type?: string;
+      url?: string;
+    };
+    /** @enum {string} */
+    PaymentState:
+      | 'intent'
+      | 'removed'
+      | 'processing'
+      | 'failed'
+      | 'confirmed'
+      | 'pending'
+      | 'declined'
+      | 'reserved'
+      | 'credited'
+      | 'captured'
+      | 'cancelled'
+      | 'refunded';
+    /** @enum {string} */
+    PaymentType: 'default' | 'prepaid' | 'voucher';
+    PickupLocation: {
+      address?: components['schemas']['PickupLocationAddress'];
+      name?: string;
+      reference?: string;
+    };
+    PickupLocationAddress: {
+      city?: string;
+      country?: string;
+      postalCode?: string;
+      streetAddress?: string;
+    };
+    Price: {
+      /** Format: double */
+      excludingVat?: number;
+      /** Format: double */
+      includingVat?: number;
+    };
+    ProblemDetails: {
+      detail?: string;
+      instance?: string;
+      /** Format: int32 */
+      status?: number;
+      title?: string;
+      type?: string;
+    } & {
+      [key: string]: unknown;
+    };
+    Product: {
+      name?: string;
+      reference?: string;
+    };
+    Recurring: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      description?: string;
+      token?: string;
+    };
+    Shipping: {
+      adapterId?: string;
+      addons?: components['schemas']['Addon'][];
+      attributes?: {
+        [key: string]: unknown;
+      };
+      channel?: string;
+      deliveryDetails?: components['schemas']['DeliveryDetails'];
+      id?: string;
+      merchant?: string;
+      name?: string;
+      orderId?: string;
+      reference?: string;
+      state?: components['schemas']['ShippingState'];
+      tmsReference?: string;
+      total?: components['schemas']['Price'];
+      /** Format: double */
+      vatRate?: number;
+    };
+    /** @enum {string} */
+    ShippingState: 'intent' | 'removed' | 'processing' | 'failed' | 'confirmed';
+    State: {
+      currentStatus?: components['schemas']['OrderStatus'];
+      transitions?: components['schemas']['Transition'][];
+    };
+    Transition: {
+      status?: components['schemas']['OrderStatus'];
+      /** Format: date-time */
+      timeStamp?: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 };
 export type Addon = components['schemas']['Addon'];
 export type Address = components['schemas']['Address'];
@@ -424,7 +460,8 @@ export type PaymentAction = components['schemas']['PaymentAction'];
 export type PaymentState = components['schemas']['PaymentState'];
 export type PaymentType = components['schemas']['PaymentType'];
 export type PickupLocation = components['schemas']['PickupLocation'];
-export type PickupLocationAddress = components['schemas']['PickupLocationAddress'];
+export type PickupLocationAddress =
+  components['schemas']['PickupLocationAddress'];
 export type Price = components['schemas']['Price'];
 export type ProblemDetails = components['schemas']['ProblemDetails'];
 export type Product = components['schemas']['Product'];
@@ -435,323 +472,323 @@ export type State = components['schemas']['State'];
 export type Transition = components['schemas']['Transition'];
 export type $defs = Record<string, never>;
 export interface operations {
-    CustomerChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Shipping identifier */
-                shipping_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  CustomerChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Shipping identifier */
+        shipping_id: string;
+      };
+      cookie?: never;
     };
-    ShippingChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Shipping identifier */
-                shipping_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    StateChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Shipping identifier */
-                shipping_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["NorceOrder"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  ShippingChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Shipping identifier */
+        shipping_id: string;
+      };
+      cookie?: never;
     };
-    CartChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Shipping identifier */
-                shipping_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["NorceOrder"];
-            };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    CreateIngridSession: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["IngridSession"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+  };
+  StateChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Shipping identifier */
+        shipping_id: string;
+      };
+      cookie?: never;
     };
-    GetIngridSession: {
-        parameters: {
-            query?: never;
-            header: {
-                /**
-                 * @description Channel identifier
-                 * @example 1
-                 */
-                "x-channel": string;
-                /**
-                 * @description Merchant identifier.
-                 * @example norce
-                 */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Shipping identifier */
-                shipping_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["IngridSession"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['NorceOrder'];
+      };
     };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CartChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Shipping identifier */
+        shipping_id: string;
+      };
+      cookie?: never;
+    };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['NorceOrder'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CreateIngridSession: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['IngridSession'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  GetIngridSession: {
+    parameters: {
+      query?: never;
+      header: {
+        /**
+         * @description Channel identifier
+         * @example 1
+         */
+        'x-channel': string;
+        /**
+         * @description Merchant identifier.
+         * @example norce
+         */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Shipping identifier */
+        shipping_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['IngridSession'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
 }

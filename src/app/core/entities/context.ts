@@ -1,4 +1,4 @@
-import {HttpHeaders} from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 interface IContext {
   merchant: string;
@@ -21,21 +21,23 @@ export class Context {
     return new HttpHeaders({
       'x-merchant': this.merchant,
       'x-channel': this.channel,
-      'x-order-id': this.orderId
-    })
+      'x-order-id': this.orderId,
+    });
   }
 
   toURLSearchParams() {
     return new URLSearchParams({
       merchant: this.merchant,
       channel: this.channel,
-      orderId: this.orderId
-    })
+      orderId: this.orderId,
+    });
   }
 
   equals(other: Context) {
-    return this.merchant === other.merchant
-      && this.channel === other.channel
-      && this.orderId === other.orderId;
+    return (
+      this.merchant === other.merchant &&
+      this.channel === other.channel &&
+      this.orderId === other.orderId
+    );
   }
 }

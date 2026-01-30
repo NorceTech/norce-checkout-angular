@@ -1,25 +1,30 @@
-import {Directive, ElementRef, OnInit} from '@angular/core';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
-@Directive({selector: '[runScripts]'})
+@Directive({ selector: '[runScripts]' })
 export class RunScriptsDirective implements OnInit {
-  constructor(private elementRef: ElementRef) {
-  }
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    setTimeout(() => { // wait for DOM rendering
+    setTimeout(() => {
+      // wait for DOM rendering
       this.reinsertScripts();
     });
   }
 
   reinsertScripts(): void {
-    const scripts = Array.from(<HTMLScriptElement[]>this.elementRef.nativeElement.getElementsByTagName('script'));
+    const scripts = Array.from(
+      <HTMLScriptElement[]>(
+        this.elementRef.nativeElement.getElementsByTagName('script')
+      ),
+    );
 
     // This is necessary otherwise the scripts tags are not going to be evaluated
     for (let i = 0; i < scripts.length; i++) {
       const scriptTag = scripts[i];
       if (!scriptTag) throw new Error('Could not find script tag node');
       const parentNode = scriptTag.parentNode;
-      if (!parentNode) throw new Error('Could not find parent node of script tag');
+      if (!parentNode)
+        throw new Error('Could not find parent node of script tag');
 
       const newScript = document.createElement('script');
       newScript.type = 'text/javascript';

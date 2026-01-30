@@ -1,11 +1,12 @@
-import {InjectionToken, Provider} from '@angular/core';
-import {IPaymentService} from '~/app/features/payments/payment.service.interface';
-import {AdyenService} from '~/app/features/payments/adyen/adyen.service';
-import {WalleyService} from '~/app/features/payments/walley/walley.service';
-import {KustomService} from '~/app/features/payments/kustom/kustom.service';
+import { InjectionToken, Provider } from '@angular/core';
+import { IPaymentService } from '~/app/features/payments/payment.service.interface';
+import { AdyenService } from '~/app/features/payments/adyen/adyen.service';
+import { WalleyService } from '~/app/features/payments/walley/walley.service';
+import { KustomService } from '~/app/features/payments/kustom/kustom.service';
 
-export const PAYMENT_SERVICES =
-  new InjectionToken<IPaymentService[]>('PAYMENT_ADAPTER');
+export const PAYMENT_SERVICES = new InjectionToken<IPaymentService[]>(
+  'PAYMENT_ADAPTER',
+);
 
 export function providePaymentServices(): Provider {
   return [
@@ -23,6 +24,6 @@ export function providePaymentServices(): Provider {
       provide: PAYMENT_SERVICES,
       useExisting: KustomService,
       multi: true,
-    }
+    },
   ];
 }

@@ -15,6 +15,7 @@ cp .env.example .env
 ```
 
 Edit `.env` with your credentials:
+
 - `TOKEN` - Your API token for authorization
 - `SLUG` - Your slug when accessing norce services (e.g., `order-demo` if accessing admin from https://order-demo.admin-se.playground.norce.tech)
 
@@ -32,12 +33,12 @@ The checkout application dynamically loads adapters based on the configuration r
 
 #### Supported adapter combinations
 
-| Platform                | Shipping                   | Payment                |
-|-------------------------|----------------------------|------------------------|
-| Norce (with shipping)   | -                          | Walley                 |
-| Norce                   | -                          | Walley (with shipping) |
-| Norce                   | Ingrid                     | Walley                 |
-| Norce                   | Ingrid (with address form) | Adyen                  |
+| Platform              | Shipping                   | Payment                |
+| --------------------- | -------------------------- | ---------------------- |
+| Norce (with shipping) | -                          | Walley                 |
+| Norce                 | -                          | Walley (with shipping) |
+| Norce                 | Ingrid                     | Walley                 |
+| Norce                 | Ingrid (with address form) | Adyen                  |
 
 #### Available adapters
 
@@ -68,31 +69,22 @@ This page includes a form you can use to initialize a norce checkout order from 
 
 #### Environment configurations
 
-| Environment     | Environment file              | API target                              |
-|-----------------|-------------------------------|-----------------------------------------|
-| Playground      | `environment.playground.ts`    | `https://{SLUG}.api-se.playground.norce.tech/checkout` |
-| Stage           | `environment.stage.ts`         | `https://{SLUG}.api-se.stage.norce.tech/checkout` |
-| Test            | `environment.test.ts`          | Internal test services                  |
+| Environment | Environment file            | API target                                             |
+| ----------- | --------------------------- | ------------------------------------------------------ |
+| Playground  | `environment.playground.ts` | `https://{SLUG}.api-se.playground.norce.tech/checkout` |
+| Stage       | `environment.stage.ts`      | `https://{SLUG}.api-se.stage.norce.tech/checkout`      |
+| Test        | `environment.test.ts`       | Internal test services                                 |
 
 All configurations automatically include the `TOKEN` from your `.env` file in API requests.
 
-[//]: # (# Generating types)
-
-[//]: # ()
-[//]: # (```bash)
-
-[//]: # (npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (npx openapi-typescript https://norce-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/norce-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (npx openapi-typescript https://configuration.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/configuration.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (npx openapi-typescript https://walley-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/walley-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (npx openapi-typescript https://adyen-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/adyen-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (npx openapi-typescript https://ingrid-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/ingrid-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (npx openapi-typescript https://awardit-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/awardit-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
-
-[//]: # (```)
+[//]: # "# Generating types"
+[//]: #
+[//]: # "```bash"
+[//]: # "npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://norce-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/norce-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://configuration.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/configuration.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://walley-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/walley-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://adyen-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/adyen-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://ingrid-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/ingrid-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "npx openapi-typescript https://awardit-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/awardit-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix"
+[//]: # "```"

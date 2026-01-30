@@ -1,5 +1,5 @@
-import {RunScriptsDirective} from './run-scripts.directive';
-import {ElementRef} from '@angular/core';
+import { RunScriptsDirective } from './run-scripts.directive';
+import { ElementRef } from '@angular/core';
 
 describe('RunScriptsDirective', () => {
   let element: HTMLElement;
@@ -66,7 +66,7 @@ describe('RunScriptsDirective', () => {
     // Override getElementsByTagName to return an array containing null.
     spyOn(element, 'getElementsByTagName').and.returnValue([null] as any);
     expect(() => directive.reinsertScripts()).toThrowError(
-      'Could not find script tag node'
+      'Could not find script tag node',
     );
   });
 
@@ -84,7 +84,7 @@ describe('RunScriptsDirective', () => {
       scriptWithoutParent,
     ] as any);
     expect(() => directive.reinsertScripts()).toThrowError(
-      'Could not find parent node of script tag'
+      'Could not find parent node of script tag',
     );
   });
 });

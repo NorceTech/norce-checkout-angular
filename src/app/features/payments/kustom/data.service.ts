@@ -1,7 +1,7 @@
-import {HttpClient} from "@angular/common/http";
-import {inject, Injectable} from "@angular/core";
-import {Observable} from 'rxjs';
-import {Context} from '~/app/core/entities/context';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Context } from '~/app/core/entities/context';
 
 export interface KustomOrder {
   /** Klarna checkout order html snippet */
@@ -20,28 +20,36 @@ export class DataService {
   private client = inject(HttpClient);
 
   createPayment(orderId: string): Observable<KustomOrder> {
-    return this.client.post<any>(`${this.baseUrl}/orders/${orderId}/payments`, undefined)
+    return this.client.post<any>(
+      `${this.baseUrl}/orders/${orderId}/payments`,
+      undefined,
+    );
   }
 
   getPayment(orderId: string, paymentId: string): Observable<KustomOrder> {
-    return this.client.get<any>(`${this.baseUrl}/orders/${orderId}/payments/${paymentId}`)
+    return this.client.get<any>(
+      `${this.baseUrl}/orders/${orderId}/payments/${paymentId}`,
+    );
   }
 
   removePayment(orderId: string, paymentId: string): Observable<void> {
-    return this.client.post<void>(`${this.baseUrl}/orders/${orderId}/payments/${paymentId}/remove`, undefined)
+    return this.client.post<void>(
+      `${this.baseUrl}/orders/${orderId}/payments/${paymentId}/remove`,
+      undefined,
+    );
   }
 
   updateAddress(ctx: Context, paymentId: string): Observable<void> {
     return this.client.post<void>(
       `${this.baseUrl}/callback/orders/${ctx.orderId}/payments/${paymentId}/address-update?${ctx.toURLSearchParams().toString()}`,
-      undefined
-    )
+      undefined,
+    );
   }
 
   updateShippingOption(ctx: Context, paymentId: string): Observable<void> {
     return this.client.post<void>(
       `${this.baseUrl}/callback/orders/${ctx.orderId}/payments/${paymentId}/shipping-option-update?${ctx.toURLSearchParams().toString()}`,
-      undefined
-    )
+      undefined,
+    );
   }
 }

@@ -6,22 +6,18 @@ import {
   input,
   Type,
   viewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import {ADAPTERS} from '~/app/core/adapter';
-import {WalleyComponent} from '~/app/features/payments/walley/walley.component';
-import {
-  FallbackConfirmationComponent
-} from '~/app/features/confirmation/fallback-confirmation/fallback-confirmation.component';
-import {ToastService} from '~/app/core/toast/toast.service';
-import {KustomComponent} from '~/app/features/payments/kustom/kustom.component';
-
+import { ADAPTERS } from '~/app/core/adapter';
+import { WalleyComponent } from '~/app/features/payments/walley/walley.component';
+import { FallbackConfirmationComponent } from '~/app/features/confirmation/fallback-confirmation/fallback-confirmation.component';
+import { ToastService } from '~/app/core/toast/toast.service';
+import { KustomComponent } from '~/app/features/payments/kustom/kustom.component';
 
 @Component({
   selector: 'app-confirmation-factory',
   imports: [],
-  template: `
-    <ng-template #container></ng-template>`,
+  template: ` <ng-template #container></ng-template>`,
 })
 export class ConfirmationFactoryComponent {
   adapterId = input<string>();
@@ -33,7 +29,7 @@ export class ConfirmationFactoryComponent {
     [this.adapters.payment.Kustom]: KustomComponent,
   } as const;
 
-  container = viewChild('container', {read: ViewContainerRef});
+  container = viewChild('container', { read: ViewContainerRef });
 
   private componentRef?: ComponentRef<any>;
 
@@ -47,14 +43,19 @@ export class ConfirmationFactoryComponent {
     if (!adapterId) return;
     this.clearContainer();
 
-    let componentType: Type<any> = this.CONFIRMATION_COMPONENTS[adapterId as keyof typeof this.CONFIRMATION_COMPONENTS];
+    let componentType: Type<any> =
+      this.CONFIRMATION_COMPONENTS[
+        adapterId as keyof typeof this.CONFIRMATION_COMPONENTS
+      ];
     if (!componentType) {
       componentType = FallbackConfirmationComponent;
     }
 
     const container = this.container();
     if (!container) {
-      this.toastService.error('No container to load confirmation component into');
+      this.toastService.error(
+        'No container to load confirmation component into',
+      );
       return;
     }
     container.clear();

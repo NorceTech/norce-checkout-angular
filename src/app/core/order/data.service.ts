@@ -1,7 +1,7 @@
-import {HttpClient} from "@angular/common/http";
-import {inject, Injectable} from "@angular/core";
-import {Observable} from 'rxjs';
-import {Order} from '~/openapi/order';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order } from '~/openapi/order';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +11,13 @@ export class DataService {
   private client = inject(HttpClient);
 
   getOrder(orderId: string): Observable<Order> {
-    return this.client.get<Order>(`${this.baseUrl}/orders/${orderId}`)
+    return this.client.get<Order>(`${this.baseUrl}/orders/${orderId}`);
   }
 
   validateOrder(orderId: string): Observable<void> {
-    return this.client.post<void>(`${this.baseUrl}/orders/${orderId}/validate`, {})
+    return this.client.post<void>(
+      `${this.baseUrl}/orders/${orderId}/validate`,
+      {},
+    );
   }
 }

@@ -4,542 +4,560 @@
  */
 
 export type paths = {
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/cart-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Cart Changed
-         * @description Updates the Walley Checkout order when the Norce cart changes, ex. if a new item is added to the cart or the amount changes.
-         */
-        post: operations["CartChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/cart-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/customer-update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Update Customer
-         * @description Updates customer information on Norce order with latest customer information from Walley.
-         */
-        post: operations["UpdateCustomer"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Cart Changed
+     * @description Updates the Walley Checkout order when the Norce cart changes, ex. if a new item is added to the cart or the amount changes.
+     */
+    post: operations['CartChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/customer-update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/notification": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Notification
-         * @description Consumes notifications when a Walley Checkout order is completed or invoice status is updated.
-         */
-        get: operations["Notification"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Update Customer
+     * @description Updates customer information on Norce order with latest customer information from Walley.
+     */
+    post: operations['UpdateCustomer'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/notification': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/shipping-option-update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Update Shipping Option
-         * @description Updates shipping option on Norce order with latest shipping information from Walley.
-         */
-        post: operations["ShippingOptionUpdate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Notification
+     * @description Consumes notifications when a Walley Checkout order is completed or invoice status is updated.
+     */
+    get: operations['Notification'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/shipping-option-update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/state-changed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * State Changed
-         * @description Updates the Walley Checkout order when the Norce state changes, ex. transitioning back from processing to checkout.
-         */
-        post: operations["StateChanged"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Update Shipping Option
+     * @description Updates shipping option on Norce order with latest shipping information from Walley.
+     */
+    post: operations['ShippingOptionUpdate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/state-changed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/validation": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Validation
-         * @description Validates Walley Checkout order against Norce order requirements such as currently in stock, correct pricing etc.
-         */
-        get: operations["Validation"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * State Changed
+     * @description Updates the Walley Checkout order when the Norce state changes, ex. transitioning back from processing to checkout.
+     */
+    post: operations['StateChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/callback/orders/{order_id}/payments/{payment_id}/validation': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Initialize Payment
-         * @description Initialize a new Walley Checkout payment session for an existing Norce order.
-         */
-        post: operations["InitializePayment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Validation
+     * @description Validates Walley Checkout order against Norce order requirements such as currently in stock, correct pricing etc.
+     */
+    get: operations['Validation'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments/{payment_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Payment
-         * @description Get an existing Walley Checkout payment session. May be used to get the Walley html snippet, for example after the Walley Checkout order has been confirmed.
-         */
-        get: operations["GetPayment"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Initialize Payment
+     * @description Initialize a new Walley Checkout payment session for an existing Norce order.
+     */
+    post: operations['InitializePayment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments/{payment_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/checkout/v1/orders/{order_id}/payments/{payment_id}/remove": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Remove a Walley Checkout payment
-         * @description Requires an existing Norce order. Will do soft delete on any payments or shippings by setting state to removed. Will delete any hooks added when creating a Walley Checkout payment.
-         */
-        post: operations["RemoveWalleyCheckoutOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Payment
+     * @description Get an existing Walley Checkout payment session. May be used to get the Walley html snippet, for example after the Walley Checkout order has been confirmed.
+     */
+    get: operations['GetPayment'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/checkout/v1/orders/{order_id}/payments/{payment_id}/remove': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/cancel": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Cancel Walley Order
-         * @description Used to cancel a Walley order
-         */
-        post: operations["CancelWalleyOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Remove a Walley Checkout payment
+     * @description Requires an existing Norce order. Will do soft delete on any payments or shippings by setting state to removed. Will delete any hooks added when creating a Walley Checkout payment.
+     */
+    post: operations['RemoveWalleyCheckoutOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/cancel': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/capture": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Capture Walley order
-         * @description Used to capture a Walley order
-         */
-        post: operations["CaptureWalleyOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Cancel Walley Order
+     * @description Used to cancel a Walley order
+     */
+    post: operations['CancelWalleyOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/capture': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/refresh": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Refresh the list of available PaymentActions for a Walley Checkout Order Payment
-         * @description Refreshes the list of available payment actions on the Walley Checkout payment, to reflect the current payment state
-         */
-        post: operations["Refresh"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Capture Walley order
+     * @description Used to capture a Walley order
+     */
+    post: operations['CaptureWalleyOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/refresh': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/order/v1/orders/{order_id}/payments/{payment_id}/refund": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Refund Walley order
-         * @description Used to refund a Walley order
-         */
-        post: operations["RefundWalleyOrder"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Refresh the list of available PaymentActions for a Walley Checkout Order Payment
+     * @description Refreshes the list of available payment actions on the Walley Checkout payment, to reflect the current payment state
+     */
+    post: operations['Refresh'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/order/v1/orders/{order_id}/payments/{payment_id}/refund': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    get?: never;
+    put?: never;
+    /**
+     * Refund Walley order
+     * @description Used to refund a Walley order
+     */
+    post: operations['RefundWalleyOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-    schemas: {
-        Addon: {
-            /** Format: double */
-            price?: number;
-            reference?: string;
-        };
-        Address: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            careOf?: string;
-            city?: string;
-            country?: string;
-            customerType?: components["schemas"]["CustomerType"];
-            email?: string;
-            familyName?: string;
-            givenName?: string;
-            nationalIdentificationNumber?: string;
-            organizationIdentificationNumber?: string;
-            organizationName?: string;
-            phone?: string;
-            postalCode?: string;
-            reference?: string;
-            region?: string;
-            streetAddress?: string;
-            streetAddress2?: string;
-        };
-        Callback: {
-            adapterId?: string;
-            event?: components["schemas"]["CallbackEvent"];
-            readonly id?: string;
-            url?: string;
-        };
-        /** @enum {string} */
-        CallbackEvent: "validate" | "accept" | "complete";
-        Cart: {
-            discounts?: components["schemas"]["Discount"][];
-            items?: components["schemas"]["Item"][];
-            reference?: string;
-            total?: components["schemas"]["Price"];
-        };
-        Consent: {
-            checked?: boolean;
-            id?: string;
-            required?: boolean;
-            text?: string;
-        };
-        Customer: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            billing?: components["schemas"]["Address"];
-            shipping?: components["schemas"]["Address"];
-            type: components["schemas"]["CustomerType"];
-        };
-        /** @enum {string} */
-        CustomerType: "person" | "organization";
-        DeliveryDetails: {
-            carrier?: string;
-            class?: string;
-            pickupLocation?: components["schemas"]["PickupLocation"];
-            product?: components["schemas"]["Product"];
-        };
-        Discount: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            code?: string;
-            name?: string;
-            type?: components["schemas"]["DiscountType"];
-            value?: components["schemas"]["Price"];
-        };
-        /** @enum {string} */
-        DiscountType: "item" | "shipping";
-        Error: {
-            /**
-             * @description Error code
-             * @example cart-not-found
-             */
-            code?: string;
-            readonly error_text?: string;
-            /**
-             * @description Detailed error information
-             * @example Cart with id:{id} now found.
-             */
-            message?: string;
-        };
-        Hook: {
-            adapterId?: string;
-            readonly id?: string;
-            invoke?: string;
-            subscribeTo?: string;
-            target?: string;
-        };
-        Item: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            discounts?: components["schemas"]["Discount"][];
-            id?: string;
-            imageUrl?: string;
-            name?: string;
-            originalTotal?: components["schemas"]["Price"];
-            price?: components["schemas"]["Price"];
-            /** Format: int32 */
-            quantity?: number;
-            reference?: string;
-            sku?: string;
-            total?: components["schemas"]["Price"];
-            unit?: string;
-            url?: string;
-            /** Format: double */
-            vatRate?: number;
-        };
-        Order: {
-            attributes?: {
-                [key: string]: unknown;
-            };
-            cart?: components["schemas"]["Cart"];
-            channel?: string;
-            consents?: components["schemas"]["Consent"][];
-            country?: string;
-            /** Format: date-time */
-            created?: string;
-            culture?: string;
-            currency?: string;
-            customer?: components["schemas"]["Customer"];
-            hooks?: components["schemas"]["Hook"][];
-            id?: string;
-            /** Format: date-time */
-            lastModified?: string;
-            merchant?: string;
-            notifications?: components["schemas"]["Callback"][];
-            payments?: components["schemas"]["Payment"][];
-            reference?: string;
-            shippings?: components["schemas"]["Shipping"][];
-            state?: components["schemas"]["State"];
-            total?: components["schemas"]["Price"];
-            validations?: components["schemas"]["Callback"][];
-        };
-        /** @enum {string} */
-        OrderStatus: "checkout" | "processing" | "accepted" | "completed" | "declined" | "removed";
-        PatchOperation: {
-            op?: string;
-            path?: string;
-            value?: unknown;
-        };
-        Payment: {
-            actions?: components["schemas"]["PaymentAction"][];
-            adapterId?: string;
-            /** Format: double */
-            amount?: number;
-            attributes?: {
-                [key: string]: unknown;
-            };
-            channel?: string;
-            currency?: string;
-            id?: string;
-            merchant?: string;
-            name?: string;
-            orderId?: string;
-            reference?: string;
-            state?: components["schemas"]["PaymentState"];
-            type?: components["schemas"]["PaymentType"];
-            /** Format: double */
-            upperLimitAmount?: number;
-        };
-        PaymentAction: {
-            adapterId?: string;
-            id?: string;
-            type?: string;
-            url?: string;
-        };
-        /** @enum {string} */
-        PaymentState: "intent" | "removed" | "processing" | "failed" | "confirmed" | "pending" | "declined" | "reserved" | "credited" | "captured" | "cancelled" | "refunded";
-        /** @enum {string} */
-        PaymentType: "default" | "prepaid" | "voucher";
-        PickupLocation: {
-            address?: components["schemas"]["ShippingAddress"];
-            name?: string;
-            reference?: string;
-        };
-        Price: {
-            /** Format: double */
-            excludingVat?: number;
-            /** Format: double */
-            includingVat?: number;
-        };
-        ProblemDetails: {
-            detail?: string;
-            instance?: string;
-            /** Format: int32 */
-            status?: number;
-            title?: string;
-            type?: string;
-        } & {
-            [key: string]: unknown;
-        };
-        Product: {
-            name?: string;
-            reference?: string;
-        };
-        Shipping: {
-            adapterId?: string;
-            addons?: components["schemas"]["Addon"][];
-            attributes?: {
-                [key: string]: unknown;
-            };
-            channel?: string;
-            deliveryDetails?: components["schemas"]["DeliveryDetails"];
-            id?: string;
-            merchant?: string;
-            name?: string;
-            orderId?: string;
-            reference?: string;
-            tmsReference?: string;
-            total?: components["schemas"]["Price"];
-            /** Format: double */
-            vatRate?: number;
-        };
-        ShippingAddress: {
-            city?: string;
-            country?: string;
-            postalCode?: string;
-            streetAddress?: string;
-        };
-        State: {
-            currentStatus?: components["schemas"]["OrderStatus"];
-            readonly transitions?: components["schemas"]["Transition"][];
-        };
-        Transition: {
-            readonly status?: components["schemas"]["OrderStatus"];
-            /** Format: date-time */
-            readonly timeStamp?: string;
-        };
-        WalleyCheckoutOrder: {
-            /**
-             * @description Place this script on the pages where you want the Checkout to appear.
-             *     The value provided in the data-token attribute corresponds to the public
-             *     token received when initializing the Checkout session.
-             *     When the script is executed, the Checkout iframe is dynamically fetched and rendered on the page.
-             * @example
-             *                     <script src="https://checkout.uat.walleydev.com/walley-checkout-loader.js"
-             *                     data-token="public-SE-20e84dd04dcc3da405696d6f15b5154a9572f64d2394f461" data-version="v2"></script>
-             *
-             */
-            htmlSnippet?: string;
-            /** @description Payment Id */
-            paymentId?: string;
-            /**
-             * @description The PublicToken is used to render the Checkout iframe. The public token has a limited lifetime of 168 hours (7
-             *     days).
-             * @example public-SE-20e84dd04dcc3da405696d6f15b5154a9572f64d2394f461
-             */
-            publicToken?: string;
-        };
-        WalleyCheckoutValidationCustomError: {
-            /** @description The message with a more descriptive text why the validation failed, and how the customer should proceed. Truncated to max 512 chars. */
-            message?: string;
-            /** @description The title of the validation failure displayed in the Checkout. Truncated to max 512 chars. */
-            title?: string;
-        };
-        WalleyCheckoutValidationSuccess: {
-            /** @description Order reference to the order just created during the validate call. This can later be used to track the purchase
-             *     with merchant services. Max 50 chars. */
-            orderReference?: string;
-        };
+  schemas: {
+    Addon: {
+      /** Format: double */
+      price?: number;
+      reference?: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    Address: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      careOf?: string;
+      city?: string;
+      country?: string;
+      customerType?: components['schemas']['CustomerType'];
+      email?: string;
+      familyName?: string;
+      givenName?: string;
+      nationalIdentificationNumber?: string;
+      organizationIdentificationNumber?: string;
+      organizationName?: string;
+      phone?: string;
+      postalCode?: string;
+      reference?: string;
+      region?: string;
+      streetAddress?: string;
+      streetAddress2?: string;
+    };
+    Callback: {
+      adapterId?: string;
+      event?: components['schemas']['CallbackEvent'];
+      readonly id?: string;
+      url?: string;
+    };
+    /** @enum {string} */
+    CallbackEvent: 'validate' | 'accept' | 'complete';
+    Cart: {
+      discounts?: components['schemas']['Discount'][];
+      items?: components['schemas']['Item'][];
+      reference?: string;
+      total?: components['schemas']['Price'];
+    };
+    Consent: {
+      checked?: boolean;
+      id?: string;
+      required?: boolean;
+      text?: string;
+    };
+    Customer: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      billing?: components['schemas']['Address'];
+      shipping?: components['schemas']['Address'];
+      type: components['schemas']['CustomerType'];
+    };
+    /** @enum {string} */
+    CustomerType: 'person' | 'organization';
+    DeliveryDetails: {
+      carrier?: string;
+      class?: string;
+      pickupLocation?: components['schemas']['PickupLocation'];
+      product?: components['schemas']['Product'];
+    };
+    Discount: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      code?: string;
+      name?: string;
+      type?: components['schemas']['DiscountType'];
+      value?: components['schemas']['Price'];
+    };
+    /** @enum {string} */
+    DiscountType: 'item' | 'shipping';
+    Error: {
+      /**
+       * @description Error code
+       * @example cart-not-found
+       */
+      code?: string;
+      readonly error_text?: string;
+      /**
+       * @description Detailed error information
+       * @example Cart with id:{id} now found.
+       */
+      message?: string;
+    };
+    Hook: {
+      adapterId?: string;
+      readonly id?: string;
+      invoke?: string;
+      subscribeTo?: string;
+      target?: string;
+    };
+    Item: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      discounts?: components['schemas']['Discount'][];
+      id?: string;
+      imageUrl?: string;
+      name?: string;
+      originalTotal?: components['schemas']['Price'];
+      price?: components['schemas']['Price'];
+      /** Format: int32 */
+      quantity?: number;
+      reference?: string;
+      sku?: string;
+      total?: components['schemas']['Price'];
+      unit?: string;
+      url?: string;
+      /** Format: double */
+      vatRate?: number;
+    };
+    Order: {
+      attributes?: {
+        [key: string]: unknown;
+      };
+      cart?: components['schemas']['Cart'];
+      channel?: string;
+      consents?: components['schemas']['Consent'][];
+      country?: string;
+      /** Format: date-time */
+      created?: string;
+      culture?: string;
+      currency?: string;
+      customer?: components['schemas']['Customer'];
+      hooks?: components['schemas']['Hook'][];
+      id?: string;
+      /** Format: date-time */
+      lastModified?: string;
+      merchant?: string;
+      notifications?: components['schemas']['Callback'][];
+      payments?: components['schemas']['Payment'][];
+      reference?: string;
+      shippings?: components['schemas']['Shipping'][];
+      state?: components['schemas']['State'];
+      total?: components['schemas']['Price'];
+      validations?: components['schemas']['Callback'][];
+    };
+    /** @enum {string} */
+    OrderStatus:
+      | 'checkout'
+      | 'processing'
+      | 'accepted'
+      | 'completed'
+      | 'declined'
+      | 'removed';
+    PatchOperation: {
+      op?: string;
+      path?: string;
+      value?: unknown;
+    };
+    Payment: {
+      actions?: components['schemas']['PaymentAction'][];
+      adapterId?: string;
+      /** Format: double */
+      amount?: number;
+      attributes?: {
+        [key: string]: unknown;
+      };
+      channel?: string;
+      currency?: string;
+      id?: string;
+      merchant?: string;
+      name?: string;
+      orderId?: string;
+      reference?: string;
+      state?: components['schemas']['PaymentState'];
+      type?: components['schemas']['PaymentType'];
+      /** Format: double */
+      upperLimitAmount?: number;
+    };
+    PaymentAction: {
+      adapterId?: string;
+      id?: string;
+      type?: string;
+      url?: string;
+    };
+    /** @enum {string} */
+    PaymentState:
+      | 'intent'
+      | 'removed'
+      | 'processing'
+      | 'failed'
+      | 'confirmed'
+      | 'pending'
+      | 'declined'
+      | 'reserved'
+      | 'credited'
+      | 'captured'
+      | 'cancelled'
+      | 'refunded';
+    /** @enum {string} */
+    PaymentType: 'default' | 'prepaid' | 'voucher';
+    PickupLocation: {
+      address?: components['schemas']['ShippingAddress'];
+      name?: string;
+      reference?: string;
+    };
+    Price: {
+      /** Format: double */
+      excludingVat?: number;
+      /** Format: double */
+      includingVat?: number;
+    };
+    ProblemDetails: {
+      detail?: string;
+      instance?: string;
+      /** Format: int32 */
+      status?: number;
+      title?: string;
+      type?: string;
+    } & {
+      [key: string]: unknown;
+    };
+    Product: {
+      name?: string;
+      reference?: string;
+    };
+    Shipping: {
+      adapterId?: string;
+      addons?: components['schemas']['Addon'][];
+      attributes?: {
+        [key: string]: unknown;
+      };
+      channel?: string;
+      deliveryDetails?: components['schemas']['DeliveryDetails'];
+      id?: string;
+      merchant?: string;
+      name?: string;
+      orderId?: string;
+      reference?: string;
+      tmsReference?: string;
+      total?: components['schemas']['Price'];
+      /** Format: double */
+      vatRate?: number;
+    };
+    ShippingAddress: {
+      city?: string;
+      country?: string;
+      postalCode?: string;
+      streetAddress?: string;
+    };
+    State: {
+      currentStatus?: components['schemas']['OrderStatus'];
+      readonly transitions?: components['schemas']['Transition'][];
+    };
+    Transition: {
+      readonly status?: components['schemas']['OrderStatus'];
+      /** Format: date-time */
+      readonly timeStamp?: string;
+    };
+    WalleyCheckoutOrder: {
+      /**
+       * @description Place this script on the pages where you want the Checkout to appear.
+       *     The value provided in the data-token attribute corresponds to the public
+       *     token received when initializing the Checkout session.
+       *     When the script is executed, the Checkout iframe is dynamically fetched and rendered on the page.
+       * @example
+       *                     <script src="https://checkout.uat.walleydev.com/walley-checkout-loader.js"
+       *                     data-token="public-SE-20e84dd04dcc3da405696d6f15b5154a9572f64d2394f461" data-version="v2"></script>
+       *
+       */
+      htmlSnippet?: string;
+      /** @description Payment Id */
+      paymentId?: string;
+      /**
+       * @description The PublicToken is used to render the Checkout iframe. The public token has a limited lifetime of 168 hours (7
+       *     days).
+       * @example public-SE-20e84dd04dcc3da405696d6f15b5154a9572f64d2394f461
+       */
+      publicToken?: string;
+    };
+    WalleyCheckoutValidationCustomError: {
+      /** @description The message with a more descriptive text why the validation failed, and how the customer should proceed. Truncated to max 512 chars. */
+      message?: string;
+      /** @description The title of the validation failure displayed in the Checkout. Truncated to max 512 chars. */
+      title?: string;
+    };
+    WalleyCheckoutValidationSuccess: {
+      /** @description Order reference to the order just created during the validate call. This can later be used to track the purchase
+       *     with merchant services. Max 50 chars. */
+      orderReference?: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 };
 export type Addon = components['schemas']['Addon'];
 export type Address = components['schemas']['Address'];
@@ -571,518 +589,520 @@ export type ShippingAddress = components['schemas']['ShippingAddress'];
 export type State = components['schemas']['State'];
 export type Transition = components['schemas']['Transition'];
 export type WalleyCheckoutOrder = components['schemas']['WalleyCheckoutOrder'];
-export type WalleyCheckoutValidationCustomError = components['schemas']['WalleyCheckoutValidationCustomError'];
-export type WalleyCheckoutValidationSuccess = components['schemas']['WalleyCheckoutValidationSuccess'];
+export type WalleyCheckoutValidationCustomError =
+  components['schemas']['WalleyCheckoutValidationCustomError'];
+export type WalleyCheckoutValidationSuccess =
+  components['schemas']['WalleyCheckoutValidationSuccess'];
 export type $defs = Record<string, never>;
 export interface operations {
-    CartChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  CartChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    UpdateCustomer: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    Notification: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
         };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    ShippingOptionUpdate: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  UpdateCustomer: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    StateChanged: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        /** @description Updated order */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["Order"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PatchOperation"][];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    Validation: {
-        parameters: {
-            query: {
-                /** @description Merchant channel */
-                channel: string;
-                /** @description Merchant identifier */
-                merchant: string;
-            };
-            header?: never;
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutValidationSuccess"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutValidationCustomError"];
-                };
-            };
-        };
+  };
+  Notification: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    InitializePayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutOrder"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Conflict */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    GetPayment: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutOrder"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  ShippingOptionUpdate: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    RemoveWalleyCheckoutOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    CancelWalleyOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                order_id: string;
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutOrder"];
-                };
-            };
-        };
+  };
+  StateChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
-    CaptureWalleyOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutOrder"];
-                };
-            };
-        };
+    /** @description Updated order */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['Order'];
+      };
     };
-    Refresh: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                order_id: string;
-                payment_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+        content: {
+          'application/json': components['schemas']['PatchOperation'][];
         };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
     };
-    RefundWalleyOrder: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Channel identifier.
-                 *     <example>1</example> */
-                "x-channel": string;
-                /** @description Merchant identifier.
-                 *     <example>norce</example> */
-                "x-merchant": string;
-            };
-            path: {
-                /** @description Order identifier */
-                order_id: string;
-                /** @description Payment identifier */
-                payment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WalleyCheckoutOrder"];
-                };
-            };
-        };
+  };
+  Validation: {
+    parameters: {
+      query: {
+        /** @description Merchant channel */
+        channel: string;
+        /** @description Merchant identifier */
+        merchant: string;
+      };
+      header?: never;
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
     };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutValidationSuccess'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutValidationCustomError'];
+        };
+      };
+    };
+  };
+  InitializePayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutOrder'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  GetPayment: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutOrder'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  RemoveWalleyCheckoutOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  CancelWalleyOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        order_id: string;
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutOrder'];
+        };
+      };
+    };
+  };
+  CaptureWalleyOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutOrder'];
+        };
+      };
+    };
+  };
+  Refresh: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        order_id: string;
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+    };
+  };
+  RefundWalleyOrder: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Channel identifier.
+         *     <example>1</example> */
+        'x-channel': string;
+        /** @description Merchant identifier.
+         *     <example>norce</example> */
+        'x-merchant': string;
+      };
+      path: {
+        /** @description Order identifier */
+        order_id: string;
+        /** @description Payment identifier */
+        payment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['WalleyCheckoutOrder'];
+        };
+      };
+    };
+  };
 }

@@ -5,6 +5,6 @@ export const environment = {
   showPriceIncludingVat: true,
   context: {
     merchant: undefined,
-    channel: undefined
-  }
+    channel: undefined,
+  },
 };

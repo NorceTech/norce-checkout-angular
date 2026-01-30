@@ -1,12 +1,12 @@
-import {inject, Injectable} from '@angular/core';
-import {catchError, EMPTY, retry} from 'rxjs';
-import {ContextService} from '~/app/core/context/context.service';
-import {DataService} from '~/app/core/config/data.service';
-import {ToastService} from '~/app/core/toast/toast.service';
-import {derivedAsync} from 'ngxtension/derived-async';
+import { inject, Injectable } from '@angular/core';
+import { catchError, EMPTY, retry } from 'rxjs';
+import { ContextService } from '~/app/core/context/context.service';
+import { DataService } from '~/app/core/config/data.service';
+import { ToastService } from '~/app/core/toast/toast.service';
+import { derivedAsync } from 'ngxtension/derived-async';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigService {
   private dataService = inject(DataService);
@@ -21,7 +21,7 @@ export class ConfigService {
       catchError(() => {
         this.toastService.error(`Failed to fetch configurations`);
         return EMPTY;
-      })
-    )
-  })
+      }),
+    );
+  });
 }

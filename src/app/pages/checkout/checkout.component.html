@@ -17,12 +17,13 @@
 
   <app-shipping-selector></app-shipping-selector>
   @if (shippingAdapterId(); as shippingAdapterId) {
-    <app-shipping-factory [adapterId]="shippingAdapterId"></app-shipping-factory>
+    <app-shipping-factory
+      [adapterId]="shippingAdapterId"
+    ></app-shipping-factory>
   }
 
   <app-payment-selector></app-payment-selector>
   @if (paymentAdapterId(); as paymentAdapterId) {
     <app-payment-factory [adapterId]="paymentAdapterId"></app-payment-factory>
   }
-
 </div>

@@ -1,5 +1,5 @@
-import {WindowIngrid} from '~/app/features/shippings/ingrid/ingrid.types';
-import {WindowWalley} from '~/app/features/payments/walley/walley.types';
+import { WindowIngrid } from '~/app/features/shippings/ingrid/ingrid.types';
+import { WindowWalley } from '~/app/features/payments/walley/walley.types';
 
 declare global {
   interface Window {

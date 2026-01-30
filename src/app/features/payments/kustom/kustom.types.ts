@@ -2,9 +2,7 @@ export type WindowKlarna = {
   _klarnaCheckout?: KlarnaCheckoutApi | undefined;
 };
 
-export type KlarnaCheckoutApi = (
-  callback: (api: KlarnaApi) => void
-) => void;
+export type KlarnaCheckoutApi = (callback: (api: KlarnaApi) => void) => void;
 
 export interface KlarnaApi {
   suspend: (options?: KlarnaSuspendOptions) => void;
@@ -98,15 +96,26 @@ export type KlarnaEventHandlers = {
   [KlarnaEvent.UserInteracted]?: (data: KlarnaUserInteractedEventData) => void;
   [KlarnaEvent.Customer]?: (data: KlarnaCustomerEventData) => void;
   [KlarnaEvent.Change]?: (data: KlarnaChangeEventData) => void;
-  [KlarnaEvent.BillingAddressChange]?: (data: KlarnaAddressChangeEventData) => void;
-  [KlarnaEvent.ShippingAddressChange]?: (data: KlarnaAddressChangeEventData) => void;
-  [KlarnaEvent.ShippingOptionChange]?: (data: KlarnaShippingOptionChangeEventData) => void;
+  [KlarnaEvent.BillingAddressChange]?: (
+    data: KlarnaAddressChangeEventData,
+  ) => void;
+  [KlarnaEvent.ShippingAddressChange]?: (
+    data: KlarnaAddressChangeEventData,
+  ) => void;
+  [KlarnaEvent.ShippingOptionChange]?: (
+    data: KlarnaShippingOptionChangeEventData,
+  ) => void;
   [KlarnaEvent.ShippingAddressUpdateError]?: () => void;
-  [KlarnaEvent.OrderTotalChange]?: (data: KlarnaOrderTotalChangeEventData) => void;
+  [KlarnaEvent.OrderTotalChange]?: (
+    data: KlarnaOrderTotalChangeEventData,
+  ) => void;
   [KlarnaEvent.CheckboxChange]?: (data: KlarnaCheckboxChangeEventData) => void;
   [KlarnaEvent.CanNotCompleteOrder]?: () => void;
   [KlarnaEvent.NetworkError]?: () => void;
   [KlarnaEvent.RedirectInitiated]?: () => void;
   [KlarnaEvent.LoadConfirmation]?: () => void;
-  [KlarnaEvent.ValidationCallback]?: (data: never, callback: (result: KlarnaValidationCallbackResult) => void) => void;
+  [KlarnaEvent.ValidationCallback]?: (
+    data: never,
+    callback: (result: KlarnaValidationCallbackResult) => void,
+  ) => void;
 };

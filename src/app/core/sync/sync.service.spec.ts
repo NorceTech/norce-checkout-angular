@@ -1,18 +1,15 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {SyncService} from './sync.service';
-import {take} from 'rxjs';
-import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+import { SyncService } from './sync.service';
+import { take } from 'rxjs';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 describe('SyncService', () => {
   let service: SyncService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideExperimentalZonelessChangeDetection(),
-        SyncService
-      ]
+      providers: [provideExperimentalZonelessChangeDetection(), SyncService],
     });
     service = TestBed.inject(SyncService);
   });
@@ -34,13 +31,10 @@ describe('SyncService', () => {
   });
 
   it('should have initial in-flight requests value of 0', (done) => {
-    service
-      .inFlightRequests$
-      .pipe(take(1))
-      .subscribe((count) => {
-        expect(count).toEqual(0);
-        done();
-      });
+    service.inFlightRequests$.pipe(take(1)).subscribe((count) => {
+      expect(count).toEqual(0);
+      done();
+    });
   });
 
   it('should map in-flight requests correctly through hasInFlightRequest$', () => {

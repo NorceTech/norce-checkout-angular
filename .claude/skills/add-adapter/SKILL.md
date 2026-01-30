@@ -18,6 +18,7 @@ You are an expert in the Norce Checkout Angular adapter pattern. Help the user a
 ### 1. Gather Adapter Information
 
 Ask the user for:
+
 - Adapter name (e.g., "my-payment")
 - Adapter type (payment, shipping, or voucher)
 - Adapter identifier (the string value returned by Norce Order API)
@@ -40,6 +41,7 @@ npx openapi-typescript https://my-payment-adapter.checkout.test.internal.norce.t
 ### 3. Create the Service
 
 Create `src/app/features/{adapter-type}/{adapter-name}/{adapter-name}.service.ts` implementing the appropriate interface:
+
 - `IPaymentService` for payment adapters
 - `IShippingService` for shipping adapters
 - `IVoucherService` for voucher adapters
@@ -62,9 +64,9 @@ Add to `src/app/core/adapter.ts`:
 
 ```typescript
 const PaymentAdapter = {
-  Walley: 'walley_checkout_adapter',
-  Adyen: 'adyen_dropin_adapter',
-  MyAdapter: 'my_adapter_identifier',  // <- Add this
+  Walley: "walley_checkout_adapter",
+  Adyen: "adyen_dropin_adapter",
+  MyAdapter: "my_adapter_identifier", // <- Add this
 } as const;
 ```
 
@@ -75,6 +77,7 @@ Create `src/app/features/{adapter-type}/{adapter-name}/{adapter-name}.component.
 ### 7. Add Component to Factory
 
 In the factory component (e.g., `PaymentFactoryComponent` for payments):
+
 1. Import the new component
 2. Add to the components mapping:
 
@@ -95,7 +98,7 @@ Add the adapter service name to `src/proxy.conf.test.js` in the services array (
 ```javascript
 const services = [
   "adyen-adapter",
-  "my-adapter",  // <- Add this (e.g., "klarna-adapter", "quickpay-adapter")
+  "my-adapter", // <- Add this (e.g., "klarna-adapter", "quickpay-adapter")
   "walley-adapter",
 ];
 ```

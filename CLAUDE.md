@@ -109,9 +109,9 @@ npx openapi-typescript https://my-payment-adapter.checkout.test.internal.norce.t
 
 ```typescript
 const PaymentAdapter = {
-  Walley: 'walley_checkout_adapter',
-  Adyen: 'adyen_dropin_adapter',
-  MyAdapter: 'my_adapter_identifier',  // <- Add this
+  Walley: "walley_checkout_adapter",
+  Adyen: "adyen_dropin_adapter",
+  MyAdapter: "my_adapter_identifier", // <- Add this
 } as const;
 ```
 

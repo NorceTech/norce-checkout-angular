@@ -1,16 +1,23 @@
-import {ComponentRef, provideExperimentalZonelessChangeDetection, signal, ViewContainerRef} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {PaymentFactoryComponent} from './payment-factory.component';
-import {ToastService} from '~/app/core/toast/toast.service';
-import {ADAPTERS, IAdapters} from '~/app/core/adapter';
-import {WalleyComponent} from '~/app/features/payments/walley/walley.component';
+import {
+  ComponentRef,
+  provideExperimentalZonelessChangeDetection,
+  signal,
+  ViewContainerRef,
+} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PaymentFactoryComponent } from './payment-factory.component';
+import { ToastService } from '~/app/core/toast/toast.service';
+import { ADAPTERS, IAdapters } from '~/app/core/adapter';
+import { WalleyComponent } from '~/app/features/payments/walley/walley.component';
 
 // --- Fake ViewContainerRef ---
 class FakeViewContainerRef implements Partial<ViewContainerRef> {
   clear = jasmine.createSpy('clear');
-  createComponent = jasmine.createSpy('createComponent').and.callFake((component: any) => {
-    return {instance: {}} as ComponentRef<any>;
-  });
+  createComponent = jasmine
+    .createSpy('createComponent')
+    .and.callFake((component: any) => {
+      return { instance: {} } as ComponentRef<any>;
+    });
 }
 
 describe('PaymentFactoryComponent', () => {
@@ -22,12 +29,12 @@ describe('PaymentFactoryComponent', () => {
   let adaptersSpy: jasmine.SpyObj<IAdapters>;
 
   const defaultTestAdapters = {
-    shipping: {Ingrid: 'spy_ingrid_adapter'},
-    voucher: {Awardit: 'spy_awardit_adapter'},
+    shipping: { Ingrid: 'spy_ingrid_adapter' },
+    voucher: { Awardit: 'spy_awardit_adapter' },
     payment: {
       Walley: 'spy_walley_adapter',
-      Adyen: 'spy_adyen_adapter'
-    }
+      Adyen: 'spy_adyen_adapter',
+    },
   };
 
   beforeEach(async () => {
@@ -35,13 +42,11 @@ describe('PaymentFactoryComponent', () => {
     adaptersSpy = jasmine.createSpyObj('IAdapters', [], defaultTestAdapters);
 
     await TestBed.configureTestingModule({
-      imports: [
-        PaymentFactoryComponent,
-      ],
+      imports: [PaymentFactoryComponent],
       providers: [
         provideExperimentalZonelessChangeDetection(),
-        {provide: ToastService, useValue: toastServiceSpy},
-        {provide: ADAPTERS, useValue: adaptersSpy},
+        { provide: ToastService, useValue: toastServiceSpy },
+        { provide: ADAPTERS, useValue: adaptersSpy },
       ],
     }).compileComponents();
 
@@ -60,13 +65,13 @@ describe('PaymentFactoryComponent', () => {
 
   const setComponentRenderMap = (renderMap: Record<string, any>) => {
     component['PAYMENT_COMPONENTS'] = renderMap as any;
-  }
+  };
 
   it('should load the correct payment component for a valid adapter', () => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
-    })
+    });
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
     // Act
@@ -99,7 +104,7 @@ describe('PaymentFactoryComponent', () => {
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
-      'No payment component registered for adapter: Invalid'
+      'No payment component registered for adapter: Invalid',
     );
     expect(fakeContainer.createComponent).not.toHaveBeenCalled();
   });
@@ -108,7 +113,7 @@ describe('PaymentFactoryComponent', () => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
-    })
+    });
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
     component.container = signal(undefined);
 
@@ -117,13 +122,13 @@ describe('PaymentFactoryComponent', () => {
 
     // Assert
     expect(toastServiceSpy.error).toHaveBeenCalledWith(
-      'No container to load payment component into'
+      'No container to load payment component into',
     );
   });
 
   it('should clear the container and destroy previous component if one exists', () => {
     // Arrange
-    const fakeComponentRef = {destroy: jasmine.createSpy('destroy')};
+    const fakeComponentRef = { destroy: jasmine.createSpy('destroy') };
     (component as any).componentRef = fakeComponentRef;
     component.container = signal(fakeContainer as unknown as ViewContainerRef);
 
@@ -140,13 +145,15 @@ describe('PaymentFactoryComponent', () => {
     // Arrange
     setComponentRenderMap({
       [defaultTestAdapters.payment.Walley]: WalleyComponent,
-    })
+    });
     spyOn<any>(component, 'loadComponent');
     componentRef.setInput('adapterId', defaultTestAdapters.payment.Walley);
 
     // Assert
     setTimeout(() => {
-      expect((component as any).loadComponent).toHaveBeenCalledWith(defaultTestAdapters.payment.Walley);
+      expect((component as any).loadComponent).toHaveBeenCalledWith(
+        defaultTestAdapters.payment.Walley,
+      );
       done();
     }, 0);
   });

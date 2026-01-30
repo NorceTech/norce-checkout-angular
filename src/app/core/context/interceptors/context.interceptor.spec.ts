@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
-import {HttpRequest, HttpResponse} from '@angular/common/http';
-import {of, throwError} from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { HttpRequest, HttpResponse } from '@angular/common/http';
+import { of, throwError } from 'rxjs';
 import {
   EnvironmentInjector,
   provideExperimentalZonelessChangeDetection,
@@ -8,9 +8,9 @@ import {
   signal,
 } from '@angular/core';
 
-import {contextInterceptor} from './context.interceptor';
-import {ContextService} from '~/app/core/context/context.service';
-import {Context} from '~/app/core/entities/context';
+import { contextInterceptor } from './context.interceptor';
+import { ContextService } from '~/app/core/context/context.service';
+import { Context } from '~/app/core/entities/context';
 
 describe('contextInterceptor', () => {
   let fakeContext: Context;
@@ -34,7 +34,7 @@ describe('contextInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         provideExperimentalZonelessChangeDetection(),
-        {provide: ContextService, useValue: fakeContextService}
+        { provide: ContextService, useValue: fakeContextService },
       ],
     });
 
@@ -42,10 +42,11 @@ describe('contextInterceptor', () => {
     req = new HttpRequest('GET', 'http://example.com');
 
     // Set up a spy for next() that simulates a succeeding inner interceptor.
-    nextSpy = jasmine.createSpy('next').and.callFake(
-      (request: HttpRequest<any>) =>
-        of(new HttpResponse({status: 200, url: request.url}))
-    );
+    nextSpy = jasmine
+      .createSpy('next')
+      .and.callFake((request: HttpRequest<any>) =>
+        of(new HttpResponse({ status: 200, url: request.url })),
+      );
   });
 
   it('should add x-merchant and x-channel headers to the request', (done) => {
@@ -55,7 +56,8 @@ describe('contextInterceptor', () => {
         next: () => {
           expect(nextSpy).toHaveBeenCalledTimes(1);
           // The modified request is the argument passed to the next interceptor.
-          const modifiedReq = nextSpy.calls.mostRecent().args[0] as HttpRequest<any>;
+          const modifiedReq = nextSpy.calls.mostRecent()
+            .args[0] as HttpRequest<any>;
           expect(modifiedReq.headers.get('x-merchant')).toBe('testMerchant');
           expect(modifiedReq.headers.get('x-channel')).toBe('testChannel');
           done();
@@ -67,7 +69,7 @@ describe('contextInterceptor', () => {
 
   it('should forward the response from next', (done) => {
     const envInjector = TestBed.inject(EnvironmentInjector);
-    const expectedResponse = new HttpResponse({status: 200, url: req.url});
+    const expectedResponse = new HttpResponse({ status: 200, url: req.url });
     nextSpy.and.returnValue(of(expectedResponse));
     runInInjectionContext(envInjector, () => {
       contextInterceptor(req, nextSpy).subscribe({
