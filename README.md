@@ -2,70 +2,99 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
 
-## Development server
+## Running the playground
 
-To start a local development server, run:
+The playground configuration connects to the Norce playground environment.
 
-```bash
-ng serve
-```
+### Prerequisites
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Set up environment variables** - Copy the example environment file and configure your values:
 
 ```bash
-ng generate component component-name
+cp .env.example .env
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Edit `.env` with your playground credentials:
+- `TOKEN` - Your playground API token for authorization
+- `SLUG` - Your playground merchant slug (e.g., `order-demo`)
+
+2. **Install dependencies**:
 
 ```bash
-ng generate --help
+npm install
 ```
 
-## Building
+### Adapter configuration
 
-To build the project run:
+They must be set up via the **Norce Admin GUI** for your merchant/channel.
+
+The checkout application dynamically loads adapters based on the configuration returned by the Norce Order API.
+
+#### Supported adapter combinations
+
+| Platform | Payment | Shipping | Description |
+|----------|---------|----------|-------------|
+| Norce (with shipping) | Walley (no shipping) | - | Norce handles shipping, Walley handles payment only |
+| Norce (no shipping) | Walley (no shipping) | Ingrid | Ingrid handles shipping, Walley handles payment only |
+| Norce (no shipping) | Adyen | Ingrid | Ingrid handles shipping, Adyen handles payment |
+ | Norce (with shipping) | Adyen | - | Norce handles shipping, Adyen handles payment |
+
+#### Available adapters
+
+- **Platform**: Norce (only supported platform)
+- **Payment**: Walley, Adyen
+- **Shipping**: Ingrid (supports address form mode)
+- **Voucher**: Awardit
+
+#### Platform adapter configuration
+
+The checkout currently only supports the **Norce** platform adapter. This is fixed and not configurable.
+
+When setting up the Norce platform adapter in the Admin GUI, configure `mapShippingFromNorceCommerce`:
+
+| Setting | When to use |
+|---------|-------------|
+| `mapShippingFromNorceCommerce: true` | Use when Norce handles shipping (combined with Walley payment-only) |
+| `mapShippingFromNorceCommerce: false` | Use when an external shipping adapter is used (Ingrid) |
+
+#### Setting up adapters
+
+1. Log in to the Norce Admin GUI
+2. Navigate to your merchant/channel configuration
+3. Configure payment and shipping adapters as needed
+4. The checkout will automatically use the configured adapters
+
+### Starting the playground server
 
 ```bash
-ng build
+npm run start:playground
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The application will be available at `http://localhost:4200/`.
+This page includes a form you can use to initialize a norce checkout order from a basket.
 
-## Running unit tests
+The playground configuration:
+- Uses `environment.playground.ts` for environment settings
+- Proxies API requests to `https://{SLUG}.api-se.playground.norce.tech/checkout`
+- Automatically includes the `TOKEN` from your `.env` file in API requests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+[//]: # (# Generating types)
 
-```bash
-ng test
-```
+[//]: # ()
+[//]: # (```bash)
 
-## Running end-to-end tests
+[//]: # (npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-For end-to-end (e2e) testing, run:
+[//]: # (npx openapi-typescript https://norce-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/norce-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-```bash
-ng e2e
-```
+[//]: # (npx openapi-typescript https://configuration.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/configuration.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+[//]: # (npx openapi-typescript https://walley-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/walley-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-## Additional Resources
+[//]: # (npx openapi-typescript https://adyen-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/adyen-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[//]: # (npx openapi-typescript https://ingrid-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/ingrid-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-# Generating types
+[//]: # (npx openapi-typescript https://awardit-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/awardit-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix)
 
-```bash
-npx openapi-typescript https://order.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/order.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-npx openapi-typescript https://norce-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/norce-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-npx openapi-typescript https://configuration.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/configuration.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-npx openapi-typescript https://walley-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/walley-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-npx openapi-typescript https://adyen-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/adyen-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-npx openapi-typescript https://ingrid-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/ingrid-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-npx openapi-typescript https://awardit-adapter.checkout.test.internal.norce.tech/docs/v1/openapi.yaml --output src/openapi/awardit-adapter.ts --alphabetize --export-type --root-types --root-types-no-schema-prefix
-```
+[//]: # (```)
