@@ -2,9 +2,9 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
 
-## Running the playground
+## Running the application
 
-The playground configuration connects to the Norce playground environment.
+The application supports multiple environment configurations: playground, stage, and test.
 
 ### Prerequisites
 
@@ -14,8 +14,8 @@ The playground configuration connects to the Norce playground environment.
 cp .env.example .env
 ```
 
-Edit `.env` with your playground credentials:
-- `TOKEN` - Your playground/stage API token for authorization
+Edit `.env` with your credentials:
+- `TOKEN` - Your API token for authorization
 - `SLUG` - Your slug when accessing norce services (e.g., `order-demo` if accessing admin from https://order-demo.admin-se.playground.norce.tech)
 
 2. **Install dependencies**:
@@ -26,7 +26,7 @@ npm install
 
 ### Adapter configuration
 
-They must be set up via the **Norce Admin GUI** for your merchant/channel.
+Adapters must be set up via the **Norce Admin GUI** for your merchant/channel.
 
 The checkout application dynamically loads adapters based on the configuration returned by the Norce Order API.
 
@@ -53,19 +53,28 @@ The checkout application dynamically loads adapters based on the configuration r
 3. Configure platform, payment and shipping adapters as needed
 4. The checkout will automatically use the configured adapters
 
-### Starting the playground server
+### Starting the application
+
+Choose the environment you want to run:
 
 ```bash
-npm run start:playground
+npm run start:playground  # Connects to playground environment
+npm run start:stage       # Connects to stage environment
+npm run start:test        # Connects to test environment
 ```
 
 The application will be available at `http://localhost:4200/`.
 This page includes a form you can use to initialize a norce checkout order from a basket.
 
-The playground configuration:
-- Uses `environment.playground.ts` for environment settings
-- Proxies API requests to `https://{SLUG}.api-se.playground.norce.tech/checkout`
-- Automatically includes the `TOKEN` from your `.env` file in API requests
+#### Environment configurations
+
+| Environment     | Environment file              | API target                              |
+|-----------------|-------------------------------|-----------------------------------------|
+| Playground      | `environment.playground.ts`    | `https://{SLUG}.api-se.playground.norce.tech/checkout` |
+| Stage           | `environment.stage.ts`         | `https://{SLUG}.api-se.stage.norce.tech/checkout` |
+| Test            | `environment.test.ts`          | Internal test services                  |
+
+All configurations automatically include the `TOKEN` from your `.env` file in API requests.
 
 [//]: # (# Generating types)
 
