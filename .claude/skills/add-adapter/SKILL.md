@@ -15,9 +15,18 @@ You are an expert in the Norce Checkout Angular adapter pattern. Help the user a
 
 ## Steps to Add a New Adapter
 
-### 1. Generate OpenAPI Types
+### 1. Gather Adapter Information
 
-Ask the user for the adapter name and type, then generate the types from the OpenAPI spec (requires access to internal test services):
+Ask the user for:
+- Adapter name (e.g., "my-payment")
+- Adapter type (payment, shipping, or voucher)
+- Adapter identifier (the string value returned by Norce Order API)
+- **Documentation URL** (e.g., official documentation site for the external adapter - this may include frontend initialization guides, event listeners, SDK usage, etc.)
+- Any other relevant resources (GitHub repos, examples, etc.)
+
+### 2. Generate OpenAPI Types
+
+Generate the types from the OpenAPI spec (requires access to internal test services):
 
 ```bash
 # Example for a payment adapter named "my-payment"
@@ -26,14 +35,14 @@ npx openapi-typescript https://my-payment-adapter.checkout.test.internal.norce.t
   --alphabetize --export-type --root-types --root-types-no-schema-prefix
 ```
 
-### 2. Create the Service
+### 3. Create the Service
 
 Create `src/app/features/{adapter-type}/{adapter-name}/{adapter-name}.service.ts` implementing the appropriate interface:
 - `IPaymentService` for payment adapters
 - `IShippingService` for shipping adapters
 - `IVoucherService` for voucher adapters
 
-### 3. Register the Service
+### 4. Register the Service
 
 Add to `src/app/features/{adapter-type}/provide-{adapter-type}-services.ts` using multi-provider pattern:
 
@@ -45,7 +54,7 @@ Add to `src/app/features/{adapter-type}/provide-{adapter-type}-services.ts` usin
 }
 ```
 
-### 4. Add Adapter Identifier
+### 5. Add Adapter Identifier
 
 Add to `src/app/core/adapter.ts`:
 
@@ -57,11 +66,11 @@ const PaymentAdapter = {
 } as const;
 ```
 
-### 5. Create the Component
+### 6. Create the Component
 
 Create `src/app/features/{adapter-type}/{adapter-name}/{adapter-name}.component.ts` that uses your service.
 
-### 6. Add Component to Factory
+### 7. Add Component to Factory
 
 In the factory component (e.g., `PaymentFactoryComponent` for payments):
 1. Import the new component
