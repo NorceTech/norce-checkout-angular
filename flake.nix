@@ -1,7 +1,7 @@
 {
   description = "A Nix-flake-based angular development environment";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
   outputs = { self, nixpkgs }:
     let
@@ -14,7 +14,7 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            nodejs_22
+            nodejs_24
             nodePackages_latest."@angular/cli"
           ];
         };
