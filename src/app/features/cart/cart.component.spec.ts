@@ -1,9 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CartComponent } from './cart.component';
-import {
-  provideExperimentalZonelessChangeDetection,
-  signal,
-} from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { CartService } from '~/app/features/cart/cart.service';
 import { OrderService } from '~/app/core/order/order.service';
 import { PricePipe } from '~/app/shared/pipes/price.pipe';
@@ -34,7 +31,7 @@ describe('CartComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CartComponent],
       providers: [
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         { provide: CartService, useValue: cartService },
         { provide: OrderService, useValue: mockOrderService },
         { provide: PricePipe, useValue: pricePipeSpy },

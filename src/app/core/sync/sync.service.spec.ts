@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { SyncService } from './sync.service';
 import { take } from 'rxjs';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('SyncService', () => {
   let service: SyncService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideExperimentalZonelessChangeDetection(), SyncService],
+      providers: [provideZonelessChangeDetection(), SyncService],
     });
     service = TestBed.inject(SyncService);
   });

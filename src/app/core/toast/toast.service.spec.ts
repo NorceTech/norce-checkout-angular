@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 import { ToastService } from './toast.service';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ToastService', () => {
   let service: ToastService;
@@ -12,7 +12,7 @@ describe('ToastService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         ToastService,
         { provide: MessageService, useValue: spy },
       ],

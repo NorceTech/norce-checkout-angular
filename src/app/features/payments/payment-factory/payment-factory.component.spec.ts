@@ -1,6 +1,6 @@
 import {
   ComponentRef,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
   signal,
   ViewContainerRef,
 } from '@angular/core';
@@ -44,7 +44,7 @@ describe('PaymentFactoryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PaymentFactoryComponent],
       providers: [
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         { provide: ToastService, useValue: toastServiceSpy },
         { provide: ADAPTERS, useValue: adaptersSpy },
       ],

@@ -4,10 +4,7 @@ import { PricePipe } from './price.pipe';
 import { OrderService } from '~/app/core/order/order.service';
 import { environment } from '~/environments/environment';
 import { Price } from '~/openapi/order';
-import {
-  provideExperimentalZonelessChangeDetection,
-  signal,
-} from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 
 describe('PricePipe', () => {
   let pipe: PricePipe;
@@ -25,7 +22,7 @@ describe('PricePipe', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         PricePipe,
         { provide: OrderService, useValue: fakeOrderService },
       ],

@@ -6,7 +6,6 @@ import { Toast } from 'primeng/toast';
   selector: 'app-root',
   imports: [RouterOutlet, Toast],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'norce-checkout';

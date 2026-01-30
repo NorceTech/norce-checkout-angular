@@ -10,7 +10,6 @@ import { Select } from 'primeng/select';
   selector: 'app-voucher-form',
   imports: [DynamicFormComponent, Select],
   templateUrl: './voucher-form.component.html',
-  styleUrl: './voucher-form.component.css',
 })
 export class VoucherFormComponent {
   private syncService = inject(SyncService);

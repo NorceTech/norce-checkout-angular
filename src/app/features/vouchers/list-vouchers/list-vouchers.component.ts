@@ -13,7 +13,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-list-vouchers',
   imports: [Button, PricePipe],
   templateUrl: './list-vouchers.component.html',
-  styleUrl: './list-vouchers.component.css',
 })
 export class ListVouchersComponent {
   private orderService = inject(OrderService);

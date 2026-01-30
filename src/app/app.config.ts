@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   LOCALE_ID,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -10,10 +10,9 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { definePreset } from '@primeng/themes';
+import { definePreset } from '@primeuix/themes';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 import { MessageService } from 'primeng/api';
 import { contextInterceptor } from '~/app/core/context/interceptors/context.interceptor';
 import { PlatformService } from '~/app/core/platform/platform.service';
@@ -78,13 +77,12 @@ const Noir = definePreset(Aura, {
 export const appConfig: ApplicationConfig = {
   providers: [
     MessageService,
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(
       withFetch(),
       withInterceptors([contextInterceptor, syncInterceptor]),
     ),
-    provideAnimationsAsync(),
     providePrimeNG({
       ripple: true,
       theme: {

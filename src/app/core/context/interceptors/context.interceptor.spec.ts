@@ -3,7 +3,7 @@ import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 import {
   EnvironmentInjector,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
   runInInjectionContext,
   signal,
 } from '@angular/core';
@@ -33,7 +33,7 @@ describe('contextInterceptor', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         { provide: ContextService, useValue: fakeContextService },
       ],
     });

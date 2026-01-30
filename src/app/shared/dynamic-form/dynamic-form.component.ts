@@ -14,7 +14,6 @@ import { SyncService } from '~/app/core/sync/sync.service';
   selector: 'app-dynamic-form',
   imports: [ReactiveFormsModule, Button, InputText],
   templateUrl: './dynamic-form.component.html',
-  styleUrl: './dynamic-form.component.css',
 })
 export class DynamicFormComponent {
   private syncService = inject(SyncService);
