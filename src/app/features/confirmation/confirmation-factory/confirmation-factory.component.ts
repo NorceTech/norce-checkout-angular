@@ -14,6 +14,8 @@ import { FallbackConfirmationComponent } from '~/app/features/confirmation/fallb
 import { ToastService } from '~/app/core/toast/toast.service';
 import { KustomComponent } from '~/app/features/payments/kustom/kustom.component';
 import { QliroComponent } from '~/app/features/payments/qliro/qliro.component';
+import { OrderService } from '~/app/core/order/order.service';
+import type { OrderStatus } from '~/openapi/norce-adapter';
 
 @Component({
   selector: 'app-confirmation-factory',
@@ -24,6 +26,11 @@ export class ConfirmationFactoryComponent {
   adapterId = input<string>();
   private toastService = inject(ToastService);
   private adapters = inject(ADAPTERS);
+  private orderService = inject(OrderService);
+
+  // Orders might expire in external system causing the normal flow to fail.
+  // Falling back to the generic confirmation prevents this from happening.
+  private readonly HOURS_SINCE_ACCEPTED_THRESHOLD = 12;
 
   private CONFIRMATION_COMPONENTS = {
     [this.adapters.payment.Walley]: WalleyComponent,
@@ -49,7 +56,10 @@ export class ConfirmationFactoryComponent {
       this.CONFIRMATION_COMPONENTS[
         adapterId as keyof typeof this.CONFIRMATION_COMPONENTS
       ];
-    if (!componentType) {
+
+    // Check if order was accepted more than 12 hours ago - use fallback if so
+    // (sessions may have expired in external system)
+    if (!componentType || this.hasExpiredSession()) {
       componentType = FallbackConfirmationComponent;
     }
 
@@ -69,5 +79,23 @@ export class ConfirmationFactoryComponent {
     this.container()?.clear();
     this.componentRef?.destroy();
     this.componentRef = undefined;
+  }
+
+  private hasExpiredSession(): boolean {
+    const order = this.orderService.order();
+    if (!order?.state?.transitions) return false;
+
+    const acceptedTimestamp = order.state.transitions.find(
+      (t) => t.status === ('accepted' as OrderStatus),
+    )?.timeStamp;
+
+    if (!acceptedTimestamp) return false;
+
+    const acceptedDate = new Date(acceptedTimestamp);
+    const hoursSinceAccepted = Math.floor(
+      (Date.now() - acceptedDate.getTime()) / (1000 * 60 * 60),
+    );
+
+    return hoursSinceAccepted > this.HOURS_SINCE_ACCEPTED_THRESHOLD;
   }
 }

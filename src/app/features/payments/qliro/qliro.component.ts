@@ -102,20 +102,8 @@ export class QliroComponent implements OnInit {
     });
 
     q1.onPaymentProcess(
-      () => {
-        // Payment started - optionally lock UI or show loading
-        this.syncService._suspend();
-      },
-      async () => {
-        // Payment completed - navigate to confirmation
-        await this.router
-          .navigate(['/confirmation'], {
-            queryParamsHandling: 'preserve',
-          })
-          .then(() => {
-            this.syncService._resume();
-          });
-      },
+      () => this.syncService._suspend(),
+      () => this.syncService._resume(),
     );
   }
 
