@@ -70,6 +70,17 @@
                   "with": "src/environments/environment.test.ts"
                 }
               ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -87,6 +98,10 @@
             "test": {
               "buildTarget": "norce-checkout:build:test",
               "proxyConfig": "src/proxy.conf.test.js"
+            },
+            "stage": {
+              "buildTarget": "norce-checkout:build:stage",
+              "proxyConfig": "src/proxy.conf.stage.js"
             }
           },
           "defaultConfiguration": "playground"

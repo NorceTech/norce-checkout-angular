@@ -1,6 +1,6 @@
 /**
  * @typedef {{
- *   environment: 'prod' | 'playground' | 'test';
+ *   environment: 'prod' | 'playground' | 'test' | 'stage';
  *   platform: 'norce',
  *   showPriceIncludingVat: boolean;
  *   context?: {
