@@ -4,11 +4,19 @@ import {CheckoutLayoutComponent} from './layouts/checkout-layout/checkout-layout
 export const routes: Routes = [
   {
     path: "", component: CheckoutLayoutComponent, children: [
+      // Ignore these redirects - they are used to test this easier in our internal systems
       {
         path: "newcheckout",
         redirectTo: (redirectData) => {
           const queryParams = new URLSearchParams(redirectData.queryParams);
           return `checkout?${queryParams.toString()}`;
+        }
+      },
+      {
+        path: "neworderconfirmation",
+        redirectTo: (redirectData) => {
+          const queryParams = new URLSearchParams(redirectData.queryParams);
+          return `confirmation?${queryParams.toString()}`;
         }
       },
       {
