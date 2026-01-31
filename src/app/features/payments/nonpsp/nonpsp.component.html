@@ -1,0 +1,38 @@
+@if (payment(); as payment) {
+  <div class="flex flex-col gap-2" [id]="containerId">
+    @if (payment.paymentMethods && payment.paymentMethods.length > 0) {
+      <h3 class="text-lg font-semibold mb-2">Select Payment Method</h3>
+      <div class="flex flex-col gap-3 mb-4">
+        @for (method of payment.paymentMethods; track method.identifier) {
+          <div class="flex items-center">
+            <p-radioButton
+              name="nonpsp-payment-method"
+              [value]="method.identifier"
+              [(ngModel)]="payment.selectedPaymentMethod"
+              [inputId]="method.identifier"
+              (ngModelChange)="selectPaymentMethod$.next(method.identifier!)"
+            />
+            <label [for]="method.identifier" class="pl-4 cursor-pointer">
+              {{ method.identifier }}
+            </label>
+          </div>
+        }
+      </div>
+      <button
+        pButton
+        severity="primary"
+        type="submit"
+        [disabled]="hasInFlightRequest$ | async"
+        (click)="completePayment$.next()"
+      >
+        <span pButtonLabel>Complete Purchase</span>
+      </button>
+    } @else {
+      <p class="text-gray-500">No payment methods available.</p>
+    }
+  </div>
+} @else {
+  <div class="flex justify-center py-4">
+    <p-progress-spinner></p-progress-spinner>
+  </div>
+}

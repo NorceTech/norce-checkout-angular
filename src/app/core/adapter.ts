@@ -17,6 +17,7 @@ const PaymentAdapter = {
   Adyen: 'adyen_dropin_adapter',
   Kustom: 'klarna_checkout_adapter',
   Qliro: 'qliro_checkout_adapter',
+  Nonpsp: 'nonpsp_adapter',
 } as const;
 
 export interface IAdapters {
