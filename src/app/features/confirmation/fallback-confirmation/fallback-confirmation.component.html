@@ -1,7 +1,7 @@
 <!-- order-confirmation.component.html -->
 @if (order(); as order) {
   <!-- Order Summary -->
-  <p-card class="mb-6">
+  <div class="p-2 mb-6">
     <div class="grid grid-cols-4 gap-6">
       <div>
         <h3 class="font-bold">Order Number</h3>
@@ -89,5 +89,5 @@
         <p>{{ order.customer?.shipping?.country }}</p>
       </div>
     </div>
-  </p-card>
+  </div>
 }
