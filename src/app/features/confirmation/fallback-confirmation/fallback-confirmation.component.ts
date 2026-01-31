@@ -1,6 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
 import { OrderService } from '~/app/core/order/order.service';
-import { Card } from 'primeng/card';
 import { Tag } from 'primeng/tag';
 import { PricePipe } from '~/app/shared/pipes/price.pipe';
 import { DatePipe, TitleCasePipe } from '@angular/common';
@@ -8,7 +7,7 @@ import { OrderStatus, PaymentState } from '~/openapi/order';
 
 @Component({
   selector: 'app-default-confirmation',
-  imports: [Card, Tag, PricePipe, DatePipe, TitleCasePipe],
+  imports: [Tag, PricePipe, DatePipe, TitleCasePipe],
   templateUrl: './fallback-confirmation.component.html',
 })
 export class FallbackConfirmationComponent {
