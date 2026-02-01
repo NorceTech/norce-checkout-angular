@@ -44,7 +44,7 @@ export class OrderService {
     );
   }
 
-  public validateOrder(orderId: string): Observable<void> {
+  validateOrder(orderId: string): Observable<void> {
     return this.dataService.validateOrder(orderId).pipe(
       retry(2),
       catchError((error: HttpErrorResponse) => {

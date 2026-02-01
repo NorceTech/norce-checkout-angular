@@ -1,5 +1,6 @@
 import { InjectionToken, Provider } from '@angular/core';
 import { IngridService } from '~/app/features/shippings/ingrid/ingrid.service';
+import { NshiftService } from '~/app/features/shippings/nshift/nshift.service';
 import { IShippingService } from '~/app/features/shippings/shipping.service.interface';
 
 export const SHIPPING_SERVICES = new InjectionToken<IShippingService[]>(
@@ -11,6 +12,11 @@ export function provideShippingServices(): Provider {
     {
       provide: SHIPPING_SERVICES,
       useExisting: IngridService,
+      multi: true,
+    },
+    {
+      provide: SHIPPING_SERVICES,
+      useExisting: NshiftService,
       multi: true,
     },
   ];

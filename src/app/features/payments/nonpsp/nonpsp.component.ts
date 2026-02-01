@@ -5,7 +5,14 @@ import { ProgressSpinner } from 'primeng/progressspinner';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError, filter, of, Subject, switchMap } from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+  filter,
+  of,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { NonpspPayment } from '~/openapi/nonpsp-adapter';
 import { connect } from 'ngxtension/connect';
 import { SyncService } from '~/app/core/sync/sync.service';
@@ -55,6 +62,7 @@ export class NonpspComponent {
       );
     const updatePayment$ = this.selectPaymentMethod$.pipe(
       takeUntilDestroyed(),
+      distinctUntilChanged(),
       switchMap((identifier) => {
         return this.nonpspService
           .updatePayment(this.paymentId()!, identifier)

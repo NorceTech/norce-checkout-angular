@@ -4,6 +4,7 @@ const services = [
   "configuration",
   "ingrid-adapter",
   "klarna-adapter",
+  "nshift-adapter",
   "nonpsp-adapter",
   "norce-adapter",
   "order",

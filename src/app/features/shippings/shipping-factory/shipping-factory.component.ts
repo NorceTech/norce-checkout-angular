@@ -8,6 +8,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { IngridComponent } from '~/app/features/shippings/ingrid/ingrid.component';
+import { NshiftComponent } from '~/app/features/shippings/nshift/nshift.component';
 import { ToastService } from '~/app/core/toast/toast.service';
 import { ADAPTERS, IAdapters } from '~/app/core/adapter';
 
@@ -23,6 +24,7 @@ export class ShippingFactoryComponent {
 
   private SHIPPING_COMPONENTS = {
     [this.adapters.shipping.Ingrid]: IngridComponent,
+    [this.adapters.shipping.Nshift]: NshiftComponent,
   } as const;
   private platformAdapters = Object.values(this.adapters.platform);
   private paymentAdapters = Object.values(this.adapters.payment);

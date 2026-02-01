@@ -6,6 +6,7 @@ const PlatformAdapters = {
 
 const ShippingAdapter = {
   Ingrid: 'ingrid_adapter',
+  Nshift: 'nshift_adapter',
 } as const;
 
 const VoucherAdapter = {

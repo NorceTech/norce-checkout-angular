@@ -1,0 +1,13 @@
+@if (session(); as session) {
+  <div class="w-full">
+    <div [id]="targetId" class="min-h-[200px]"></div>
+  </div>
+} @else {
+  <div class="flex justify-center py-4">
+    <p-progress-spinner></p-progress-spinner>
+  </div>
+}
+<link
+  rel="stylesheet"
+  href="https://www.nshiftportal.com/checkout/widget/nshift-checkout-widget.css"
+/>
