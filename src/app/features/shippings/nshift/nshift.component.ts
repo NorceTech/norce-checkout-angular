@@ -16,6 +16,7 @@ import {
   filter,
   finalize,
   map,
+  Observable,
   of,
   retry,
   Subject,
@@ -30,7 +31,7 @@ import {
   NshiftWidget,
 } from '~/app/features/shippings/nshift/nshift.types';
 import { ToastService } from '~/app/core/toast/toast.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import {
   NShiftSession,
   ShippingOption,
@@ -40,6 +41,7 @@ import { connect } from 'ngxtension/connect';
 import { filterNil } from 'ngxtension/filter-nil';
 import { toObservableSignal } from 'ngxtension/to-observable-signal';
 import { RunScriptsDirective } from '~/app/shared/directives/run-scripts.directive';
+import { derivedAsync } from 'ngxtension/derived-async';
 
 @Component({
   selector: 'app-nshift',
@@ -65,6 +67,25 @@ export class NshiftComponent implements OnInit {
   private _session = signal<NShiftSession>({});
   session = toObservableSignal(this._session.asReadonly());
 
+  // Create widget when session settings change
+  widgetCreated$ = this.session.pipe(
+    takeUntilDestroyed(),
+    map((session) => session?.settings),
+    filterNil(),
+    distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+    switchMap((widgetSettings) => of(this.createWidget(widgetSettings))),
+    retry({
+      count: 2,
+      delay: 100,
+    }),
+    filterNil(),
+    map(() => undefined), // We can't use instance directly since it can be modified outside of Angular
+    catchError((error) => {
+      this.toastService.error('Failed to create nshift widget');
+      return EMPTY;
+    }),
+  );
+
   private selectOption$ = new Subject<string>();
 
   constructor() {
@@ -77,10 +98,13 @@ export class NshiftComponent implements OnInit {
         selectedOptionId: id,
       })),
     );
-    // Assumes any request could have affected the options
-    const refreshSession$ = this.syncService.hasInFlightRequest$.pipe(
+    const refreshSession$ = toObservable(this.orderService.order).pipe(
       takeUntilDestroyed(),
-      filter((inFlight) => !inFlight),
+      map((o) => ({
+        cart: o.cart,
+        customer: o.customer,
+      })),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       switchMap(() => this.nshiftService.getShipping(this.shippingId()!)),
     );
 
@@ -102,41 +126,31 @@ export class NshiftComponent implements OnInit {
           this.nshiftService.updateShipping(this.shippingId()!, option),
         ),
       )
-      .subscribe();
-
-    // Create widget when session settings change
-    const widget$ = this.session.pipe(
-      takeUntilDestroyed(),
-      map((session) => session?.settings),
-      filterNil(),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      switchMap((widgetSettings) => of(this.createWidget(widgetSettings))),
-      retry({
-        count: 2,
-        delay: 100,
-      }),
-      filterNil(),
-      catchError((error) => {
-        this.toastService.error('Failed to create nshift widget');
-        return EMPTY;
-      }),
-    );
+      .subscribe(() => this.syncService.triggerRefresh());
 
     // Enable/disable widget based on in-flight requests
-    this.syncService.hasInFlightRequest$
-      .pipe(takeUntilDestroyed(), withLatestFrom(widget$))
-      .subscribe(([inFlight, widget]) => {
+    this.widgetCreated$
+      .pipe(
+        takeUntilDestroyed(),
+        switchMap(() => this.syncService.hasInFlightRequest$),
+      )
+      .subscribe((inFlight) => {
+        const widget = this.getWidget();
+
+        console.log(inFlight, widget);
+        if (!widget) return;
         if (inFlight) {
-          widget.disable();
+          (window as any).nshift.disable();
         } else {
-          widget.enable();
+          (window as any).nshift.enable();
         }
       });
 
     // Update widget when session data changes
-    this.session
+    this.widgetCreated$
       .pipe(
         takeUntilDestroyed(),
+        switchMap(() => this.session),
         filterNil(),
         map((session) => {
           const data = session?.data;
@@ -145,12 +159,17 @@ export class NshiftComponent implements OnInit {
           );
           return [data, selectedOption] as const;
         }),
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-        withLatestFrom(widget$),
+        distinctUntilChanged(
+          ([a], [b]) => JSON.stringify(a) === JSON.stringify(b),
+        ),
       )
-      .subscribe(([[data, selectedOption], widget]) => {
-        console.log('Updating Nshift widget', data, selectedOption);
+      .subscribe(async ([data, selectedOption]) => {
+        const widget = this.getWidget();
+        if (!widget) return;
+
+        widget.disable();
         widget.updateOptions(data, selectedOption);
+        widget.enable();
       });
   }
 
@@ -166,9 +185,9 @@ export class NshiftComponent implements OnInit {
 
   private createWidget(settings: WidgetSettings) {
     const target = document.querySelector(`#${this.targetId}`);
-    if (!target) return;
-
-    console.log('Creating Nshift widget with settings');
+    if (!target) {
+      throw new Error('Nshift target element not found');
+    }
 
     const widgetSettings: NshiftSettings = {
       widgetVersion: settings.widgetVersion || '2',
@@ -194,6 +213,11 @@ export class NshiftComponent implements OnInit {
     );
     widget.install();
 
+    (window as any).nshift = widget;
     return widget;
+  }
+
+  private getWidget(): NshiftWidget | undefined {
+    return (window as any).nshift || undefined;
   }
 }

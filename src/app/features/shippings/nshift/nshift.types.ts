@@ -12,6 +12,9 @@ declare global {
 }
 
 export interface NshiftWidget {
+  enabled: boolean;
+  result: {};
+  setResult(result: {}): void;
   install(): void;
   uninstall(): void;
   disable(): void;
